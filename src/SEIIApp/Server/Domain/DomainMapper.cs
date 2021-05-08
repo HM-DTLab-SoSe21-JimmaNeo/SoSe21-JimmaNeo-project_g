@@ -16,7 +16,7 @@ namespace SEIIApp.Server.Domain {
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
 
             CreateMap<QuizDefinition, QuizDefinitionBaseDto>();
-            CreateMap<QuizDefinition, QuizDefinition>();
+            CreateMap<QuizDefinitionBaseDto, QuizDefinition>();
 
             CreateMap<QuestionDefinition, QuestionDefinitionDto>()
                 .ForMember(questionDto => questionDto.Answers, opt => opt.MapFrom(obj => obj.Answers.ToArray()));
@@ -25,6 +25,21 @@ namespace SEIIApp.Server.Domain {
 
             CreateMap<AnswerDefinition, AnswerDefinitionDto>();
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
+
+
+            // Data to dataDto for IChapterElement
+            CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
+            CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
+
+
+            // Data to dataDto for chapterDefinition
+            CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
+            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
+
+            CreateMap<ChapterDefinition, ChapterDefinitionDto>()
+                .ForMember(chapterDto => chapterDto.ChapterElements, opt => opt.MapFrom(obj => obj.ChapterElements.ToArray()));
+            CreateMap<ChapterDefinitionDto, ChapterDefinition>()
+                .ForMember(chapterObj => chapterObj.ChapterElements, opt => opt.MapFrom(dto => dto.ChapterElements.ToList()));
 
         }
 

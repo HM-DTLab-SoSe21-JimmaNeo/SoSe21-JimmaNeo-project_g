@@ -32,5 +32,20 @@ namespace SEIIApp.Server.DataAccess {
             return quiz;
         }
 
+        /// <summary>
+        /// Creates a test chapter definition, which is visible.
+        /// </summary>
+        public static ChapterDefinition CreateChapterDefinition()
+        {
+            var chapter = new ChapterDefinition();
+            chapter.CreationDate = DateTime.Now;
+            chapter.ChangeDate = chapter.CreationDate;
+            chapter.Visible = true;
+
+            // TODO: Add chapter elements.
+
+            return chapter;
+        }
+
     }
 }

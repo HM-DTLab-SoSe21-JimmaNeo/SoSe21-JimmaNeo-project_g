@@ -31,6 +31,8 @@ namespace SEIIApp.Server.DataAccess {
         //Diese Abhängigkeiten zu Quiz werden automatisch erkannt.
 
 
+        // Database entries for chapters, also contains the chapter elements.
+        public DbSet<Domain.ChapterDefinition> ChapterDefinitions { get; set; }
 
     }
 }

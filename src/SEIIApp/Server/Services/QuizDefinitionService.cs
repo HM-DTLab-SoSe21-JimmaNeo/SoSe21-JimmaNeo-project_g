@@ -63,7 +63,7 @@ namespace SEIIApp.Server.Services {
 
             var existingQuiz = GetQuizWithId(quiz.Id);
 
-            Mapper.Map(quiz, existingQuiz); //we can map into the same object type
+            Mapper.Map(quiz, existingQuiz); //we can map into the same object typex
 
             DatabaseContext.QuizDefinitions.Update(existingQuiz);
             DatabaseContext.SaveChanges();
