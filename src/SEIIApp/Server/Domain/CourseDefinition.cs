@@ -11,6 +11,12 @@ namespace SEIIApp.Server.Domain {
 
         public string CourseName { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
+        public DateTime ChangeDate { get; set; }
+
+        public bool Visible { get; set; }
+
         //TODO: Replace String with the Chapter definition
         public List<QuestionDefinition> Chapter { get; set; }
 

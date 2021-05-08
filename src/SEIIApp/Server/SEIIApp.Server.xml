@@ -69,7 +69,9 @@
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Domain.DomainMapper.#ctor">
-            Hello my friend, when you came here, you found a mapper that maps stuff!
+            Hello my friend, you came here because you found a mapper that maps stuff and this given mapper
+            is blocking you in your api development?
+            Fear not!
             
             Pls follow the instruktions given below:
         </member>

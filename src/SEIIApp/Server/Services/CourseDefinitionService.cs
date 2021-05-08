@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SEIIApp.Server.DataAccess;
 using SEIIApp.Server.Domain;
@@ -38,6 +39,8 @@ namespace SEIIApp.Server.Services {
         /// Adds a course.
         /// </summary>
         public CourseDefinition AddCourse(CourseDefinition course) {
+            course.CreationDate = DateTime.Now;
+            course.ChangeDate = DateTime.Now;
             DatabaseContext.CourseDefinitions.Add(course);
             DatabaseContext.SaveChanges();
             return course;
@@ -49,6 +52,8 @@ namespace SEIIApp.Server.Services {
         public CourseDefinition UpdateCourse(CourseDefinition course) {
 
             var existingCourse = GetCourseById(course.Id);
+
+            course.ChangeDate = DateTime.Now;
 
             Mapper.Map(course, existingCourse); //we can map into the same object type
 

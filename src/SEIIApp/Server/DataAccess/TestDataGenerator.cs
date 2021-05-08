@@ -1,4 +1,5 @@
-﻿using SEIIApp.Server.Domain;
+﻿using System;
+using SEIIApp.Server.Domain;
 using System.Collections.Generic;
 
 namespace SEIIApp.Server.DataAccess {
@@ -31,6 +32,9 @@ namespace SEIIApp.Server.DataAccess {
 
         public static CourseDefinition CreateCourseDefinition(){
             var course = new CourseDefinition();
+            course.CreationDate = DateTime.Now;
+            course.ChangeDate = DateTime.Now;
+            course.Visible = true;
 
             // TODO: ADD chapters
 
