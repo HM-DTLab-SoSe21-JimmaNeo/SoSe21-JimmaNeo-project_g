@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using SEIIApp.Shared.DomainTdo;
 
 namespace SEIIApp.Server.Domain
 {
@@ -11,6 +12,22 @@ namespace SEIIApp.Server.Domain
 
         [Key]
         public int Id { get; set; }
+
+        public ChapterElementType elementType
+        {
+            get
+            {
+                return this.elementType;
+            }
+
+            set
+            {
+                if (Enum.IsDefined(typeof(ChapterElementDefinition), value))
+                    this.elementType = (ChapterElementType)value;
+                else
+                    this.elementType = ChapterElementType.Unknown;
+            }
+        }
 
         private ChapterElementDefinition()
         {

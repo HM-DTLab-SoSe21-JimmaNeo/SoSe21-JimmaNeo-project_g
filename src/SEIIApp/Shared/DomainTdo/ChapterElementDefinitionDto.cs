@@ -10,6 +10,22 @@ namespace SEIIApp.Shared.DomainTdo
 
         public int Id { get; set; }
 
+        public ChapterElementType elementType
+        {
+            get
+            {
+                return this.elementType;
+            }
+
+            set
+            {
+                if (Enum.IsDefined(typeof(ChapterElementDefinitionDto), value))
+                    this.elementType = (ChapterElementType)value;
+                else
+                    this.elementType = ChapterElementType.Unknown;
+            }
+        }
+
         private ChapterElementDefinitionDto()
         {
             // Not meant to be instantiated.
