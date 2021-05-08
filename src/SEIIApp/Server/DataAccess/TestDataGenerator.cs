@@ -1,8 +1,5 @@
 ﻿using SEIIApp.Server.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEIIApp.Server.DataAccess {
 
@@ -30,6 +27,14 @@ namespace SEIIApp.Server.DataAccess {
                 quiz.Questions.Add(question);
             }
             return quiz;
+        }
+
+        public static CourseDefinition CreateCourseDefinition(){
+            var course = new CourseDefinition();
+
+            // TODO: ADD chapters
+
+            return course;
         }
 
     }
