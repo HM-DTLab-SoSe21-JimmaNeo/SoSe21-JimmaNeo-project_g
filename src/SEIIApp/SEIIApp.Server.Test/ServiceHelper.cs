@@ -29,6 +29,7 @@ namespace SEIIApp.Server.Test {
             services.AddAutoMapper(typeof(Domain.DomainMapper));
 
             //Add other services that should be added to the collection
+            services.AddScoped<Services.CourseDefinitionService>();
             services.AddScoped<Services.QuizDefinitionService>();
         }
 
