@@ -27,7 +27,7 @@ namespace SEIIApp.Server.Domain {
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
 
 
-            // Data to dataDto for IChapterElement
+            // Data to dataDto for ChapterElementDefinition
             CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
             CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
 
