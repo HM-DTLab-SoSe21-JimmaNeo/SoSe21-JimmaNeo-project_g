@@ -31,6 +31,10 @@ namespace SEIIApp.Server.DataAccess {
         //Wir legen, obwohl wir könnten, keine Tabellen für 
         //QuestionDefinitions and AnswerDefinitions an.
         //Diese Abhängigkeiten zu Quiz werden automatisch erkannt.
-                        
+
+         
+         // Database entries for courses, contains a list to the chapters
+        public DbSet<Domain.CourseDefinition> CourseDefinitions { get; set; }
+
     }
 }

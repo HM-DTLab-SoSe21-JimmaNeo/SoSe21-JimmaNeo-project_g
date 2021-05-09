@@ -1,8 +1,6 @@
-﻿using SEIIApp.Server.Domain;
-using System;
+﻿using System;
+using SEIIApp.Server.Domain;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEIIApp.Server.DataAccess {
 
@@ -47,6 +45,16 @@ namespace SEIIApp.Server.DataAccess {
             return quiz;
         }
 
-        
+        public static CourseDefinition CreateCourseDefinition(){
+            var course = new CourseDefinition();
+            course.CreationDate = DateTime.Now;
+            course.ChangeDate = DateTime.Now;
+            course.Visible = true;
+
+            // TODO: ADD chapters
+
+            return course;
+        }
+
     }
 }

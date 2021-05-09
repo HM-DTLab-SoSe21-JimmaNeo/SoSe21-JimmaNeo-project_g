@@ -79,6 +79,7 @@ namespace SEIIApp.Server {
             //Daten in die Datenbank hinzuzufügen oder zu ändern.
             //Aber auch irgendwelche anderen Arten von Berechnungen.
             services.AddScoped<Services.QuizDefinitionService>();
+            services.AddScoped<Services.CourseDefinitionService>();
 
 
 
@@ -92,7 +93,7 @@ namespace SEIIApp.Server {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.QuizDefinitionService quizDefinitionService) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.QuizDefinitionService quizDefinitionService, Services.CourseDefinitionService courseDefinitionService) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
@@ -135,7 +136,7 @@ namespace SEIIApp.Server {
 #if DEBUG
             //*******************************************************************
             //*** Initialisierung von Test-Daten, nur bei In-Memory-DB **********
-            TestDataInitializer.InitializeTestData(quizDefinitionService);
+            TestDataInitializer.InitializeTestData(quizDefinitionService, courseDefinitionService);
 #endif
 
         }

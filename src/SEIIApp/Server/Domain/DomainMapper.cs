@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
 using SEIIApp.Shared.DomainTdo;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEIIApp.Server.Domain {
     public class DomainMapper : Profile {
 
+        /**
+         * Hello my friend, you came here because you found a mapper that maps stuff and this given mapper
+         * is blocking you in your api development?
+         * Fear not!
+         * 
+         * Pls follow the instruktions given below:
+        */
         public DomainMapper() {
 
             // Data to dataDto for ChapterElementDefinition
@@ -39,6 +43,17 @@ namespace SEIIApp.Server.Domain {
             CreateMap<AnswerDefinition, AnswerDefinitionDto>();
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
 
+            // First, map data to dataDto!
+            CreateMap<CourseDefinition, CourseDefinitionBaseDto>();
+            CreateMap<CourseDefinitionBaseDto, CourseDefinition>();
+
+            //TODO: remove Questions!
+
+            //Then map the other stuff, that you want to have contained in your dto!
+            CreateMap<CourseDefinition, CourseDefinitionDto>()
+                .ForMember(courseDefinition => courseDefinition.Questions, opts => opts.MapFrom(obj => obj.Chapter.ToArray()));
+            CreateMap<CourseDefinitionDto, CourseDefinition>()
+                .ForMember(courseDefinition => courseDefinition.Chapter, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
         }
 
     }
