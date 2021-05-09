@@ -12,10 +12,10 @@
     <label>Quiz Name</label>
     <InputText @bind-Value="CourseDefinitionDto.CourseName" />
 
-    @foreach (var chapter in CourseDefinitionDto.Chapter) {
+    @foreach (var chapter in CourseDefinitionDto.Chapters) {
         <div class="card">
             <div class="card-body">
-                <!-- Component for questions in quiz -->
+                <!-- Component for chapters in course -->
                 <ChapterDefComponent ChapterDefinitionDto="chapter"></ChapterDefComponent>
                 <button class="btn btn-light btn-sm" @onclick="() => RemoveChapter(chapter)">Remove Chapter</button>
             </div>
@@ -55,7 +55,7 @@ else {
         context = new EditContext(CourseDefinitionDto);
     }
 
-    private void PrepareEditOrAddOfCourseDefinition(CourseDefinitionDto q) {
+    private void PrepareEditOrAddOfCourseDefinition(CourseDefinitionDto c) {
         if (c.Chapters == null) c.Chapters = Array.Empty<ChapterDefinitionDto>();
         this.CourseDefinitionDto = c;
     }
@@ -68,7 +68,7 @@ else {
     }
 
     private void RemoveChapter(ChapterDefinitionDto chapter) {
-        CourseDefinitionDto.Course = CourseDefinitionDto.Chapters.Where(c => c != chapter).ToArray();
+        CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Where(c => c != chapter).ToArray();
     }
 
     private void OnSubmit(EditContext context) {
