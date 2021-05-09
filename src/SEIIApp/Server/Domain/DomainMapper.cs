@@ -14,6 +14,19 @@ namespace SEIIApp.Server.Domain {
         */
         public DomainMapper() {
 
+            // Data to dataDto for ChapterElementDefinition
+            CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
+            CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
+
+            // Data to dataDto for chapterDefinition
+            CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
+            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
+
+            CreateMap<ChapterDefinition, ChapterDefinitionDto>()
+                .ForMember(chapterDto => chapterDto.ChapterElements, opt => opt.MapFrom(obj => obj.ChapterElements.ToArray()));
+            CreateMap<ChapterDefinitionDto, ChapterDefinition>()
+                .ForMember(chapterObj => chapterObj.ChapterElements, opt => opt.MapFrom(dto => dto.ChapterElements.ToList()));
+
             CreateMap<QuizDefinition, QuizDefinitionDto>()
                 .ForMember(quizDto => quizDto.Questions, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
             CreateMap<QuizDefinitionDto, QuizDefinition>()
