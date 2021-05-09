@@ -23,16 +23,14 @@ namespace SEIIApp.Server.DataAccess {
         //Diese Zeile genügt bereits, um eine Tabelle "Customers", die Objekte der Domänen-Klasse
         //Customer aufnehmen kann, zu erstellen.
 
+        // Database entries for chapters, also contains the chapter elements.
+        public DbSet<Domain.ChapterDefinition> ChapterDefinitions { get; set; }
 
         //Hier legen wir eine Tabellen für die Quizze an.
         public DbSet<Domain.QuizDefinition> QuizDefinitions { get; set; }
         //Wir legen, obwohl wir könnten, keine Tabellen für 
         //QuestionDefinitions and AnswerDefinitions an.
         //Diese Abhängigkeiten zu Quiz werden automatisch erkannt.
-
-
-        // Database entries for chapters, also contains the chapter elements.
-        public DbSet<Domain.ChapterDefinition> ChapterDefinitions { get; set; }
-
+                        
     }
 }
