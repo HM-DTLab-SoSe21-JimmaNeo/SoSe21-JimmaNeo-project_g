@@ -1,0 +1,55 @@
+﻿
+
+<h3>Chapter</h3>
+@{ 
+    if (ChapterDefinitionDto != null) {
+    <EditForm Model="ChapterDefinitionDto">
+        <DataAnnotationsValidator/>
+
+        <label>Chapter Text</label>
+        <InputText @bind-Value="ChapterDefinitionDto.ChapterText" />
+        <ValidationSummary />
+
+        @foreach (var a in ChapterDefinitionDto.ChapterElement) {
+            <DefComponent ChapterElementDefinitionDto="a"></DefComponent>
+            <button class="btn btn-light btn-sm" @onclick="() => RemoveChapterElement(e)">Remove Chapter Element</button>
+        }
+
+        <button class="btn btn-light btn-sm" @onclick="AddChapterElement">Add Chapter Element</button>
+
+    </EditForm>
+    }
+    else {
+            <label>Loading Chapter Element Definition ...</label>
+        }
+    }
+
+@code {
+
+    [Parameter]
+    public ChapterDefinitionDto ChapterDefinitionDto { get; set; }
+
+    protected override void OnParametersSet() {
+        base.OnParametersSet();
+
+        InitiChapterDefintionDto();
+    }
+
+    private void InitiChapterDefintionDto() {
+        if (ChapterDefinitionDto.ChapterElement == null)
+            ChapterDefinitionDto.ChapterElement = Array.Empty<ChapterElementDefinitionDto>();
+
+    }
+
+    private void AddChapterElement() {
+        ChapterDefinitionDto.ChapterElement = ChapterDefinitionDto.ChapterElement.Concat(new ChapterElementDefinitionDto[] {
+            new ChapterElementDefinitionDto()
+        }).ToArray();
+    }
+
+    private void RemoveChapterElement(ChapterElementDefinitionDto chapterElement) {
+        ChapterDefinitionDto.ChapterElement = ChapterDefinitionDto.ChapterElement.Where(a => a != chapterElement).ToArray();
+    }
+
+
+}
