@@ -17,8 +17,7 @@ namespace SEIIApp.Server.Domain {
 
         public bool Visible { get; set; }
 
-        //TODO: Replace String with the Chapter definition
-        public List<QuestionDefinition> Chapter { get; set; }
+        public List<ChapterDefinition> Chapters { get; set; }
 
     }
 
