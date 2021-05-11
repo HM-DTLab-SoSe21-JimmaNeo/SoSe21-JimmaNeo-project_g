@@ -7,6 +7,21 @@ namespace SEIIApp.Server.DataAccess {
     public static class TestDataGenerator {
 
         /// <summary>
+        /// Creates a test chapter definition, which is visible.
+        /// </summary>
+        public static ChapterDefinition CreateChapterDefinition()
+        {
+            var chapter = new ChapterDefinition();
+            chapter.CreationDate = DateTime.Now;
+            chapter.ChangeDate = chapter.CreationDate;
+            chapter.Visible = true;
+
+            // TODO: Add chapter elements.
+
+            return chapter;
+        }
+
+        /// <summary>
         /// Creates a test quiz definition, with the number of questions and the number of answers per question defined
         /// </summary>
         public static QuizDefinition CreateQuizDefinition(int toIncludeTestQuestions = 3, int toIncludeTestAnswers = 5) {
