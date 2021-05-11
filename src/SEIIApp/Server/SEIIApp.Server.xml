@@ -58,6 +58,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateChapterDefinition">
+            <summary>
+            Creates a test chapter definition, which is visible.
+            </summary>
+        </member>
         <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateQuizDefinition(System.Int32,System.Int32)">
             <summary>
             Creates a test quiz definition, with the number of questions and the number of answers per question defined
