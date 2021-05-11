@@ -48,7 +48,7 @@
     }
 
     private void RemoveChapterElement(ChapterElementDefinitionDto chapterName) {
-        ChapterDefinitionDto.Chapters = ChapterDefinitionDto.Chapters.Where(e => e != chapterName).ToArray();
+        ChapterDefinitionDto.ChapterElements = ChapterDefinitionDto.ChapterElemnts.Where(e => e != chapterName).ToArray();
     }
 
 
