@@ -25,7 +25,7 @@ namespace SEIIApp.Server.Domain
                 if (Enum.IsDefined(typeof(ChapterElementDefinition), value))
                     this.elementType = (ChapterElementType)value;
                 else
-                    throw new ArgumentException("The type you are trying to create a chapter element of does not exist!");
+                    this.elementType = ChapterElementType.Unknown;
             }
         }
 

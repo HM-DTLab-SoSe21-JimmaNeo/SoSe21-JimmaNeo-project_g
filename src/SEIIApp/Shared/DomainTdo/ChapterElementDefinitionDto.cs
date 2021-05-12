@@ -22,7 +22,7 @@ namespace SEIIApp.Shared.DomainTdo
                 if (Enum.IsDefined(typeof(ChapterElementDefinitionDto), value))
                     this.elementType = (ChapterElementType)value;
                 else
-                    throw new ArgumentException("The type you are trying to create a chapter element of does not exist!");
+                    this.elementType = ChapterElementType.Unknown;
             }
         }
 

@@ -13,7 +13,20 @@ namespace SEIIApp.Server.Domain {
          * Pls follow the instruktions given below:
         */
         public DomainMapper() {
-                                             
+
+            // Data to dataDto for ChapterElementDefinition
+            CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
+            CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
+
+            // Data to dataDto for chapterDefinition
+            CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
+            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
+
+            CreateMap<ChapterDefinition, ChapterDefinitionDto>()
+                .ForMember(chapterDto => chapterDto.ChapterElements, opt => opt.MapFrom(obj => obj.ChapterElements.ToArray()));
+            CreateMap<ChapterDefinitionDto, ChapterDefinition>()
+                .ForMember(chapterObj => chapterObj.ChapterElements, opt => opt.MapFrom(dto => dto.ChapterElements.ToList()));
+
             CreateMap<QuizDefinition, QuizDefinitionDto>()
                 .ForMember(quizDto => quizDto.Questions, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
             CreateMap<QuizDefinitionDto, QuizDefinition>()
@@ -30,32 +43,17 @@ namespace SEIIApp.Server.Domain {
             CreateMap<AnswerDefinition, AnswerDefinitionDto>();
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
 
-
-            // Mapping for CHAPTERS.
-            CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
-            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
-
-            CreateMap<ChapterDefinition, ChapterDefinitionDto>()
-                .ForMember(chapterDto => chapterDto.ChapterElements, opt => opt.MapFrom(obj => obj.ChapterElements.ToArray()));
-            CreateMap<ChapterDefinitionDto, ChapterDefinition>()
-                .ForMember(chapterObj => chapterObj.ChapterElements, opt => opt.MapFrom(dto => dto.ChapterElements.ToList()));
-
-
-            // Mapping for CHAPTER_ELEMENTS (base class for all the different chapter elements).
-            CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
-            CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
-
-
-            // Mapping for COURSES (and example / instructions).
             // First, map data to dataDto!
             CreateMap<CourseDefinition, CourseDefinitionBaseDto>();
             CreateMap<CourseDefinitionBaseDto, CourseDefinition>();
 
+            //TODO: remove Questions!
+
             //Then map the other stuff, that you want to have contained in your dto!
             CreateMap<CourseDefinition, CourseDefinitionDto>()
-                .ForMember(courseDto => courseDto.Chapters, opts => opts.MapFrom(obj => obj.Chapters.ToArray()));
+                .ForMember(courseDefinition => courseDefinition.Questions, opts => opts.MapFrom(obj => obj.Chapter.ToArray()));
             CreateMap<CourseDefinitionDto, CourseDefinition>()
-                .ForMember(courseObj => courseObj.Chapters, opts => opts.MapFrom(obj => obj.Chapters.ToList()));
+                .ForMember(courseDefinition => courseDefinition.Chapter, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
         }
 
     }
