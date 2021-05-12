@@ -7,6 +7,18 @@ namespace SEIIApp.Server.DataAccess {
     public static class TestDataGenerator {
 
         /// <summary>
+        /// Creates a test explanatory text definition, with some text and a title.
+        /// </summary>
+        public static ExplanatoryTextDefinition CreateChapterDefinition(String title, String contentText)
+        {
+            var explanatoryText = new ExplanatoryTextDefinition();
+            explanatoryText.Title = title;
+            explanatoryText.ContentText = contentText;
+
+            return explanatoryText;
+        }
+
+        /// <summary>
         /// Creates a test chapter definition, which is visible.
         /// </summary>
         public static ChapterDefinition CreateChapterDefinition()
