@@ -58,6 +58,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateChapterDefinition(System.String,System.String)">
+            <summary>
+            Creates a test explanatory text definition, with some text and a title.
+            </summary>
+        </member>
         <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateChapterDefinition">
             <summary>
             Creates a test chapter definition, which is visible.

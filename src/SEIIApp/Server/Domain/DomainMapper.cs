@@ -32,6 +32,10 @@ namespace SEIIApp.Server.Domain {
             CreateMap<QuizDefinitionDto, QuizDefinition>()
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
 
+            // Mapping for EXPLANATORY_TEXT.
+            CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinitionDto>();
+            CreateMap<ExplanatoryTextDefinitionDto, ExplanatoryTextDefinition>();
+
             CreateMap<QuizDefinition, QuizDefinitionBaseDto>();
             CreateMap<QuizDefinitionBaseDto, QuizDefinition>();
 
