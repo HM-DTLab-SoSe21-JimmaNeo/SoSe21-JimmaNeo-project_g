@@ -1,0 +1,38 @@
+﻿@page "/coursedef"
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject NavigationManager NavigationManager
+
+<h3>Quiz Definitions Overview</h3>
+
+@{ if (Courses?.Length > 0) {
+        <ol>
+            @foreach (var course in Courses) {
+                <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button></li>
+            }
+        </ol>
+
+        <button @onclick="AddCourse">Add Quiz</button>
+    }
+    else {
+        <h5>Loading ...  or no quizzes found.</h5>
+    }
+}
+
+
+@code {
+
+    public CourseDefinitionBaseDto[] Courses { get; set; }
+
+    protected override async Task OnParametersSetAsync() {
+        await base.OnParametersSetAsync();
+        Courses = await CourseDefinitionService.GetCourseOverview();
+    }
+
+    private void EditCourse(CourseDefinitionBaseDto course) {
+        NavigationManager.NavigateTo("/coursedefedit/" + course.Id);
+    }
+
+    private void AddCourse() {
+        NavigationManager.NavigateTo("/coursedefedit/0");
+    }
+}
