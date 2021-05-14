@@ -66,6 +66,17 @@ namespace SEIIApp.Server.Domain {
             // Mapping for EXPLANATORY_TEXT.
             CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinitionDto>();
             CreateMap<ExplanatoryTextDefinitionDto, ExplanatoryTextDefinition>();
+
+
+            // Mapping for VIDEO_DEFINITION
+            CreateMap<VideoDefinition, VideoDefinitionDto>();
+            CreateMap<VideoDefinitionDto, VideoDefinition>();
+
+
+            // Mapping for PICTURE_DEFINITION
+            CreateMap<PictureDefinition, PictureDefinitionDto>();
+            CreateMap<PictureDefinitionDto, PictureDefinition>();
+
         }
 
     }
