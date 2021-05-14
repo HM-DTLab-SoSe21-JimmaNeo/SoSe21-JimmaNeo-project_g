@@ -3,6 +3,7 @@
 namespace SEIIApp.Shared.DomainTdo {
 
     public class QuizDefinitionBaseDto {
+
         public int Id { get; set; }
 
         [Required]
