@@ -14,50 +14,58 @@ namespace SEIIApp.Server.Domain {
         */
         public DomainMapper() {
 
-            // Data to dataDto for ChapterElementDefinition
-            CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
-            CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
+            // Mapping for COURSE_DEFINITION (plus instructions)
+            // First, map data to dataDto!
+            CreateMap<CourseDefinition, CourseDefinitionBaseDto>();
+            CreateMap<CourseDefinitionBaseDto, CourseDefinition>();
 
-            // Data to dataDto for chapterDefinition
+            //Then map the other stuff, that you want to have contained in your dto!
+            CreateMap<CourseDefinition, CourseDefinitionDto>()
+                .ForMember(courseDto => courseDto.Chapters, opts => opts.MapFrom(obj => obj.Chapters.ToArray()));
+            CreateMap<CourseDefinitionDto, CourseDefinition>()
+                .ForMember(courseObj => courseObj.Chapters, opts => opts.MapFrom(obj => obj.Chapters.ToList()));
+
+
+            // Mapping for CHAPTER_DEFINITION
             CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
-            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
+            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();                    
 
             CreateMap<ChapterDefinition, ChapterDefinitionDto>()
                 .ForMember(chapterDto => chapterDto.ChapterElements, opt => opt.MapFrom(obj => obj.ChapterElements.ToArray()));
             CreateMap<ChapterDefinitionDto, ChapterDefinition>()
                 .ForMember(chapterObj => chapterObj.ChapterElements, opt => opt.MapFrom(dto => dto.ChapterElements.ToList()));
 
+
+            // Mapping for CHAPTER_ELEMENT_DEFINITION
+            CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
+            CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
+
+
+            // Mapping for QUIZ_DEFINITION
+            CreateMap<QuizDefinition, QuizDefinitionBaseDto>();
+            CreateMap<QuizDefinitionBaseDto, QuizDefinition>();
+
             CreateMap<QuizDefinition, QuizDefinitionDto>()
                 .ForMember(quizDto => quizDto.Questions, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
             CreateMap<QuizDefinitionDto, QuizDefinition>()
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
 
-            // Mapping for EXPLANATORY_TEXT.
-            CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinitionDto>();
-            CreateMap<ExplanatoryTextDefinitionDto, ExplanatoryTextDefinition>();
 
-            CreateMap<QuizDefinition, QuizDefinitionBaseDto>();
-            CreateMap<QuizDefinitionBaseDto, QuizDefinition>();
-
+            // Mapping for QUESTION_DEFINITION
             CreateMap<QuestionDefinition, QuestionDefinitionDto>()
                 .ForMember(questionDto => questionDto.Answers, opt => opt.MapFrom(obj => obj.Answers.ToArray()));
             CreateMap<QuestionDefinitionDto, QuestionDefinition>()
                 .ForMember(questionObj => questionObj.Answers, opt => opt.MapFrom(obj => obj.Answers.ToList()));
 
+
+            // Mapping for ANSWER_DEFINITION
             CreateMap<AnswerDefinition, AnswerDefinitionDto>();
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
 
-            // First, map data to dataDto!
-            CreateMap<CourseDefinition, CourseDefinitionBaseDto>();
-            CreateMap<CourseDefinitionBaseDto, CourseDefinition>();
 
-            //TODO: remove Questions!
-
-            //Then map the other stuff, that you want to have contained in your dto!
-            CreateMap<CourseDefinition, CourseDefinitionDto>()
-                .ForMember(courseDefinition => courseDefinition.Questions, opts => opts.MapFrom(obj => obj.Chapter.ToArray()));
-            CreateMap<CourseDefinitionDto, CourseDefinition>()
-                .ForMember(courseDefinition => courseDefinition.Chapter, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
+            // Mapping for EXPLANATORY_TEXT.
+            CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinitionDto>();
+            CreateMap<ExplanatoryTextDefinitionDto, ExplanatoryTextDefinition>();
         }
 
     }
