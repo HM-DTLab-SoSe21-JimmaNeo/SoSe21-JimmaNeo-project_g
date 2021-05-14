@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SEIIApp.Shared.DomainTdo
 {
@@ -9,6 +10,8 @@ namespace SEIIApp.Shared.DomainTdo
 
         public ChapterElementType Type = ChapterElementType.Text;
 
+        [Required]
+        [StringLength(100, MinimumLength = 1)]
         public String Title { get; set; }
 
         public String ContentText { get; set; }

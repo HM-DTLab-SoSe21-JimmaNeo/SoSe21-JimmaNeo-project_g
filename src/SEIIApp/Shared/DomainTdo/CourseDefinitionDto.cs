@@ -6,7 +6,12 @@ using System.Globalization;
 namespace SEIIApp.Shared.DomainTdo {
 
     public class CourseDefinitionBaseDto {
+
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 1)]
+        public string CourseName { get; set; }
 
         public DateTime CreationDate { get; set; }
 
@@ -14,9 +19,6 @@ namespace SEIIApp.Shared.DomainTdo {
 
         public bool Visible { get; set; }
 
-        [Required]
-        [StringLength(100, MinimumLength = 1)]
-        public string CourseName { get; set; }
     }
 
     public class CourseDefinitionDto : CourseDefinitionBaseDto {
