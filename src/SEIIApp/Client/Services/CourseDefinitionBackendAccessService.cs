@@ -18,7 +18,7 @@ namespace SEIIApp.Client.Services {
         }
 
         private string GetCourseDefinitionUrl() {
-            return "api/coursedefinitions";
+            return "api/coursedefinition";
         }
 
         private string GetCourseDefinitionUrlWithId(int id) {

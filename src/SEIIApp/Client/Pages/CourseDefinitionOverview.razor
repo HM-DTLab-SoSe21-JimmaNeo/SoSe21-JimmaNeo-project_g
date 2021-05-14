@@ -2,7 +2,7 @@
 @inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
 @inject NavigationManager NavigationManager
 
-<h3>Quiz Definitions Overview</h3>
+<h3>Course Definitions Overview</h3>
 
 @{ if (Courses?.Length > 0) {
         <ol>
@@ -11,10 +11,10 @@
             }
         </ol>
 
-        <button @onclick="AddCourse">Add Quiz</button>
+        <button @onclick="AddCourse">Add Course</button>
     }
     else {
-        <h5>Loading ...  or no quizzes found.</h5>
+        <h5>Loading ...  or no courses found.</h5>
     }
 }
 

@@ -9,7 +9,7 @@
 <EditForm EditContext="@context" OnSubmit="OnSubmit">
     <ObjectGraphDataAnnotationsValidator />
 
-    <label>Quiz Name</label>
+    <label>Course Name</label>
     <InputText @bind-Value="CourseDefinitionDto.CourseName" />
 
     @foreach (var chapter in CourseDefinitionDto.Chapters) {
