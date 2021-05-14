@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SEIIApp.Shared.DomainTdo
 {
@@ -11,6 +12,8 @@ namespace SEIIApp.Shared.DomainTdo
 
         public String Description { get; set; }
 
+        [Required]
+        [StringLength(100, MinimumLength = 1)]
         public Uri VideoUri { get; set; }
 
     }

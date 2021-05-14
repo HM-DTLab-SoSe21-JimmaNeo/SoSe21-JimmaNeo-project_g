@@ -11,9 +11,9 @@ namespace SEIIApp.Shared.DomainTdo {
         [Required]
         [StringLength(250, MinimumLength = 1)]
         public string QuestionText { get; set; }
+
         [ValidateComplexType]
         public AnswerDefinitionDto[] Answers { get; set; }
-
 
     }
 }
