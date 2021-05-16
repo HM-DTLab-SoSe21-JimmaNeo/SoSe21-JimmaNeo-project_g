@@ -80,6 +80,7 @@ namespace SEIIApp.Server {
             //Aber auch irgendwelche anderen Arten von Berechnungen.
             services.AddScoped<Services.QuizDefinitionService>();
             services.AddScoped<Services.CourseDefinitionService>();
+            services.AddScoped<Services.ChapterDefinitionService>();
 
 
 
@@ -93,7 +94,7 @@ namespace SEIIApp.Server {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.QuizDefinitionService quizDefinitionService, Services.CourseDefinitionService courseDefinitionService) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.QuizDefinitionService quizDefinitionService, Services.CourseDefinitionService courseDefinitionService, Services.ChapterDefinitionService chapterDefinitionService) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
@@ -136,7 +137,7 @@ namespace SEIIApp.Server {
 #if DEBUG
             //*******************************************************************
             //*** Initialisierung von Test-Daten, nur bei In-Memory-DB **********
-            TestDataInitializer.InitializeTestData(quizDefinitionService, courseDefinitionService);
+            TestDataInitializer.InitializeTestData(quizDefinitionService, courseDefinitionService, chapterDefinitionService);
 #endif
 
         }

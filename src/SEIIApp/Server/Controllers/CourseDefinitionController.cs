@@ -32,7 +32,7 @@ namespace SEIIApp.Server.Controllers {
             var course = CourseDefinitionService.GetCourseById(id);
             if (course == null) return StatusCode(StatusCodes.Status404NotFound);
 
-            var mappedCourse = Mapper.Map<CourseDefinitionBaseDto>(course);
+            var mappedCourse = Mapper.Map<CourseDefinitionDto>(course);
             return Ok(mappedCourse);
         }
 

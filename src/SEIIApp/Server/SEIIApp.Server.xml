@@ -4,6 +4,37 @@
         <name>SEIIApp.Server</name>
     </assembly>
     <members>
+        <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.GetChapter(System.Int32,System.Int32)">
+            <summary>
+            Return the chapter with the given id.
+            </summary>
+            <param name="id"></param>
+            <param name="courseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.GetAllChapters">
+            <summary>
+            Returns all chapters names and ids.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.AddOrUpdateChapter(SEIIApp.Shared.DomainTdo.ChapterDefinitionDto,System.Int32)">
+            <summary>
+            Adds or updates a chapter definition.
+            For some reason this returns a 404 when called over the /api/chapterdefinition...
+            this might not be the expected result, but a wanted one.
+            </summary>
+            <param name="model"></param>
+            <param name="courseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.DeleteChapter(System.Int32)">
+            <summary>
+            Removes a chapter.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.CourseDefinitionController.GetCourse(System.Int32)">
             <summary>
             Return the course with the given id.
@@ -58,7 +89,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateChapterDefinition(System.String,System.String)">
+        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateExplanatoryTextDefinition(System.String,System.String)">
             <summary>
             Creates a test explanatory text definition, with some text and a title.
             </summary>
@@ -73,7 +104,7 @@
             Creates a test quiz definition, with the number of questions and the number of answers per question defined
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.QuizDefinitionService,SEIIApp.Server.Services.CourseDefinitionService)">
+        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.QuizDefinitionService,SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService)">
             <summary>
             Initialze test data (just for in-memory database)
             </summary>
@@ -84,6 +115,31 @@
             Fear not!
             
             Pls follow the instruktions given below:
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.GetAllChapters">
+            <summary>
+            Returns all chapters. Includes also the chapters.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.GetChapterById(System.Int32)">
+            <summary>
+            Returns the chapter with the given id. Includes also chapters.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.Addchapter(SEIIApp.Server.Domain.ChapterDefinition)">
+            <summary>
+            Adds a chapter.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.UpdateChapter(SEIIApp.Server.Domain.ChapterDefinition)">
+            <summary>
+            Updates a chapter.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.RemoveChapter(SEIIApp.Server.Domain.ChapterDefinition)">
+            <summary>
+            Removes a chapter and all dependencies.
+            </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.GetAllCourses">
             <summary>

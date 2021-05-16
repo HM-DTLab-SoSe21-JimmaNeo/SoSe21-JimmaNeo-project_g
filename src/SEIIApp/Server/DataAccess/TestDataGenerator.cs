@@ -9,7 +9,7 @@ namespace SEIIApp.Server.DataAccess {
         /// <summary>
         /// Creates a test explanatory text definition, with some text and a title.
         /// </summary>
-        public static ExplanatoryTextDefinition CreateChapterDefinition(String title, String contentText)
+        public static ExplanatoryTextDefinition CreateExplanatoryTextDefinition(String title, String contentText)
         {
             var explanatoryText = new ExplanatoryTextDefinition();
             explanatoryText.Title = title;
@@ -62,8 +62,6 @@ namespace SEIIApp.Server.DataAccess {
             course.CreationDate = DateTime.Now;
             course.ChangeDate = DateTime.Now;
             course.Visible = true;
-
-            // TODO: ADD chapters
 
             return course;
         }
