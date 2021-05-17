@@ -1,0 +1,88 @@
+﻿@page "/coursedefedit/{CourseID:int}"
+
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+
+<h3>Course Definitions Editor</h3>
+
+@if (CourseDefinitionDto != null) {
+
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
+    <ObjectGraphDataAnnotationsValidator />
+
+    <label>Course Name</label>
+    <InputText @bind-Value="CourseDefinitionDto.CourseName" />
+
+    @foreach (var chapter in CourseDefinitionDto.Chapters) {
+        <div class="card">
+            <div class="card-body">
+                <!-- Component for chapters in course -->
+                <ChapterDefComponent ChapterDefinitionDto="chapter"></ChapterDefComponent>
+                <button class="btn btn-light btn-sm" @onclick="() => RemoveChapter(chapter)">Remove Chapter</button>
+            </div>
+        </div>
+    }
+
+    <ValidationSummary />
+
+    <button class="btn btn-light btn-sm" @onclick="AddChapter">Add Chapter</button>
+    <button class="btn btn-light" @onclick="SaveCourseToBackend">Save Complete Course</button>
+</EditForm>
+
+    }
+else {
+    <h5>Course definition in loading (or not found) ...</h5>
+}
+
+@code { 
+
+    [Parameter]
+    public int CourseId { get; set; }
+
+    public CourseDefinitionDto CourseDefinitionDto { get; set; }
+
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync() {
+        if (CourseId != 0) {
+            var existingCourse = await CourseDefinitionService.GetCourseById(CourseId);
+            PrepareEditOrAddOfCourseDefinition(existingCourse);
+        }
+        else {
+            PrepareEditOrAddOfCourseDefinition(new CourseDefinitionDto());
+        }
+        await base.OnParametersSetAsync();
+
+        context = new EditContext(CourseDefinitionDto);
+    }
+
+    private void PrepareEditOrAddOfCourseDefinition(CourseDefinitionDto c) {
+        if (c.Chapters == null) c.Chapters = Array.Empty<ChapterDefinitionDto>();
+        this.CourseDefinitionDto = c;
+    }
+
+    private void AddChapter() {
+        //Add element to chapter definition array
+        CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Concat(new ChapterDefinitionDto[] {
+            new ChapterDefinitionDto()
+        }).ToArray();
+    }
+
+    private void RemoveChapter(ChapterDefinitionDto chapter) {
+        CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Where(c => c != chapter).ToArray();
+    }
+
+    private void OnSubmit(EditContext context) {
+
+    }
+
+    private async void SaveCourseToBackend() {
+        var isValid = context.Validate();
+        if (isValid) {
+            var answer = await CourseDefinitionService.AddOrUpdateCourse(CourseDefinitionDto);
+            if (answer != null) {
+                this.CourseDefinitionDto.Id = answer.Id; //refresh id (if created)
+            }
+        }
+    }
+
+}

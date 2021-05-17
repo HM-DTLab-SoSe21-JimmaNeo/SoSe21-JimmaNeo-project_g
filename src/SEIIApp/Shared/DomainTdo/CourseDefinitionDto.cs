@@ -24,7 +24,7 @@ namespace SEIIApp.Shared.DomainTdo {
     public class CourseDefinitionDto : CourseDefinitionBaseDto {
 
         [ValidateComplexType]
-        public ChapterDefinitionBaseDto[] Chapters { get; set; }
+        public ChapterDefinitionDto[] Chapters { get; set; }
     }
 
 }
