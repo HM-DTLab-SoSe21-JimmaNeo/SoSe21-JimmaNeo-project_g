@@ -32,6 +32,7 @@ namespace SEIIApp.Server.Test {
             services.AddScoped<Services.CourseDefinitionService>();
             services.AddScoped<Services.QuizDefinitionService>();
             services.AddScoped<Services.ChapterDefinitionService>();
+            services.AddScoped<Services.ChapterElementDefinitionService>();
         }
 
         private static IServiceProvider GetServiceProvider(IServiceCollection serviceCollection) {

@@ -8,11 +8,15 @@ namespace SEIIApp.Server.Domain
     public class PictureDefinition: ChapterElementDefinition
     {
 
-        public ChapterElementType Type = ChapterElementType.Picture;
-
         public String Description { get; set; }
 
         public Uri PictureUri { get; set; }
+
+
+        public override ChapterElementType GetChapterElementType()
+        {
+            return ChapterElementType.Picture;
+        }
 
     }
 }

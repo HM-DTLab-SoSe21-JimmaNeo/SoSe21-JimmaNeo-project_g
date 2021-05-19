@@ -8,13 +8,17 @@ namespace SEIIApp.Shared.DomainTdo
     public class VideoDefinitionDto: ChapterElementDefinitionDto
     {
 
-        public ChapterElementType Type = ChapterElementType.Video;
-
         public String Description { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
         public Uri VideoUri { get; set; }
+
+
+        public override ChapterElementType GetChapterElementType()
+        {
+            return ChapterElementType.Video;
+        }
 
     }
 }

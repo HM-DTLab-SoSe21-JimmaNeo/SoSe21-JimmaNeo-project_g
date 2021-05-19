@@ -8,11 +8,15 @@ namespace SEIIApp.Server.Domain
     public class VideoDefinition: ChapterElementDefinition
     {
 
-        public ChapterElementType Type = ChapterElementType.Video;
-
         public String Description { get; set; }
 
         public Uri VideoUri { get; set; }
+
+
+        public override ChapterElementType GetChapterElementType()
+        {
+            return ChapterElementType.Video;
+        }
 
     }
 }
