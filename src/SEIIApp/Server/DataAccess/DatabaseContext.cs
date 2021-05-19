@@ -23,9 +23,24 @@ namespace SEIIApp.Server.DataAccess {
         //Diese Zeile genügt bereits, um eine Tabelle "Customers", die Objekte der Domänen-Klasse
         //Customer aufnehmen kann, zu erstellen.
 
+        // Database entries for courses, contains a list to the chapters.
+        public DbSet<Domain.CourseDefinition> CourseDefinitions { get; set; }
+
         // Database entries for chapters, also contains the chapter elements.
         public DbSet<Domain.ChapterDefinition> ChapterDefinitions { get; set; }
 
+        // Database entries for chapter elements.
+        // Used to get the elements.
+        public DbSet<Domain.ChapterElementDefinition> ChapterElementDefinitions { get; set; }
+
+        // Database entries for the specific chapter elements.
+        // Used to add the elements.
+        // TODO quiz einfuegen
+        public DbSet<Domain.ExplanatoryTextDefinition> ExplanatoryTextDefinitions { get; set; }
+        public DbSet<Domain.PictureDefinition> PictureDefinitions { get; set; }
+        public DbSet<Domain.VideoDefinition> VideoDefinitions { get; set; }
+
+        // TODO entfernen -> enthalten in chapter elements
         //Hier legen wir eine Tabellen für die Quizze an.
         public DbSet<Domain.QuizDefinition> QuizDefinitions { get; set; }
         //Wir legen, obwohl wir könnten, keine Tabellen für 
@@ -33,8 +48,7 @@ namespace SEIIApp.Server.DataAccess {
         //Diese Abhängigkeiten zu Quiz werden automatisch erkannt.
 
          
-         // Database entries for courses, contains a list to the chapters
-        public DbSet<Domain.CourseDefinition> CourseDefinitions { get; set; }
+        
 
     }
 }

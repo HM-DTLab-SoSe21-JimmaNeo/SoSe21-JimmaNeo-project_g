@@ -8,13 +8,17 @@ namespace SEIIApp.Shared.DomainTdo
     public class PictureDefinitionDto: ChapterElementDefinitionDto
     {
 
-        public ChapterElementType Type = ChapterElementType.Picture;
-
         public String Description { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
         public Uri PictureUri { get; set; }
+
+
+        public override ChapterElementType GetChapterElementType()
+        {
+            return ChapterElementType.Picture;
+        }
 
     }
 }

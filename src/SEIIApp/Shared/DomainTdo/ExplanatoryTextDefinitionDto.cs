@@ -8,13 +8,17 @@ namespace SEIIApp.Shared.DomainTdo
     public class ExplanatoryTextDefinitionDto: ChapterElementDefinitionDto
     {
 
-        public ChapterElementType Type = ChapterElementType.Text;
-
         [Required]
         [StringLength(100, MinimumLength = 1)]
         public String Title { get; set; }
 
         public String ContentText { get; set; }
+
+
+        public override ChapterElementType GetChapterElementType()
+        {
+            return ChapterElementType.Text;
+        }
 
     }
 

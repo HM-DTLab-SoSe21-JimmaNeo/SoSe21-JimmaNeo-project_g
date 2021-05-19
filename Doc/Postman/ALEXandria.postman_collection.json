@@ -198,6 +198,58 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ChapterElements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/chapterelementdefinition",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"chapterelementdefinition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putChapterElement",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/coursedefinition/1/1/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"coursedefinition",
+								"1",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

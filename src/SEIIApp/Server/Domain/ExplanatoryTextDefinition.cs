@@ -8,11 +8,15 @@ namespace SEIIApp.Server.Domain
     public class ExplanatoryTextDefinition: ChapterElementDefinition
     {
 
-        public ChapterElementType Type = ChapterElementType.Text;
-
         public String Title { get; set; }
 
         public String ContentText { get; set; }
+
+
+        public override ChapterElementType GetChapterElementType()
+        {
+            return ChapterElementType.Text;
+        }
 
     }
 

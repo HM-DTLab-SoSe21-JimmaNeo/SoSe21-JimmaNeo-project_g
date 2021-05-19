@@ -7,28 +7,29 @@ namespace SEIIApp.Server.DataAccess {
     public static class TestDataGenerator {
 
         /// <summary>
-        /// Creates a test explanatory text definition, with some text and a title.
+        /// Creates a test course definition, which is visible and has a name.
         /// </summary>
-        public static ExplanatoryTextDefinition CreateExplanatoryTextDefinition(String title, String contentText)
+        public static CourseDefinition CreateCourseDefinition(String name)
         {
-            var explanatoryText = new ExplanatoryTextDefinition();
-            explanatoryText.Title = title;
-            explanatoryText.ContentText = contentText;
+            var course = new CourseDefinition();
+            course.CourseName = name;
+            course.CreationDate = DateTime.Now;
+            course.ChangeDate = DateTime.Now;
+            course.Visible = true;
 
-            return explanatoryText;
+            return course;
         }
 
         /// <summary>
-        /// Creates a test chapter definition, which is visible.
+        /// Creates a test chapter definition, which is visible and has a name.
         /// </summary>
-        public static ChapterDefinition CreateChapterDefinition()
+        public static ChapterDefinition CreateChapterDefinition(String name)
         {
             var chapter = new ChapterDefinition();
+            chapter.ChapterName = name;
             chapter.CreationDate = DateTime.Now;
             chapter.ChangeDate = chapter.CreationDate;
             chapter.Visible = true;
-
-            // TODO: Add chapter elements.
 
             return chapter;
         }
@@ -57,14 +58,43 @@ namespace SEIIApp.Server.DataAccess {
             return quiz;
         }
 
-        public static CourseDefinition CreateCourseDefinition(){
-            var course = new CourseDefinition();
-            course.CreationDate = DateTime.Now;
-            course.ChangeDate = DateTime.Now;
-            course.Visible = true;
+        /// <summary>
+        /// Creates a test explanatory text definition, with some text and a title.
+        /// </summary>
+        public static ExplanatoryTextDefinition CreateExplanatoryTextDefinition(String title)
+        {
+            var explanatoryText = new ExplanatoryTextDefinition();
+            explanatoryText.Title = title;
+            explanatoryText.ContentText = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.";
 
-            return course;
+            return explanatoryText;
         }
+
+        /// <summary>
+        /// Creates a test picture definition, with a descreption and a dummy URI.
+        /// </summary>
+        public static PictureDefinition CreatePictureDefinition(String description)
+        {
+            var picture = new PictureDefinition();
+            picture.Description = description;
+            picture.PictureUri = new Uri("https://example.com");
+
+            return picture;
+        }
+
+        /// <summary>
+        /// Creates a test video definition, with a descreption and a dummy URI.
+        /// </summary>
+        public static VideoDefinition CreateVideoDefinition(String description)
+        {
+            var video = new VideoDefinition();
+            video.Description = description;
+            video.VideoUri = new Uri("https://example.com");
+
+            return video;
+        }
+
+
 
     }
 }
