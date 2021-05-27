@@ -57,8 +57,16 @@ namespace SEIIApp.Server.DataAccess {
 
             }
 
-        }
 
+            /// Authentifizierung
+            var authAdmin = TestDataGenerator.CreateAuthentifizierung("admin", "admin", "admin");
+            loginService.AddAuth(authAdmin);
+
+            var authUser = TestDataGenerator.CreateAuthentifizierung("user", "user", "user");
+            loginService.AddAuth(authUser);
+
+        }
+        
     }
 
 }

@@ -1,0 +1,67 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@inject Services.LoginBackendAccessService LoginService
+
+<h1>Hello!</h1>
+
+Welcome to your new app.
+
+
+
+<button class="btn btn-primary">Safe</button>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+
+<form method ="post" class="row gx-3 gy-2 align-items-center">
+
+    <legend>Login</legend>
+
+    <div class="col-md-6">
+        <label for="username" class="form-label">User Name</label>
+        <input class="form-control" placeholder="User name" @bind="username">
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" placeholder="Password" @bind="password">
+    </div>
+
+
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary" @onclick="LoginAbfrage">Log in</button>
+    </div>
+</form>
+
+
+
+
+
+@code {
+
+    public String username { get; set; }
+    public String password { get; set; }
+
+    private void LoginAbfrage()
+    {
+        String role = null;
+
+
+
+        if (username != null && password != null)
+        {
+
+            var test123 = LoginService.GetLoginByUserPassword(username, password);
+
+
+
+
+            NavigationManager.NavigateTo("/home");
+
+        }
+
+
+}
+
+
+}

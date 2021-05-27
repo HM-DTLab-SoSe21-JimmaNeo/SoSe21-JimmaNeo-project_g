@@ -100,6 +100,11 @@ namespace SEIIApp.Server.Domain
             CreateMap<UltimateChapterElementDefinitionDto, UltimateChapterElementDefinition>()
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
             CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinition>();
+
+            CreateMap<Authentifizierung, LoginDto>();
+            CreateMap<LoginDto, Authentifizierung>();
+
+
         }
 
     }

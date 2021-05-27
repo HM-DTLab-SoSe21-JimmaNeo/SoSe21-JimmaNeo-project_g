@@ -93,6 +93,47 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.LoginController.GetRole(System.String)">
+            <summary>
+            Return the quiz with the given id.
+            </summary>
+            <param userName="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.LoginController.AddAuth(SEIIApp.Shared.DomainTdo.LoginDto)">
+            <summary>
+            Adds or updates a course definition.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.GetQuiz(System.Int32)">
+            <summary>
+            Return the quiz with the given id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.GetAllQuizes">
+            <summary>
+            Returns all quizzes names and ids.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.AddOrUpdateQuiz(SEIIApp.Shared.DomainTdo.QuizDefinitionDto)">
+            <summary>
+            Adds or updates a quiz definition.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.DeleteQuiz(System.Int32)">
+            <summary>
+            Removes a quiz definition.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateCourseDefinition(System.String)">
             <summary>
             Creates a test course definition, which is visible and has a name.
@@ -210,6 +251,41 @@
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.RemoveCourse(SEIIApp.Server.Domain.CourseDefinition)">
             <summary>
             Removes a course and all dependencies.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.LoginService.GetRole(System.String,System.String)">
+            <summary>
+            Returns the course with the given role. Includes also chapters.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.LoginService.AddAuth(SEIIApp.Server.Domain.Authentifizierung)">
+            <summary>
+            Adds a chapter.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.GetAllQuizzes">
+            <summary>
+            Returns all quiz definitions. Includes also questions and their answers.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.GetQuizWithId(System.Int32)">
+            <summary>
+            Returns the quiz with the given id. Includes also questions and their answers.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.AddQuiz(SEIIApp.Server.Domain.QuizDefinition)">
+            <summary>
+            Adds a quiz.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.UpdateQuiz(SEIIApp.Server.Domain.QuizDefinition)">
+            <summary>
+            Updates a quiz.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.RemoveQuiz(SEIIApp.Server.Domain.QuizDefinition)">
+            <summary>
+            Removes a quiz and all dependencies.
             </summary>
         </member>
     </members>
