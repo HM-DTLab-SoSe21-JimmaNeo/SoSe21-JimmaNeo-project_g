@@ -56,15 +56,20 @@ namespace SEIIApp.Server.Controllers {
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public ActionResult<CourseDefinitionDto> AddOrUpdateCourse([FromBody] CourseDefinitionDto model) {
             if (ModelState.IsValid) {
 
                 var mappedModel = Mapper.Map<CourseDefinition>(model);
 
-                if(model.Id == 0) { //add
+                if(model.CourseId == 0) { //add
                     mappedModel = CourseDefinitionService.AddCourse(mappedModel);
                 }
                 else { //update
+
+                    // Checks if the course already exists, else it cant update anything
+                    if (CourseDefinitionService.GetCourseById(mappedModel.CourseId) == null) return UnprocessableEntity(ModelState);
+
                     mappedModel = CourseDefinitionService.UpdateCourse(mappedModel);
                 }
 

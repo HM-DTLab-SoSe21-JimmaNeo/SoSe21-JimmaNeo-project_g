@@ -12,11 +12,5 @@ namespace SEIIApp.Server.Domain
 
         public Uri PictureUri { get; set; }
 
-
-        public override ChapterElementType GetChapterElementType()
-        {
-            return ChapterElementType.Picture;
-        }
-
     }
 }

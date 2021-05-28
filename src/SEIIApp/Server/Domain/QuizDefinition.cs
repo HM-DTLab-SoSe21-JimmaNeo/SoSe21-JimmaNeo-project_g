@@ -1,15 +1,10 @@
 ﻿using System;
+using SEIIApp.Shared.DomainTdo;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEIIApp.Server.Domain {
 
-    public class QuizDefinition {
-
-        [Key]
-        public int Id { get; set; }
+    public class QuizDefinition : ChapterElementDefinition{
 
         public string QuizName { get; set; }
 

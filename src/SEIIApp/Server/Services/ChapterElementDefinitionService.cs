@@ -24,6 +24,14 @@ namespace SEIIApp.Server.Services
             return DatabaseContext.ChapterElementDefinitions;
         }
 
+        private IQueryable<QuizDefinition> GetQueryableForQuizDefinitions()
+        {
+            return DatabaseContext
+                .QuizDefinitions
+                .Include(quiz => quiz.Questions)
+                    .ThenInclude(question => question.Answers);
+        }
+
         /// <summary>
         /// Returns all chapter elements as an array.
         /// </summary>
@@ -37,8 +45,23 @@ namespace SEIIApp.Server.Services
         /// </summary>
         public ChapterElementDefinition GetChapterElementById(int id)
         {
-            return GetQueryableForChapterElementDefinitions()
+
+            ChapterElementDefinition chapterElementDefinition = GetQueryableForChapterElementDefinitions()
                 .Where(element => element.Id == id).FirstOrDefault();
+
+            //Is needed to avoid nullpointerexception
+            if(chapterElementDefinition == null)
+            {
+                return null;
+            }
+
+            if (chapterElementDefinition.ChapterElementType.Equals(ChapterElementType.Quiz))
+            {
+                chapterElementDefinition = GetQueryableForQuizDefinitions()
+                    .Where(element => element.Id == id).FirstOrDefault();
+            }
+
+            return chapterElementDefinition;
         }
 
         /// <summary>
@@ -46,10 +69,10 @@ namespace SEIIApp.Server.Services
         /// </summary>
         public ChapterElementDefinition AddChapterElement(ChapterElementDefinition element)
         {
-            switch(element.GetChapterElementType())
+            switch (element.ChapterElementType)
             {
                 case ChapterElementType.Quiz:
-                    // TODO Quiz needs to be adapted to our domain structure. (JIRA ticket)
+                    DatabaseContext.QuizDefinitions.Add((QuizDefinition)element);
                     break;
                 case ChapterElementType.Text:
                     DatabaseContext.ExplanatoryTextDefinitions.Add((ExplanatoryTextDefinition)element);
@@ -61,7 +84,7 @@ namespace SEIIApp.Server.Services
                     DatabaseContext.VideoDefinitions.Add((VideoDefinition)element);
                     break;
             }
-            
+
             DatabaseContext.SaveChanges();
             return element;
         }
@@ -76,7 +99,23 @@ namespace SEIIApp.Server.Services
 
             Mapper.Map(element, existingChapterElement); //we can map into the same object type
 
-            DatabaseContext.ChapterElementDefinitions.Update(existingChapterElement);
+
+            switch (element.ChapterElementType)
+            {
+                case ChapterElementType.Quiz:
+                    DatabaseContext.QuizDefinitions.Update((QuizDefinition)element);
+                    break;
+                case ChapterElementType.Text:
+                    DatabaseContext.ExplanatoryTextDefinitions.Update((ExplanatoryTextDefinition)element);
+                    break;
+                case ChapterElementType.Picture:
+                    DatabaseContext.PictureDefinitions.Update((PictureDefinition)element);
+                    break;
+                case ChapterElementType.Video:
+                    DatabaseContext.VideoDefinitions.Update((VideoDefinition)element);
+                    break;
+            }
+
             DatabaseContext.SaveChanges();
             return existingChapterElement;
         }

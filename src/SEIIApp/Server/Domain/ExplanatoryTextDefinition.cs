@@ -12,12 +12,6 @@ namespace SEIIApp.Server.Domain
 
         public String ContentText { get; set; }
 
-
-        public override ChapterElementType GetChapterElementType()
-        {
-            return ChapterElementType.Text;
-        }
-
     }
 
 }

@@ -80,7 +80,7 @@ else {
         if (isValid) {
             var answer = await CourseDefinitionService.AddOrUpdateCourse(CourseDefinitionDto);
             if (answer != null) {
-                this.CourseDefinitionDto.Id = answer.Id; //refresh id (if created)
+                this.CourseDefinitionDto.CourseId = answer.CourseId; //refresh id (if created)
             }
         }
     }

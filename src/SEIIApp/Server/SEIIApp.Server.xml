@@ -50,7 +50,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.ChapterElementDefinitionController.AddOrUpdateChapterElement(System.Int32,System.Int32,SEIIApp.Shared.DomainTdo.ChapterElementDefinitionDto)">
+        <member name="M:SEIIApp.Server.Controllers.ChapterElementDefinitionController.AddOrUpdateChapterElement(System.Int32,System.Int32,SEIIApp.Shared.DomainTdo.UltimateChapterElementDefinitionDto)">
             <summary>
             Adds or updates a chapter element.
             </summary>
@@ -93,33 +93,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.GetQuiz(System.Int32)">
-            <summary>
-            Return the quiz with the given id.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.GetAllQuizes">
-            <summary>
-            Returns all quizzes names and ids.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.AddOrUpdateQuiz(SEIIApp.Shared.DomainTdo.QuizDefinitionDto)">
-            <summary>
-            Adds or updates a quiz definition.
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.DeleteQuiz(System.Int32)">
-            <summary>
-            Removes a quiz definition.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateCourseDefinition(System.String)">
             <summary>
             Creates a test course definition, which is visible and has a name.
@@ -150,9 +123,11 @@
             Creates a test video definition, with a descreption and a dummy URI.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.QuizDefinitionService,SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService)">
+        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService)">
             <summary>
             Initialze test data (just for in-memory database)
+               --> IMPORTANT: when the testdata isnt really correctly instantiated, the error that follows isn't really
+               traceable to here
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Domain.DomainMapper.#ctor">
@@ -235,31 +210,6 @@
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.RemoveCourse(SEIIApp.Server.Domain.CourseDefinition)">
             <summary>
             Removes a course and all dependencies.
-            </summary>
-        </member>
-        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.GetAllQuizzes">
-            <summary>
-            Returns all quiz definitions. Includes also questions and their answers.
-            </summary>
-        </member>
-        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.GetQuizWithId(System.Int32)">
-            <summary>
-            Returns the quiz with the given id. Includes also questions and their answers.
-            </summary>
-        </member>
-        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.AddQuiz(SEIIApp.Server.Domain.QuizDefinition)">
-            <summary>
-            Adds a quiz.
-            </summary>
-        </member>
-        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.UpdateQuiz(SEIIApp.Server.Domain.QuizDefinition)">
-            <summary>
-            Updates a quiz.
-            </summary>
-        </member>
-        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.RemoveQuiz(SEIIApp.Server.Domain.QuizDefinition)">
-            <summary>
-            Removes a quiz and all dependencies.
             </summary>
         </member>
     </members>

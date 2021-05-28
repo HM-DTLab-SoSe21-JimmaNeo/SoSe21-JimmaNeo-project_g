@@ -2,8 +2,10 @@
 using SEIIApp.Shared.DomainTdo;
 using System.Linq;
 
-namespace SEIIApp.Server.Domain {
-    public class DomainMapper : Profile {
+namespace SEIIApp.Server.Domain
+{
+    public class DomainMapper : Profile
+    {
 
         /**
          * Hello my friend, you came here because you found a mapper that maps stuff and this given mapper
@@ -12,12 +14,14 @@ namespace SEIIApp.Server.Domain {
          * 
          * Pls follow the instruktions given below:
         */
-        public DomainMapper() {
+        public DomainMapper()
+        {
 
             // Mapping for COURSE_DEFINITION (plus instructions)
             // First, map data to dataDto!
             CreateMap<CourseDefinition, CourseDefinitionBaseDto>();
             CreateMap<CourseDefinitionBaseDto, CourseDefinition>();
+            CreateMap<CourseDefinition, CourseDefinition>();
 
             //Then map the other stuff, that you want to have contained in your dto!
             CreateMap<CourseDefinition, CourseDefinitionDto>()
@@ -28,7 +32,8 @@ namespace SEIIApp.Server.Domain {
 
             // Mapping for CHAPTER_DEFINITION
             CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
-            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();                    
+            CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
+            CreateMap<ChapterDefinition, ChapterDefinition>();
 
             CreateMap<ChapterDefinition, ChapterDefinitionDto>()
                 .ForMember(chapterDto => chapterDto.ChapterElements, opt => opt.MapFrom(obj => obj.ChapterElements.ToArray()));
@@ -39,11 +44,13 @@ namespace SEIIApp.Server.Domain {
             // Mapping for CHAPTER_ELEMENT_DEFINITION
             CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
             CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
+            CreateMap<ChapterElementDefinition, ChapterElementDefinition>();
 
 
             // Mapping for QUIZ_DEFINITION
             CreateMap<QuizDefinition, QuizDefinitionBaseDto>();
             CreateMap<QuizDefinitionBaseDto, QuizDefinition>();
+            CreateMap<QuizDefinition, QuizDefinition>();
 
             CreateMap<QuizDefinition, QuizDefinitionDto>()
                 .ForMember(quizDto => quizDto.Questions, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
@@ -56,27 +63,43 @@ namespace SEIIApp.Server.Domain {
                 .ForMember(questionDto => questionDto.Answers, opt => opt.MapFrom(obj => obj.Answers.ToArray()));
             CreateMap<QuestionDefinitionDto, QuestionDefinition>()
                 .ForMember(questionObj => questionObj.Answers, opt => opt.MapFrom(obj => obj.Answers.ToList()));
+            CreateMap<QuestionDefinition, QuestionDefinition>();
 
 
             // Mapping for ANSWER_DEFINITION
             CreateMap<AnswerDefinition, AnswerDefinitionDto>();
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
+            CreateMap<AnswerDefinition, AnswerDefinition>();
 
 
             // Mapping for EXPLANATORY_TEXT.
             CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinitionDto>();
             CreateMap<ExplanatoryTextDefinitionDto, ExplanatoryTextDefinition>();
+            CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinition>();
 
 
             // Mapping for VIDEO_DEFINITION
             CreateMap<VideoDefinition, VideoDefinitionDto>();
             CreateMap<VideoDefinitionDto, VideoDefinition>();
+            CreateMap<VideoDefinition, VideoDefinition>();
 
 
             // Mapping for PICTURE_DEFINITION
             CreateMap<PictureDefinition, PictureDefinitionDto>();
             CreateMap<PictureDefinitionDto, PictureDefinition>();
+            CreateMap<PictureDefinition, PictureDefinition>();
 
+
+            // Mapping that shouldnt exist...
+            // Mapping for UltimateChapterElementDefinition
+            CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinitionDto>();
+            CreateMap<UltimateChapterElementDefinitionDto, UltimateChapterElementDefinition>();
+
+            CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinitionDto>()
+                 .ForMember(quizDto => quizDto.Questions, opts => opts.MapFrom(obj => obj.Questions.ToArray()));
+            CreateMap<UltimateChapterElementDefinitionDto, UltimateChapterElementDefinition>()
+                .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
+            CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinition>();
         }
 
     }

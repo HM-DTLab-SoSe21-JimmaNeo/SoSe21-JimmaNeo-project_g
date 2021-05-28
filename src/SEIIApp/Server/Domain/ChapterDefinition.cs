@@ -10,7 +10,7 @@ namespace SEIIApp.Server.Domain
     {
 
         [Key]
-        public int Id { get; set; }
+        public int ChapterId { get; set; }
 
         public string ChapterName { get; set; }
 

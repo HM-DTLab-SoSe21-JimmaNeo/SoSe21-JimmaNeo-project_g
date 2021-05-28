@@ -14,11 +14,5 @@ namespace SEIIApp.Shared.DomainTdo
         [StringLength(100, MinimumLength = 1)]
         public Uri VideoUri { get; set; }
 
-
-        public override ChapterElementType GetChapterElementType()
-        {
-            return ChapterElementType.Video;
-        }
-
     }
 }

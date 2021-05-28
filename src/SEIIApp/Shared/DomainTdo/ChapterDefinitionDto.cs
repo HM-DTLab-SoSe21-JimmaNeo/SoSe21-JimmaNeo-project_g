@@ -8,7 +8,7 @@ namespace SEIIApp.Shared.DomainTdo
 
     public class ChapterDefinitionBaseDto
     {
-        public int Id { get; set; }
+        public int ChapterId { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
