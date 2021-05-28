@@ -46,11 +46,10 @@ namespace SEIIApp.Server.Controllers
 
             if (element == null) return StatusCode(StatusCodes.Status404NotFound);
 
-            switch (element.GetChapterElementType())
+            switch (element.ChapterElementType)
             {
                 case ChapterElementType.Quiz:
-                    // TODO Quiz needs to be adapted to our domain structure. (JIRA ticket)
-                    return null; // Anpassen, dient nur dem Kompiler, da ein Returnwert gebraucht wird.
+                    return Ok(Mapper.Map<QuizDefinitionDto>(element));
 
                 case ChapterElementType.Text:
                     return Ok(Mapper.Map<ExplanatoryTextDefinitionDto>(element));
@@ -81,10 +80,10 @@ namespace SEIIApp.Server.Controllers
 
             for (int i = 0; i < elements.Length; i++)
                 {
-                    switch (elements[i].GetChapterElementType())
+                    switch (elements[i].ChapterElementType)
                     {
                         case ChapterElementType.Quiz:
-                            // TODO Quiz needs to be adapted to our domain structure. (JIRA ticket)
+                            mappedElements[i] = Mapper.Map<QuizDefinitionBaseDto>(elements[i]);
                             break;
 
                         case ChapterElementType.Text:
@@ -117,15 +116,56 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult<ChapterDefinitionDto> AddOrUpdateChapterElement([FromRoute] int courseId,
-            [FromRoute] int chapterId, [FromBody] ChapterElementDefinitionDto model)
+            [FromRoute] int chapterId, [FromBody] UltimateChapterElementDefinitionDto model)
         {
 
             if (courseId == 0 || chapterId == 0) return Forbid();
 
             if (ModelState.IsValid)
             {
-                
-                var mappedModel = Mapper.Map<ChapterElementDefinition>(model);
+
+                var temporaryModel = Mapper.Map<UltimateChapterElementDefinition>(model);
+
+                ChapterElementDefinition mappedModel; 
+
+                switch (temporaryModel.ChapterElementType)
+                {
+                    case ChapterElementType.Quiz:
+                        QuizDefinition quizDefinition = new QuizDefinition();
+                        quizDefinition.Id = temporaryModel.Id;
+                        quizDefinition.ChapterElementType = ChapterElementType.Quiz;
+                        quizDefinition.Questions = temporaryModel.Questions;
+                        quizDefinition.QuizName = temporaryModel.QuizName;
+                        mappedModel = quizDefinition;
+                        break;
+                    case ChapterElementType.Text:
+                        ExplanatoryTextDefinition explanatoryTextDefinition = new ExplanatoryTextDefinition();
+                        explanatoryTextDefinition.Id = temporaryModel.Id;
+                        explanatoryTextDefinition.ChapterElementType = ChapterElementType.Text;
+                        explanatoryTextDefinition.ContentText = temporaryModel.ContentText;
+                        explanatoryTextDefinition.Title = temporaryModel.Title;
+                        mappedModel = explanatoryTextDefinition;
+                        break;
+                    case ChapterElementType.Picture:
+                        PictureDefinition pictureDefinition = new PictureDefinition();
+                        pictureDefinition.Id = temporaryModel.Id;
+                        pictureDefinition.ChapterElementType = ChapterElementType.Picture;
+                        pictureDefinition.Description = temporaryModel.Description;
+                        pictureDefinition.PictureUri = temporaryModel.PictureUri;
+                        mappedModel = pictureDefinition;
+                        break;
+                    case ChapterElementType.Video:
+                        VideoDefinition videoDefinition = new VideoDefinition();
+                        videoDefinition.Id = temporaryModel.Id;
+                        videoDefinition.Description = temporaryModel.Description;
+                        videoDefinition.VideoUri = temporaryModel.VideoUri;
+                        mappedModel = videoDefinition;
+                        break;
+                    default:
+                        mappedModel = null;
+                        break;
+
+                }
 
                 if (model.Id == 0)
                 { //add
@@ -136,29 +176,14 @@ namespace SEIIApp.Server.Controllers
                 }
                 else
                 { //update
+
+                    // Checks if the element already exists, else it cant update anything
+                    if (ChapterElementDefinitionService.GetChapterElementById(mappedModel.Id) == null) return UnprocessableEntity(ModelState);
+
                     mappedModel = ChapterElementDefinitionService.UpdateChapterElement(mappedModel);
                 }
 
-                switch(model.GetChapterElementType())
-                {
-                    case ChapterElementType.Quiz:
-                        // TODO Quiz needs to be adapted to our domain structure. (JIRA ticket)
-                        break;
-
-                    case ChapterElementType.Text:
-                        model = Mapper.Map<ExplanatoryTextDefinitionDto>(mappedModel);
-                        break;
-
-                    case ChapterElementType.Picture:
-                        model = Mapper.Map<PictureDefinitionDto>(mappedModel);
-                        break;
-
-                    case ChapterElementType.Video:
-                        model = Mapper.Map<VideoDefinitionDto>(mappedModel);
-                        break;
-                }
-
-                return Ok(model);
+                return Ok(mappedModel);
             }
             return BadRequest(ModelState);
         }
@@ -181,10 +206,6 @@ namespace SEIIApp.Server.Controllers
             ChapterElementDefinitionService.RemoveChapterElement(element);
             return Ok();
         }
-
-
-
-
 
     }
 }

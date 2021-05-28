@@ -35,20 +35,17 @@ namespace SEIIApp.Server.DataAccess {
 
         // Database entries for the specific chapter elements.
         // Used to add the elements.
-        // TODO quiz einfuegen
         public DbSet<Domain.ExplanatoryTextDefinition> ExplanatoryTextDefinitions { get; set; }
         public DbSet<Domain.PictureDefinition> PictureDefinitions { get; set; }
         public DbSet<Domain.VideoDefinition> VideoDefinitions { get; set; }
-
-        // TODO entfernen -> enthalten in chapter elements
-        //Hier legen wir eine Tabellen für die Quizze an.
         public DbSet<Domain.QuizDefinition> QuizDefinitions { get; set; }
+
         //Wir legen, obwohl wir könnten, keine Tabellen für 
         //QuestionDefinitions and AnswerDefinitions an.
         //Diese Abhängigkeiten zu Quiz werden automatisch erkannt.
 
-         
-        
+
+
 
     }
 }

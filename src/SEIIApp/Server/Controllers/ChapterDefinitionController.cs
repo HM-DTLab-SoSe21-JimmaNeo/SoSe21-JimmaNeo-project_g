@@ -75,13 +75,17 @@ namespace SEIIApp.Server.Controllers {
 
                 var mappedModel = Mapper.Map<ChapterDefinition>(model);
 
-                if(model.Id == 0) { //add
+                if(model.ChapterId == 0) { //add
                     mappedModel = ChapterDefinitionService.Addchapter(mappedModel);
                     CourseDefinition course = courseDefinitionService.GetCourseById(courseId);
                     course.Chapters.Add(mappedModel);
                     courseDefinitionService.UpdateCourse(course);
                 }
                 else { //update
+
+                    // Checks if the chapter already exists, else it cant update anything
+                    if (ChapterDefinitionService.GetChapterById(mappedModel.ChapterId) == null) return UnprocessableEntity(ModelState);
+
                     mappedModel = ChapterDefinitionService.UpdateChapter(mappedModel);
                 }
 

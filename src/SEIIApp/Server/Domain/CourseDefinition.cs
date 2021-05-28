@@ -7,7 +7,7 @@ namespace SEIIApp.Server.Domain {
     public class CourseDefinition{
 
         [Key]
-        public int Id { get; set; }
+        public int CourseId { get; set; }
 
         public string CourseName { get; set; }
 

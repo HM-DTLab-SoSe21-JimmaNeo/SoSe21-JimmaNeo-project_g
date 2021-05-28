@@ -34,6 +34,8 @@ namespace SEIIApp.Server {
             //z.B. den Servernamen, IP-Adresse, Benutzername, Kennwort usw. enthält.
             services.AddDbContext<DatabaseContext>(options => {
                 options.UseInMemoryDatabase("InMemoryDb");
+
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); // I found no other solution, feel free to change that
             });
 
 
@@ -78,7 +80,6 @@ namespace SEIIApp.Server {
             //Services sind also Klassen, die Logik kapseln, z.B. Logik um 
             //Daten in die Datenbank hinzuzufügen oder zu ändern.
             //Aber auch irgendwelche anderen Arten von Berechnungen.
-            services.AddScoped<Services.QuizDefinitionService>();
             services.AddScoped<Services.CourseDefinitionService>();
             services.AddScoped<Services.ChapterDefinitionService>();
             services.AddScoped<Services.ChapterElementDefinitionService>();
@@ -95,7 +96,7 @@ namespace SEIIApp.Server {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.QuizDefinitionService quizDefinitionService, Services.CourseDefinitionService courseDefinitionService,
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.CourseDefinitionService courseDefinitionService,
             Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
@@ -139,7 +140,7 @@ namespace SEIIApp.Server {
 #if DEBUG
             //*******************************************************************
             //*** Initialisierung von Test-Daten, nur bei In-Memory-DB **********
-            TestDataInitializer.InitializeTestData(quizDefinitionService, courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService);
+            TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService);
 #endif
 
         }

@@ -14,12 +14,6 @@ namespace SEIIApp.Shared.DomainTdo
 
         public String ContentText { get; set; }
 
-
-        public override ChapterElementType GetChapterElementType()
-        {
-            return ChapterElementType.Text;
-        }
-
     }
 
 }

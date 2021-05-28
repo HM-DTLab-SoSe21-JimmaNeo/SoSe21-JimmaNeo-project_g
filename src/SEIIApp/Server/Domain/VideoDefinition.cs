@@ -12,11 +12,5 @@ namespace SEIIApp.Server.Domain
 
         public Uri VideoUri { get; set; }
 
-
-        public override ChapterElementType GetChapterElementType()
-        {
-            return ChapterElementType.Video;
-        }
-
     }
 }

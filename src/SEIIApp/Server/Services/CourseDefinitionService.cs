@@ -32,7 +32,7 @@ namespace SEIIApp.Server.Services {
         /// Returns the course with the given id. Includes also chapters.
         /// </summary>
         public CourseDefinition GetCourseById(int id) {
-            return GetQueryableForCourseDefinitions().Where(course => course.Id == id).FirstOrDefault();
+            return GetQueryableForCourseDefinitions().Where(course => course.CourseId == id).FirstOrDefault();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SEIIApp.Server.Services {
         /// </summary>
         public CourseDefinition UpdateCourse(CourseDefinition course) {
 
-            var existingCourse = GetCourseById(course.Id);
+            var existingCourse = GetCourseById(course.CourseId);
 
             course.ChangeDate = DateTime.Now;
 

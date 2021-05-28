@@ -10,15 +10,11 @@ namespace SEIIApp.Server.DataAccess {
 
         /// <summary>
         /// Initialze test data (just for in-memory database)
+        ///    --> IMPORTANT: when the testdata isnt really correctly instantiated, the error that follows isn't really
+        ///    traceable to here
         /// </summary>
-        public static void InitializeTestData(Services.QuizDefinitionService quizDefinitionService, Services.CourseDefinitionService courseDefinitionService,
+        public static void InitializeTestData(Services.CourseDefinitionService courseDefinitionService,
             Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService) {
-
-            for (int i = 0; i < 10; i++) {
-                var quiz = TestDataGenerator.CreateQuizDefinition();
-                quiz.QuizName = "Quiz " + i;
-                quizDefinitionService.AddQuiz(quiz);              
-            }
 
             for (int i = 0; i < 5; i++) {
 
@@ -31,20 +27,30 @@ namespace SEIIApp.Server.DataAccess {
                     chapterDefinitionService.Addchapter(chapter);
                     courseDefinitionService.GetCourseById(i +1).Chapters.Add(chapter);
 
-                    for (int k = 0; k < 7; k++)
+                    for (int k = 0; k < 6; k++)
                     {
                         var rand = new Random();
                         ChapterElementDefinition element;
 
-                        if (rand.Next(0, 2) == 0)
+                        if (k == 1 || k == 2)
                         {
                             element = TestDataGenerator.CreateExplanatoryTextDefinition("ExampleText" + k);
-                        } else
+                            element.ChapterElementType = Shared.DomainTdo.ChapterElementType.Text;
+                        } else if(k == 3 || k == 4)
                         {
                             element = TestDataGenerator.CreatePictureDefinition("ExamplePicture" + k);
+                            element.ChapterElementType = Shared.DomainTdo.ChapterElementType.Picture;
+                        }else
+                        {
+                            var quiz = TestDataGenerator.CreateQuizDefinition();
+                            quiz.QuizName = "Quiz " + k;
+                            element = quiz;
+                            element.ChapterElementType = Shared.DomainTdo.ChapterElementType.Quiz;
                         }
+
                         chapterElementDefinitionService.AddChapterElement(element);
                         chapterDefinitionService.GetChapterById(j + 1).ChapterElements.Add(element);
+                        // TODO: add videoelement
                     }
 
                 }

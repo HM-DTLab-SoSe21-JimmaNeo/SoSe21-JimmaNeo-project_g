@@ -7,7 +7,7 @@ namespace SEIIApp.Shared.DomainTdo {
 
     public class CourseDefinitionBaseDto {
 
-        public int Id { get; set; }
+        public int CourseId { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1)]

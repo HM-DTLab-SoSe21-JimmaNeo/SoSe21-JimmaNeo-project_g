@@ -13,11 +13,7 @@ namespace SEIIApp.Server.Domain
         [Key]
         public int Id { get; set; }
 
-
-        public virtual ChapterElementType GetChapterElementType()
-        {
-            throw new Exception("The superclass of the chapter elements doesn't have a chaper element type and mustn't be instantiated!");
-        }
+        public ChapterElementType ChapterElementType { get; set; }
 
     }
 }

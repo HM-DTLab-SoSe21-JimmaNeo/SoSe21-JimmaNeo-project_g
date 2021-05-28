@@ -32,7 +32,7 @@ namespace SEIIApp.Server.Services {
         /// Returns the chapter with the given id. Includes also chapters.
         /// </summary>
         public ChapterDefinition GetChapterById(int id) {
-            return GetQueryableForChapterDefinitions().Where(chapter => chapter.Id == id).FirstOrDefault();
+            return GetQueryableForChapterDefinitions().Where(chapter => chapter.ChapterId == id).FirstOrDefault();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SEIIApp.Server.Services {
         /// </summary>
         public ChapterDefinition UpdateChapter(ChapterDefinition chapter) {
 
-            var existingChapter = GetChapterById(chapter.Id);
+            var existingChapter = GetChapterById(chapter.ChapterId);
 
             chapter.ChangeDate = DateTime.Now;
 
