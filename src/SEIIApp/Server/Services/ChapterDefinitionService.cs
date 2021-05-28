@@ -32,7 +32,8 @@ namespace SEIIApp.Server.Services {
         /// Returns the chapter with the given id. Includes also chapters.
         /// </summary>
         public ChapterDefinition GetChapterById(int id) {
-            return GetQueryableForChapterDefinitions().Where(chapter => chapter.ChapterId == id).FirstOrDefault();
+            ChapterDefinition chapterDefinition = GetQueryableForChapterDefinitions().Where(chapter => chapter.ChapterId == id).FirstOrDefault();
+            return chapterDefinition;
         }
 
         /// <summary>
@@ -51,15 +52,12 @@ namespace SEIIApp.Server.Services {
         /// </summary>
         public ChapterDefinition UpdateChapter(ChapterDefinition chapter) {
 
-            var existingChapter = GetChapterById(chapter.ChapterId);
-
             chapter.ChangeDate = DateTime.Now;
 
-            Mapper.Map(chapter, existingChapter); //we can map into the same object type
 
-            DatabaseContext.ChapterDefinitions.Update(existingChapter);
+            DatabaseContext.ChapterDefinitions.Update(chapter);
             DatabaseContext.SaveChanges();
-            return existingChapter;
+            return chapter;
         }
 
         /// <summary>

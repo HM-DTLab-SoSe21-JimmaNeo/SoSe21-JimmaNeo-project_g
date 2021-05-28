@@ -32,7 +32,8 @@ namespace SEIIApp.Server.Services {
         /// Returns the course with the given id. Includes also chapters.
         /// </summary>
         public CourseDefinition GetCourseById(int id) {
-            return GetQueryableForCourseDefinitions().Where(course => course.CourseId == id).FirstOrDefault();
+            CourseDefinition coursedefinition = GetQueryableForCourseDefinitions().Where(course => course.CourseId == id).FirstOrDefault();
+            return coursedefinition;
         }
 
         /// <summary>
@@ -51,15 +52,11 @@ namespace SEIIApp.Server.Services {
         /// </summary>
         public CourseDefinition UpdateCourse(CourseDefinition course) {
 
-            var existingCourse = GetCourseById(course.CourseId);
-
             course.ChangeDate = DateTime.Now;
 
-            Mapper.Map(course, existingCourse); //we can map into the same object type
-
-            DatabaseContext.CourseDefinitions.Update(existingCourse);
+            DatabaseContext.CourseDefinitions.Update(course);
             DatabaseContext.SaveChanges();
-            return existingCourse;
+            return course;
         }
 
         /// <summary>

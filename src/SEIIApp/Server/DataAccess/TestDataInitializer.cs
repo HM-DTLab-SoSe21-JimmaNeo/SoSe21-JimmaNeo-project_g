@@ -25,11 +25,11 @@ namespace SEIIApp.Server.DataAccess {
                 {
                     var chapter = TestDataGenerator.CreateChapterDefinition("Chapter " + i);
                     chapterDefinitionService.Addchapter(chapter);
-                    courseDefinitionService.GetCourseById(i +1).Chapters.Add(chapter);
+                    course.Chapters.Add(chapter);
+
 
                     for (int k = 0; k < 6; k++)
                     {
-                        var rand = new Random();
                         ChapterElementDefinition element;
 
                         if (k == 1 || k == 2)
@@ -49,7 +49,7 @@ namespace SEIIApp.Server.DataAccess {
                         }
 
                         chapterElementDefinitionService.AddChapterElement(element);
-                        chapterDefinitionService.GetChapterById(j + 1).ChapterElements.Add(element);
+                        chapter.ChapterElements.Add(element);
                         // TODO: add videoelement
                     }
 

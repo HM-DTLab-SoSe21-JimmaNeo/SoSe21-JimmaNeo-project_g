@@ -16,6 +16,7 @@ namespace SEIIApp.Server.DataAccess {
             course.CreationDate = DateTime.Now;
             course.ChangeDate = DateTime.Now;
             course.Visible = true;
+            course.Chapters = new List<ChapterDefinition>();
 
             return course;
         }
@@ -30,6 +31,7 @@ namespace SEIIApp.Server.DataAccess {
             chapter.CreationDate = DateTime.Now;
             chapter.ChangeDate = chapter.CreationDate;
             chapter.Visible = true;
+            chapter.ChapterElements = new List<ChapterElementDefinition>();
 
             return chapter;
         }
