@@ -1,41 +1,59 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">SEIIApp</a>
+﻿@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Alexandria</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
+
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
+
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="coursedef">
+                <span class="oi oi-align-center" aria-hidden="true"></span> Course Management
             </NavLink>
         </li>
+        @{
+            if (Courses != null)
+            {
+                foreach (var q in Courses)
+                {
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="/coursedefedit/ @(q.CourseId)">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> @(q.CourseName)
+                        </a>
+                    </li>
+                }
+            }
+        }
+
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="coursedefedit/0">
+                <span class="oi oi-plus" aria-hidden="true"></span> Create new Course
             </NavLink>
         </li>
+
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="quizdef">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Quiz Definition
+                <span class="oi oi-account-login" aria-hidden="true"></span> Kurs verlassen
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedef">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Course Definition
-            </NavLink>
-        </li>
+
+
     </ul>
 </div>
 
 @code {
+    private CourseDefinitionBaseDto[] Courses { get; set; }
+
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -43,5 +61,12 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var courses = await CourseDefinitionService.GetCourseOverview();
+        this.Courses = courses;
     }
 }
