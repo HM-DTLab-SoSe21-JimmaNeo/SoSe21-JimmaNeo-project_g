@@ -1,25 +1,28 @@
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
 }
 
 .top-row {
-    height: 3.5rem;
+    height: 4rem;
     background-color: rgba(0,0,0,0.4);
 }
 
 .navbar-brand {
-    font-size: 1.1rem;
+    font-size: 2rem;
+    margin-left: 1rem;
+    margin-top: -0.2rem;
 }
 
 .oi {
     width: 2rem;
     font-size: 1.1rem;
     vertical-align: text-top;
-    top: -2px;
+    top: -1px;
 }
 
 .nav-item {
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding-bottom: 0.5rem;
 }
 
@@ -33,7 +36,7 @@
 
     .nav-item ::deep a {
         color: #d7d7d7;
-        border-radius: 4px;
+        border-radius: 10px;
         height: 3rem;
         display: flex;
         align-items: center;
@@ -41,7 +44,7 @@
     }
 
 .nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
+    background-color: rgba(255,255,255,0.24);
     color: white;
 }
 
