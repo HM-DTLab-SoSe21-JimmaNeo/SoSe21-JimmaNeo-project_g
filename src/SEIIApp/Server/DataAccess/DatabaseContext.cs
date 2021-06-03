@@ -44,6 +44,8 @@ namespace SEIIApp.Server.DataAccess {
         //QuestionDefinitions and AnswerDefinitions an.
         //Diese Abhängigkeiten zu Quiz werden automatisch erkannt.
 
+        public DbSet<Domain.Authentifizierung> Authentifizierungen { get; set; }
+
 
 
 

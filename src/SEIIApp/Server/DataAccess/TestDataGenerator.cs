@@ -98,5 +98,18 @@ namespace SEIIApp.Server.DataAccess {
 
 
 
+        /// Authentifizierung
+        public static Authentifizierung CreateAuthentifizierung(String userName, String password, String role)
+        {
+            var newAuth = new Authentifizierung();
+            newAuth.UserName = userName;
+            newAuth.Password = password;
+            newAuth.Role = role;
+
+            return newAuth;
+        }
+
+
+
     }
 }

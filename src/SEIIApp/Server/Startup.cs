@@ -84,6 +84,8 @@ namespace SEIIApp.Server {
             services.AddScoped<Services.ChapterDefinitionService>();
             services.AddScoped<Services.ChapterElementDefinitionService>();
 
+            services.AddScoped<Services.LoginService>();
+
 
 
             //Allgemeines zu Warnungen in der Visual Studio Fehlerliste
@@ -97,7 +99,7 @@ namespace SEIIApp.Server {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.CourseDefinitionService courseDefinitionService,
-            Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService) {
+            Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService, Services.LoginService loginService) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
@@ -140,7 +142,7 @@ namespace SEIIApp.Server {
 #if DEBUG
             //*******************************************************************
             //*** Initialisierung von Test-Daten, nur bei In-Memory-DB **********
-            TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService);
+            TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService, loginService);
 #endif
 
         }
