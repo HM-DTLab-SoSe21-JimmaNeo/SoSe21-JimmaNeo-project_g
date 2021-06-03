@@ -17,6 +17,7 @@ namespace SEIIApp.Client {
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<Services.QuizDefinitionBackendAccessService>();
             builder.Services.AddScoped<Services.CourseDefinitionBackendAccessService>();
+            builder.Services.AddScoped<Services.LoginBackendAccessService>();
 
             await builder.Build().RunAsync();
         }

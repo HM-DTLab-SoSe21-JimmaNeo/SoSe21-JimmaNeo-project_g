@@ -93,6 +93,20 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.LoginController.GetRole(System.String)">
+            <summary>
+            Return the quiz with the given id.
+            </summary>
+            <param userName="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.LoginController.AddAuth(SEIIApp.Shared.DomainTdo.LoginDto)">
+            <summary>
+            Adds or updates a course definition.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateCourseDefinition(System.String)">
             <summary>
             Creates a test course definition, which is visible and has a name.
@@ -123,7 +137,10 @@
             Creates a test video definition, with a descreption and a dummy URI.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService)">
+        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateAuthentifizierung(System.String,System.String,System.String)">
+            Authentifizierung
+        </member>
+        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService,SEIIApp.Server.Services.LoginService)">
             <summary>
             Initialze test data (just for in-memory database)
                --> IMPORTANT: when the testdata isnt really correctly instantiated, the error that follows isn't really
@@ -210,6 +227,16 @@
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.RemoveCourse(SEIIApp.Server.Domain.CourseDefinition)">
             <summary>
             Removes a course and all dependencies.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.LoginService.GetRole(System.String,System.String)">
+            <summary>
+            Returns the course with the given role. Includes also chapters.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.LoginService.AddAuth(SEIIApp.Server.Domain.Authentifizierung)">
+            <summary>
+            Adds a chapter.
             </summary>
         </member>
     </members>

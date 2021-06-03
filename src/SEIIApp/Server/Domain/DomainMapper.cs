@@ -89,6 +89,9 @@ namespace SEIIApp.Server.Domain
             CreateMap<PictureDefinitionDto, PictureDefinition>();
             CreateMap<PictureDefinition, PictureDefinition>();
 
+            CreateMap<Authentifizierung, LoginDto>();
+            CreateMap<LoginDto, Authentifizierung>();
+
 
             // Mapping that shouldnt exist...
             // Mapping for UltimateChapterElementDefinition

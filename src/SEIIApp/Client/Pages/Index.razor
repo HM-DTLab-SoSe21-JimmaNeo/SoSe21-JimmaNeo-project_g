@@ -1,7 +1,194 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
+@inject Services.LoginBackendAccessService LoginService
+@layout MainLayoutBlank
 
-<h1>Welcome to Alexandria</h1>
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Snippet - BBBootstrap</title>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, #b92b27, #1565c0)
+        }
 
-Share Knowledge and improve your Knowledge !
+        .card {
+            margin-bottom: 20px;
+            border: none
+        }
+
+        .box {
+            width: 500px;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: #191919;
+            text-align: center;
+            transition: 0.25s;
+            margin-top: 100px
+        }
+
+            .box input[type="text"],
+            .box input[type="password"] {
+                border: 0;
+                background: none;
+                display: block;
+                margin: 20px auto;
+                text-align: center;
+                border: 2px solid #3498db;
+                padding: 10px 10px;
+                width: 250px;
+                outline: none;
+                color: white;
+                border-radius: 24px;
+                transition: 0.25s
+            }
+
+            .box h1 {
+                color: white;
+                text-transform: uppercase;
+                font-weight: 500
+            }
+
+            .box input[type="text"]:focus,
+            .box input[type="password"]:focus {
+                width: 300px;
+                border-color: #2ecc71
+            }
+
+            .box input[type="submit"] {
+                border: 0;
+                background: none;
+                display: block;
+                margin: 20px auto;
+                text-align: center;
+                border: 2px solid #2ecc71;
+                padding: 14px 40px;
+                outline: none;
+                color: white;
+                border-radius: 24px;
+                transition: 0.25s;
+                cursor: pointer
+            }
+
+                .box input[type="submit"]:hover {
+                    background: #2ecc71
+                }
+    </style>
+
+</head>
+<body oncontextmenu='return false' class='snippet-body'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <form onsubmit="event.preventDefault()" class="box">
+                        <h1>Alexandria</h1>
+                        <p class="text-muted"> Logge dich mit deinem Usernamen und Passwort ein!</p>
+
+                        <input type="text" placeholder="Username" @bind="username">
+                        <input type="password" placeholder="Password" @bind="password">
+                        <button type="submit" class="btn btn-primary" @onclick="LoginAbfrage" value="Login" name="" href="#">Login</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 
 
+@if (isLoginMessage)
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Danger:">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+        </svg>
+        <div>
+            Leider ist der eingegebene Username oder das Passwort falsch. Probiere es bitte noch einmal.
+        </div>
+    </div>
+}
+
+
+
+
+@if (isLoginTest)
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Danger:">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+        </svg>
+        <div>
+            Leider ist der eingegebene Username oder das Passwort falsch. Probiere es bitte noch einmal.
+        </div>
+    </div>
+}
+
+
+
+@code {
+
+    public String username { get; set; }
+    public String password { get; set; }
+    public Boolean isLoginMessage { get; set; }
+    public Boolean isLoginTest { get; set; }
+
+    private async void LoginAbfrage()
+    {
+        String role = null;
+        String user = null;
+        isLoginMessage = false;
+        isLoginTest = false;
+
+        if (username != null && password != null)
+        {
+
+            //TODO Fehlermeldung bei falschem Username bzw. Passwort anzeigen lassen / erscheint aktuell noch nicht
+            try
+            {
+                LoginDto login = await LoginService.GetLoginByUserPassword(username, password);
+                user = login.userName;
+
+                role = login.Role;
+
+                int param = login.Id;
+
+                NavigationManager.NavigateTo("/home/" + param);
+
+            }
+            catch (Exception e)
+            {
+                isLoginMessage = true;
+
+            }
+
+
+            isLoginMessage = true;
+
+        }
+
+        else
+        {
+
+            isLoginMessage = true;
+
+        }
+
+
+
+    }
+
+
+}

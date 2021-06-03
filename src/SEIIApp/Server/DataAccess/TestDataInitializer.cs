@@ -14,7 +14,7 @@ namespace SEIIApp.Server.DataAccess {
         ///    traceable to here
         /// </summary>
         public static void InitializeTestData(Services.CourseDefinitionService courseDefinitionService,
-            Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService) {
+            Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService, Services.LoginService loginService) {
 
             for (int i = 0; i < 5; i++) {
 
@@ -56,6 +56,13 @@ namespace SEIIApp.Server.DataAccess {
                 }
 
             }
+
+
+            var authAdmin = TestDataGenerator.CreateAuthentifizierung("admin", "admin", "admin");
+            loginService.AddAuth(authAdmin);
+
+            var authUser = TestDataGenerator.CreateAuthentifizierung("user", "user", "user");
+            loginService.AddAuth(authUser);
 
         }
 
