@@ -1,6 +1,6 @@
 ﻿@page "/quizedit/{Id:int}"
 
-@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.QuizElementDefinitionBackendAccessService QuizElementDefinitionService
 
 <h5>Quiz Definition</h5>
 
@@ -52,20 +52,20 @@ else
     {
         if (Id != 0)
         {
-            var existingElement = await ChapterElementDefinitionService.GetChapterElementById(courseId, chapterId, Id);
+            var existingElement = await QuizElementDefinitionService.GetQuizElementById(courseId, chapterId, Id);
             QuizDefinitionDto existingQuiz = (QuizDefinitionDto)existingElement;
-            PrepareEditOrAddOfChapterElementDefinition(existingQuiz);
+            PrepareEditOrAddOfQuizElementDefinition(existingQuiz);
         }
         else
         {
-            PrepareEditOrAddOfChapterElementDefinition(new QuizDefinitionDto());
+            PrepareEditOrAddOfQuizElementDefinition(new QuizDefinitionDto());
         }
         await base.OnParametersSetAsync();
 
         context = new EditContext(QuizDefinitionDto);
     }
 
-    private void PrepareEditOrAddOfChapterElementDefinition(QuizDefinitionDto c)
+    private void PrepareEditOrAddOfQuizElementDefinition(QuizDefinitionDto c)
     {
         this.QuizDefinitionDto = c;
     }
@@ -105,7 +105,7 @@ else
         var isValid = context.Validate();
         if (isValid)
         {
-            var answer = await ChapterElementDefinitionService.AddOrUpdateChapterElement(courseId, chapterId, QuizDefinitionDto);
+            var answer = await QuizElementDefinitionService.AddOrUpdateQuizElement(courseId, chapterId, QuizDefinitionDto);
             if (answer != null)
             {
                 this.QuizDefinitionDto.Id = answer.Id; //refresh id (if created)

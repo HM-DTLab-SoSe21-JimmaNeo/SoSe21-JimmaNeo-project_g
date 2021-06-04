@@ -12,7 +12,7 @@
             @foreach (var element in Chapter.ChapterElements)
             {
                 
-                <li>@(element.ChapterElementType) <button class="btn btn-primary" @onclick="() => EditElement(element)">Edit</button></li>
+                <li>@(element.ChapterElementType) <button class="btn btn-primary" @onclick="() => EditElement(element)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteChapterElement(element)">Delete</button></li>
             }
         </ol>
 
@@ -53,10 +53,10 @@
                 NavigationManager.NavigateTo("/quizedit/" + element.Id);
                 break;
             case ChapterElementType.Picture:
-                NavigationManager.NavigateTo("/error");
+                NavigationManager.NavigateTo("/pictureedit/" + element.Id);
                 break;
             case ChapterElementType.Video:
-                NavigationManager.NavigateTo("/error");
+                NavigationManager.NavigateTo("/videoedit/" + element.Id);
                 break;
         }
     }
@@ -79,4 +79,10 @@
     {
         NavigationManager.NavigateTo("/videoedit/0");
     }
+
+    private async Task DeleteChapterElement(ChapterElementDefinitionDto element)
+    {
+        await ChapterElementDefinitionService.DeleteChapterElement(courseId, chapterId, element.Id);
+    }
+
 }
