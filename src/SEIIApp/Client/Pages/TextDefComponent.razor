@@ -1,0 +1,81 @@
+﻿@page "/textedit/{id:int}"
+
+@inject Services.TextElementDefinitionBackendAccessService TextElementDefinitionService
+
+<h5>Explanatory Text Definition</h5>
+
+@if (ExplanatoryTextDefinitionDto != null)
+{
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
+
+    <label>Course Name</label>
+    <br />
+    <InputText @bind-Value="ExplanatoryTextDefinitionDto.Title" />
+    <br />
+
+    <label>insert the text here</label>
+    <br />
+    <InputTextArea cols="100" rows="20" @bind-Value="ExplanatoryTextDefinitionDto.ContentText" />
+</EditForm>
+       
+    <button class="btn btn-light" @onclick="SaveTextToBackend">Save Complete Text Element</button>
+
+ }
+        else
+        {
+        <h5>Text definition in loading (or not found) ...</h5>
+        }
+
+        @code{
+            [Parameter]
+            public int id { get; set; }
+
+            public int courseId = 1;
+
+            public int chapterId = 1;
+    public ChapterElementDefinitionDto ChapterElementDefinitionDto { get; set; }
+    public ExplanatoryTextDefinitionDto ExplanatoryTextDefinitionDto { get; set; }
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (id != 0)
+        {
+            var existingElement = await TextElementDefinitionService.GetTextElementById(courseId, chapterId, id);
+            ExplanatoryTextDefinitionDto existingText = (ExplanatoryTextDefinitionDto)existingElement;
+            PrepareEditOrAddOfTextElementDefinition(existingText);
+        }
+        else
+        {
+            PrepareEditOrAddOfTextElementDefinition(new ExplanatoryTextDefinitionDto());
+        }
+        await base.OnParametersSetAsync();
+
+        context = new EditContext(ExplanatoryTextDefinitionDto);
+    }
+
+    private void PrepareEditOrAddOfTextElementDefinition(ExplanatoryTextDefinitionDto c)
+    {
+        this.ExplanatoryTextDefinitionDto = c;
+    }
+
+
+            private void OnSubmit(EditContext context)
+            {
+
+            }
+
+    private async void SaveTextToBackend()
+    {
+        var isValid = context.Validate();
+        if (isValid)
+        {
+            var answer = await TextElementDefinitionService.AddOrUpdateTextElement(courseId, chapterId, ExplanatoryTextDefinitionDto);
+            if (answer != null)
+            {
+                this.ExplanatoryTextDefinitionDto.Id = answer.Id; //refresh id (if created)
+            }
+        }
+    }
+
+        }

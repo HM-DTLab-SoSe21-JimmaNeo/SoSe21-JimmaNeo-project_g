@@ -1,0 +1,82 @@
+﻿@page "/elementdef/1/1"
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject NavigationManager NavigationManager
+
+<h3>all Chapter Elements in the Chapter</h3>
+
+@{ if (Chapter != null && Chapter.ChapterElements != null)
+    {
+        if (Chapter.ChapterElements.Length > 0)
+        {
+        <ol>
+            @foreach (var element in Chapter.ChapterElements)
+            {
+                
+                <li>@(element.ChapterElementType) <button class="btn btn-primary" @onclick="() => EditElement(element)">Edit</button></li>
+            }
+        </ol>
+
+        <button @onclick="AddText">Add Text</button><button @onclick="AddQuiz">Add Quiz</button><button @onclick="AddPicture">Add Picture</button><button @onclick="AddVideo">Add Video</button>
+            }
+                else
+                {
+                    <h5>test</h5>
+                }
+    }
+    else
+    {
+        <h5>test 2</h5>
+    }
+}
+
+
+@code {
+
+    public ChapterDefinitionDto Chapter { get; set; }
+
+    int courseId = 1;
+    int chapterId = 1;
+
+    protected override async Task OnParametersSetAsync() {
+        await base.OnParametersSetAsync();
+        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(courseId, chapterId);
+
+    }
+
+    private void EditElement(ChapterElementDefinitionDto element) {
+        switch (element.ChapterElementType)
+        {
+            case ChapterElementType.Text:
+                NavigationManager.NavigateTo("/textedit/" + element.Id);
+                break;
+            case ChapterElementType.Quiz:
+                NavigationManager.NavigateTo("/quizedit/" + element.Id);
+                break;
+            case ChapterElementType.Picture:
+                NavigationManager.NavigateTo("/error");
+                break;
+            case ChapterElementType.Video:
+                NavigationManager.NavigateTo("/error");
+                break;
+        }
+    }
+
+    private void AddText() {
+        NavigationManager.NavigateTo("/textedit/0");
+    }
+
+    private void AddQuiz()
+    {
+        NavigationManager.NavigateTo("/quizedit/0");
+    }
+
+    private void AddPicture()
+    {
+        NavigationManager.NavigateTo("/pictureedit/0");
+    }
+
+    private void AddVideo()
+    {
+        NavigationManager.NavigateTo("/videoedit/0");
+    }
+}
