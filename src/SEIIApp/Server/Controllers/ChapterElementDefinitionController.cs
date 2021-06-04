@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
-using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace SEIIApp.Server.Controllers
 {
@@ -160,6 +160,7 @@ namespace SEIIApp.Server.Controllers
                         videoDefinition.Id = temporaryModel.Id;
                         videoDefinition.Description = temporaryModel.Description;
                         videoDefinition.VideoUri = temporaryModel.VideoUri;
+                        videoDefinition.Video = temporaryModel.Video;
                         mappedModel = videoDefinition;
                         break;
                     default:
