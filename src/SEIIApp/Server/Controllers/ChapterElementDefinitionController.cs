@@ -152,7 +152,7 @@ namespace SEIIApp.Server.Controllers
                         pictureDefinition.Id = temporaryModel.Id;
                         pictureDefinition.ChapterElementType = ChapterElementType.Picture;
                         pictureDefinition.Description = temporaryModel.Description;
-                        pictureDefinition.PictureUri = temporaryModel.PictureUri;
+                        pictureDefinition.Picture = temporaryModel.Picture;
                         mappedModel = pictureDefinition;
                         break;
                     case ChapterElementType.Video:
@@ -208,5 +208,6 @@ namespace SEIIApp.Server.Controllers
             ChapterElementDefinitionService.RemoveChapterElement(element);
             return Ok();
         }
+
     }
 }

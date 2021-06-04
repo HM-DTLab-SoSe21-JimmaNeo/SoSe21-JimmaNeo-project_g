@@ -1,6 +1,7 @@
 ﻿using System;
 using SEIIApp.Server.Domain;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace SEIIApp.Server.DataAccess {
 
@@ -79,7 +80,7 @@ namespace SEIIApp.Server.DataAccess {
         {
             var picture = new PictureDefinition();
             picture.Description = description;
-            picture.PictureUri = new Uri("https://example.com");
+            picture.Picture = new Blob();
 
             return picture;
         }

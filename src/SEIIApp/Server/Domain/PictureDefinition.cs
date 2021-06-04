@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using SEIIApp.Shared.DomainTdo;
 
 namespace SEIIApp.Server.Domain
@@ -10,7 +11,7 @@ namespace SEIIApp.Server.Domain
 
         public String Description { get; set; }
 
-        public Uri PictureUri { get; set; }
+        public Blob Picture { get; set; }
 
     }
 }
