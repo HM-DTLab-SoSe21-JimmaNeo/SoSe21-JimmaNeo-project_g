@@ -5,11 +5,12 @@
 <h3>Course Definitions Overview</h3>
 
 @{ if (Courses?.Length > 0) {
-        <ol>
-            @foreach (var course in Courses) {
-                <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button></li>
-            }
-        </ol>
+    <ol>
+        @foreach (var course in Courses)
+        {
+            <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete Course</button></li>
+        }
+    </ol>
 
         <button @onclick="AddCourse">Add Course</button>
     }
@@ -35,4 +36,11 @@
     private void AddCourse() {
         NavigationManager.NavigateTo("/coursedefedit/0");
     }
+
+    private async Task DeleteCourse(CourseDefinitionBaseDto course)
+    {
+       await CourseDefinitionService.DeleteCourse(course.CourseId);
+    }
+
 }
+

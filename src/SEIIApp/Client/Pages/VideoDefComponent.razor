@@ -1,0 +1,76 @@
+﻿@page "/videoedit/{id:int}"
+
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+
+<h5>Video Definition</h5>
+
+@if (VideoDefinitionDto != null)
+{
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
+
+    <label>insert Picture URI</label>
+    <br />
+    <InputText @bind-Value="Uri" />
+
+</EditForm>
+       
+    <button class="btn btn-light" @onclick="SaveVideoToBackend">Save Video Element</button>
+
+ }
+        else
+        {
+        <h5>Video definition in loading (or not found) ...</h5>
+        }
+
+        @code{
+            [Parameter]
+            public int id { get; set; }
+            public int courseId = 1;
+            public int chapterId = 1;
+            public string Uri = "";
+
+            public VideoDefinitionDto VideoDefinitionDto { get; set; }
+            private EditContext context { get; set; }
+
+            protected override async Task OnParametersSetAsync()
+            {
+                if (id != 0)
+                {
+                    var existingElement = await ChapterElementDefinitionService.GetChapterElementById(courseId, chapterId, id);
+                    VideoDefinitionDto existingText = (VideoDefinitionDto)existingElement;
+                    PrepareEditOrAddOfChapterElementDefinition(existingText);
+                }
+                else
+                {
+                    PrepareEditOrAddOfChapterElementDefinition(new VideoDefinitionDto());
+                }
+                await base.OnParametersSetAsync();
+
+                context = new EditContext(VideoDefinitionDto);
+            }
+
+            private void PrepareEditOrAddOfChapterElementDefinition(VideoDefinitionDto c)
+            {
+                this.VideoDefinitionDto = c;
+            }
+
+
+            private void OnSubmit(EditContext context)
+            {
+
+            }
+
+            private async void SaveVideoToBackend()
+            {
+                var isValid = context.Validate();
+                if (isValid)
+                {
+                    var answer = await ChapterElementDefinitionService.AddOrUpdateChapterElement(courseId, chapterId, VideoDefinitionDto);
+                    if (answer != null)
+                    {
+                        this.VideoDefinitionDto.Id = answer.Id; //refresh id (if created)
+                    }
+                }
+            }
+
+        }

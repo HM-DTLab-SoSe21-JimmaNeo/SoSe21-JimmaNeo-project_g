@@ -2,7 +2,7 @@
 
 <h3>Question</h3>
 @{ 
-    if (QuestionDefinitionDto != null) {
+    if (QuestionDefinitionDto != null && QuestionDefinitionDto.Answers != null) {
     <EditForm Model="QuestionDefinitionDto">
         <DataAnnotationsValidator/>
 
@@ -10,7 +10,9 @@
         <InputText @bind-Value="QuestionDefinitionDto.QuestionText" />
         <ValidationSummary />
 
-        @foreach (var a in QuestionDefinitionDto.Answers) {
+
+        @foreach (var a in QuestionDefinitionDto.Answers)
+        {
             <AnswerDefComponent AnswerDefinitionDto="a"></AnswerDefComponent>
             <button class="btn btn-light btn-sm" @onclick="() => RemoveAnswer(a)">Remove Answer</button>
         }

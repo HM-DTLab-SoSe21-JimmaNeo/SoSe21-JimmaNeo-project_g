@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
+using System.Collections.Generic;
 
 namespace SEIIApp.Server.Controllers
 {
@@ -206,6 +207,5 @@ namespace SEIIApp.Server.Controllers
             ChapterElementDefinitionService.RemoveChapterElement(element);
             return Ok();
         }
-
     }
 }
