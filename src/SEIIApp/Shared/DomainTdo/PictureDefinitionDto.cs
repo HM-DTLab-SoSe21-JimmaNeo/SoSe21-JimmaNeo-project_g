@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
 
 namespace SEIIApp.Shared.DomainTdo
 {
@@ -12,7 +13,7 @@ namespace SEIIApp.Shared.DomainTdo
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
-        public Uri PictureUri { get; set; }
+        public Blob Picture { get; set; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace SEIIApp.Shared.DomainTdo
 {
@@ -22,7 +23,7 @@ namespace SEIIApp.Shared.DomainTdo
 
         public String Description { get; set; }
 
-        public Uri PictureUri { get; set; }
+        public Blob Picture { get; set; }
 
         // Quiz
         public string QuizName { get; set; }
