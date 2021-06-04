@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
 using SEIIApp.Shared.DomainTdo;
 
 namespace SEIIApp.Server.Domain
@@ -40,5 +41,7 @@ namespace SEIIApp.Server.Domain
 
         //<-- Description already present in picture
         public Uri VideoUri { get; set; }
+
+        public Blob Video { get; set; }
     }
 }
