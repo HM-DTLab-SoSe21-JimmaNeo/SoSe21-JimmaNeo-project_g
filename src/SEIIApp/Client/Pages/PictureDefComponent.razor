@@ -1,6 +1,6 @@
 ﻿@page "/pictureedit/{id:int}"
 
-@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.PictureElementDefinitionBackendAccessService PictureElementDefinitionService
 
 <h5>Picture Definition</h5>
 
@@ -34,30 +34,30 @@
             public int chapterId = 1;
             public string Uri = "";
 
-    public PictureDefinitionDto PictureDefinitionDto { get; set; }
-    private EditContext context { get; set; }
+            public PictureDefinitionDto PictureDefinitionDto { get; set; }
+            private EditContext context { get; set; }
 
-    protected override async Task OnParametersSetAsync()
-    {
-        if (id != 0)
-        {
-            var existingElement = await ChapterElementDefinitionService.GetChapterElementById(courseId, chapterId, id);
-            PictureDefinitionDto existingText = (PictureDefinitionDto)existingElement;
-            PrepareEditOrAddOfChapterElementDefinition(existingText);
-        }
-        else
-        {
-            PrepareEditOrAddOfChapterElementDefinition(new PictureDefinitionDto());
-        }
-        await base.OnParametersSetAsync();
+            protected override async Task OnParametersSetAsync()
+            {
+                if (id != 0)
+                {
+                    var existingElement = await PictureElementDefinitionService.GetPictureElementById(courseId, chapterId, id);
+                    PictureDefinitionDto existingText = (PictureDefinitionDto)existingElement;
+                    PrepareEditOrAddOfPictureElementDefinition(existingText);
+                }
+                else
+                {
+                    PrepareEditOrAddOfPictureElementDefinition(new PictureDefinitionDto());
+                }
+                await base.OnParametersSetAsync();
 
-        context = new EditContext(PictureDefinitionDto);
-    }
+                context = new EditContext(PictureDefinitionDto);
+            }
 
-    private void PrepareEditOrAddOfChapterElementDefinition(PictureDefinitionDto c)
-    {
-        this.PictureDefinitionDto = c;
-    }
+            private void PrepareEditOrAddOfPictureElementDefinition(PictureDefinitionDto c)
+            {
+                this.PictureDefinitionDto = c;
+            }
 
 
             private void OnSubmit(EditContext context)
@@ -65,17 +65,17 @@
 
             }
 
-    private async void SavePictureToBackend()
-    {
-        var isValid = context.Validate();
-        if (isValid)
-        {
-            var answer = await ChapterElementDefinitionService.AddOrUpdateChapterElement(courseId, chapterId, PictureDefinitionDto);
-            if (answer != null)
+            private async void SavePictureToBackend()
             {
-                this.PictureDefinitionDto.Id = answer.Id; //refresh id (if created)
+                var isValid = context.Validate();
+                if (isValid)
+                {
+                    var answer = await PictureElementDefinitionService.AddOrUpdatePictureElement(courseId, chapterId, PictureDefinitionDto);
+                    if (answer != null)
+                    {
+                        this.PictureDefinitionDto.Id = answer.Id; //refresh id (if created)
+                    }
+                }
             }
-        }
-    }
 
         }

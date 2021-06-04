@@ -8,7 +8,7 @@
     <ol>
         @foreach (var course in Courses)
         {
-            <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete Course</button></li>
+            <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete</button></li>
         }
     </ol>
 

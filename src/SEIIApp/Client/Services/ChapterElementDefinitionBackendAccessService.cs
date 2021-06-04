@@ -53,5 +53,15 @@ namespace SEIIApp.Client.Services {
             }
             else return null;
         }
+
+        /// <summary>
+        /// Deletes a chapter element and returns true if successful
+        /// </summary>
+        public async Task<bool> DeleteChapterElement(int courseId, int chapterId, int Id)
+        {
+            var response = await HttpClient.DeleteAsync(GetChapterElementDefinitionUrlWithId(courseId, chapterId, Id));
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
     }
 }

@@ -19,6 +19,9 @@ namespace SEIIApp.Client {
             builder.Services.AddScoped<Services.CourseDefinitionBackendAccessService>();
             builder.Services.AddScoped<Services.ChapterElementDefinitionBackendAccessService>();
             builder.Services.AddScoped<Services.TextElementDefinitionBackendAccessService>();
+            builder.Services.AddScoped<Services.QuizElementDefinitionBackendAccessService>();
+            builder.Services.AddScoped<Services.PictureElementDefinitionBackendAccessService>();
+            builder.Services.AddScoped<Services.VideoElementDefinitionBackendAccessService>();
             builder.Services.AddScoped<Services.LoginBackendAccessService>();
 
             await builder.Build().RunAsync();

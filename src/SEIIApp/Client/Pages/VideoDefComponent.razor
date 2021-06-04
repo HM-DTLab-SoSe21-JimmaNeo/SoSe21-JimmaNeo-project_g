@@ -1,6 +1,6 @@
 ﻿@page "/videoedit/{id:int}"
 
-@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.VideoElementDefinitionBackendAccessService VideoElementDefinitionService
 
 <h5>Video Definition</h5>
 
@@ -36,20 +36,20 @@
             {
                 if (id != 0)
                 {
-                    var existingElement = await ChapterElementDefinitionService.GetChapterElementById(courseId, chapterId, id);
+                    var existingElement = await VideoElementDefinitionService.GetVideoElementById(courseId, chapterId, id);
                     VideoDefinitionDto existingText = (VideoDefinitionDto)existingElement;
-                    PrepareEditOrAddOfChapterElementDefinition(existingText);
+                    PrepareEditOrAddOfVideoElementDefinition(existingText);
                 }
                 else
                 {
-                    PrepareEditOrAddOfChapterElementDefinition(new VideoDefinitionDto());
+                    PrepareEditOrAddOfVideoElementDefinition(new VideoDefinitionDto());
                 }
                 await base.OnParametersSetAsync();
 
                 context = new EditContext(VideoDefinitionDto);
             }
 
-            private void PrepareEditOrAddOfChapterElementDefinition(VideoDefinitionDto c)
+            private void PrepareEditOrAddOfVideoElementDefinition(VideoDefinitionDto c)
             {
                 this.VideoDefinitionDto = c;
             }
@@ -65,7 +65,7 @@
                 var isValid = context.Validate();
                 if (isValid)
                 {
-                    var answer = await ChapterElementDefinitionService.AddOrUpdateChapterElement(courseId, chapterId, VideoDefinitionDto);
+                    var answer = await VideoElementDefinitionService.AddOrUpdateVideoElement(courseId, chapterId, VideoDefinitionDto);
                     if (answer != null)
                     {
                         this.VideoDefinitionDto.Id = answer.Id; //refresh id (if created)
