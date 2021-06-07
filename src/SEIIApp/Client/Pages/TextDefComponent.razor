@@ -6,33 +6,33 @@
 
 @if (ExplanatoryTextDefinitionDto != null)
 {
-<EditForm EditContext="@context" OnSubmit="OnSubmit">
+    <EditForm EditContext="@context" OnSubmit="OnSubmit">
 
-    <label>Course Name</label>
-    <br />
-    <InputText @bind-Value="ExplanatoryTextDefinitionDto.Title" />
-    <br />
+        <label>Course Name</label>
+        <br />
+        <InputText @bind-Value="ExplanatoryTextDefinitionDto.Title" />
+        <br />
 
-    <label>insert the text here</label>
-    <br />
-    <InputTextArea cols="100" rows="20" @bind-Value="ExplanatoryTextDefinitionDto.ContentText" />
-</EditForm>
-       
+        <label>insert the text here</label>
+        <br />
+        <InputTextArea cols="100" rows="20" @bind-Value="ExplanatoryTextDefinitionDto.ContentText" />
+    </EditForm>
+
     <button class="btn btn-light" @onclick="SaveTextToBackend">Save Complete Text Element</button>
 
- }
-        else
-        {
-        <h5>Text definition in loading (or not found) ...</h5>
-        }
+}
+else
+{
+    <h5>Text definition in loading (or not found) ...</h5>
+}
 
-        @code{
-            [Parameter]
-            public int id { get; set; }
+@code{
+    [Parameter]
+    public int id { get; set; }
 
-            public int courseId = 1;
+    public int courseId = 1;
 
-            public int chapterId = 1;
+    public int chapterId = 1;
     public ChapterElementDefinitionDto ChapterElementDefinitionDto { get; set; }
     public ExplanatoryTextDefinitionDto ExplanatoryTextDefinitionDto { get; set; }
     private EditContext context { get; set; }
@@ -60,10 +60,10 @@
     }
 
 
-            private void OnSubmit(EditContext context)
-            {
+    private void OnSubmit(EditContext context)
+    {
 
-            }
+    }
 
     private async void SaveTextToBackend()
     {
@@ -78,4 +78,4 @@
         }
     }
 
-        }
+}

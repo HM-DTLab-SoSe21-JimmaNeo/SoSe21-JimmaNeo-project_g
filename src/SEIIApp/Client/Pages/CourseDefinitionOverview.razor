@@ -8,6 +8,9 @@
     <ol>
         @foreach (var course in Courses)
         {
+            // for the moment we can leave this in the original standart, but on longterm we have to change it back
+//          <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete</button></li>
+
             <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete</button></li>
         }
     </ol>

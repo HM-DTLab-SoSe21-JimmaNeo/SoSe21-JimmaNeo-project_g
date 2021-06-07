@@ -6,19 +6,22 @@ using System.Globalization;
 namespace SEIIApp.Shared.DomainTdo
 {
 
-    public class LoginDto
+    public class AuthDefinitionDto
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
-        public String userName { get; set; }
-        public String Password { get; set; }
+        public String UserName { get; set; }
 
-        public String Role { get; set; }
-
-
+        public RoleType Role { get; set; }
     }
 
+    public class LoginDto : AuthDefinitionDto
+    {
+
+        public String Password { get; set; }
+
+    }
 
 }

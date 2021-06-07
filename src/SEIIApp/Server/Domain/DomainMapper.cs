@@ -89,8 +89,11 @@ namespace SEIIApp.Server.Domain
             CreateMap<PictureDefinitionDto, PictureDefinition>();
             CreateMap<PictureDefinition, PictureDefinition>();
 
-            CreateMap<Authentifizierung, LoginDto>();
-            CreateMap<LoginDto, Authentifizierung>();
+            CreateMap<AuthDefinition, LoginDto>();
+            CreateMap<LoginDto, AuthDefinition>();
+
+            CreateMap<AuthDefinition, AuthDefinitionDto>();
+            CreateMap<AuthDefinitionDto, AuthDefinition>();
 
 
             // Mapping that shouldnt exist...
@@ -103,6 +106,27 @@ namespace SEIIApp.Server.Domain
             CreateMap<UltimateChapterElementDefinitionDto, UltimateChapterElementDefinition>()
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
             CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinition>();
+
+            // Mapping for User
+            CreateMap<UserDefinition, UserDefinition>();
+            CreateMap<UserDefinitionDto, UserDefinition>();
+            CreateMap<UserDefinitionBaseDto, UserDefinition>();
+            CreateMap<UserDefinition, UserDefinitionBaseDto>();
+            CreateMap<UserDefinition, UserDefinitionDto>();
+
+            CreateMap<UserDefinition, UserDefinitionBaseDto>()
+                .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToArray()));
+            CreateMap<UserDefinitionBaseDto, UserDefinition>()
+                .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToList()));
+
+            CreateMap<UserDefinition, UserDefinitionDto>()
+                .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToArray()))
+                .ForMember(user => user.AsignedCourses, opts => opts.MapFrom(obj => obj.AsignedCourses.ToArray()));
+
+            CreateMap<UserDefinitionDto, UserDefinition>()
+                .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToList()))
+                .ForMember(user => user.AsignedCourses, opts => opts.MapFrom(obj => obj.AsignedCourses.ToList()));
+
         }
 
     }

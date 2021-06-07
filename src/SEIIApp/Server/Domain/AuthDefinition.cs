@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SEIIApp.Shared.DomainTdo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +7,7 @@ namespace SEIIApp.Server.Domain
 {
 
     // Represents the XXX
-    public class Authentifizierung
+    public class AuthDefinition
     {
 
         [Key]
@@ -16,7 +17,7 @@ namespace SEIIApp.Server.Domain
 
         public String Password { get; set; }
 
-        public String Role { get; set; }
+        public RoleType Role { get; set; }
 
 
     }

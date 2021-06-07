@@ -1,4 +1,5 @@
 ﻿@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.BiscuitService BiscuitService
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Alexandria</a>
@@ -67,8 +68,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
-        var courses = await CourseDefinitionService.GetCourseOverview();
-        this.Courses = courses;
+        this.Courses = BiscuitService.User.AsignedCourses;
     }
 }

@@ -30,7 +30,7 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Shared.DomainTdo.LoginDto> GetRole([FromRoute] string username) {
 
-            var auth = DataAccess.TestDataGenerator.CreateAuthentifizierung("dummy", "dummy", "dummy");
+            var auth = DataAccess.TestDataGenerator.CreateAuthentifizierung("dummy", "dummy", RoleType.Student);
 
             if (username.Contains("$"))
             {
@@ -63,7 +63,7 @@ namespace SEIIApp.Server.Controllers {
             if (ModelState.IsValid)
             {
 
-                var mappedModel = Mapper.Map<Authentifizierung>(model);
+                var mappedModel = Mapper.Map<AuthDefinition>(model);
 
                 if (model.Id == 0)
                 { //add

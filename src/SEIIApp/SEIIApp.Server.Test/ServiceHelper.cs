@@ -30,9 +30,10 @@ namespace SEIIApp.Server.Test {
 
             //Add other services that should be added to the collection
             services.AddScoped<Services.CourseDefinitionService>();
-            services.AddScoped<Services.QuizDefinitionService>();
             services.AddScoped<Services.ChapterDefinitionService>();
             services.AddScoped<Services.ChapterElementDefinitionService>();
+            services.AddScoped<Services.UserDefinitionService>();
+
         }
 
         private static IServiceProvider GetServiceProvider(IServiceCollection serviceCollection) {

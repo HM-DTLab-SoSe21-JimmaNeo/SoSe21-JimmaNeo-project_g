@@ -1,0 +1,128 @@
+﻿@page "/useredit/{id:int}"
+
+@inject Services.UserDefinitionBackendService UserService
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject NavigationManager NavigationManager
+
+<h3>User Information</h3>
+
+@if (UserDefinitionDto != null)
+{
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
+
+    <h4>Name</h4>
+    <InputText @bind-Value="UserDefinitionDto.AuthDefinitions[0].UserName" />
+    <br />
+
+    <h4>Email</h4>
+    <InputText @bind-Value="UserDefinitionDto.Email" />
+    <br />
+    <h4>Description</h4>
+    <InputTextArea cols="40" rows="4" @bind-Value="UserDefinitionDto.Description" />
+    <br />
+
+    <h6>Asigned Courses</h6>
+    @if (UserDefinitionDto.AuthDefinitions[0].Role == RoleType.Admin || UserDefinitionDto.AuthDefinitions[0].Role == RoleType.Teacher)
+    {
+        @if (UserDefinitionDto.AsignedCourses?.Length > 0)
+        {
+            <ol>
+                @foreach (var course in UserDefinitionDto.AsignedCourses)
+                {
+                    <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete</button></li>
+                }
+            </ol>
+
+            <button @onclick="AddCourse">Add Course</button>
+        }
+        else
+        {
+            <h6>Loading ...  or no courses found.</h6>
+        }
+    }
+    else
+    {
+        @foreach (var course in UserDefinitionDto.AsignedCourses)
+        {
+            <li>@(course.CourseName)</li>
+        }
+    }
+    <br />
+
+    <button class="btn btn-light" @onclick="SaveUserToBackend">Save User</button>
+
+
+
+</EditForm>
+
+
+}
+else
+{
+    <h5>User in loading (or not found) ...</h5>
+}
+
+@code{
+    [Parameter]
+    public int id { get; set; }
+
+
+    public UserDefinitionDto UserDefinitionDto { get; set; }
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (id != 0)
+        {
+            var existingElement = await UserService.GetUserById(id);
+            UserDefinitionDto existingUser = (UserDefinitionDto)existingElement;
+            PrepareEditOrAddOfUser(existingUser);
+        }
+        else
+        {
+            PrepareEditOrAddOfUser(new UserDefinitionDto());
+        }
+        await base.OnParametersSetAsync();
+
+        context = new EditContext(UserDefinitionDto);
+    }
+
+    private void PrepareEditOrAddOfUser(UserDefinitionDto c)
+    {
+        this.UserDefinitionDto = c;
+    }
+
+
+    private void OnSubmit(EditContext context)
+    {
+
+    }
+
+    private async void SaveUserToBackend()
+    {
+        var isValid = context.Validate();
+        if (isValid)
+        {
+            var answer = await UserService.AddOrUpdateUser(UserDefinitionDto);
+            if (answer != null)
+            {
+                this.UserDefinitionDto.UserId = answer.UserId; //refresh id (if created)
+            }
+        }
+    }
+
+    private void EditCourse(CourseDefinitionBaseDto course)
+    {
+        NavigationManager.NavigateTo("/coursedefedit/" + course.CourseId);
+    }
+
+    private void AddCourse()
+    {
+        NavigationManager.NavigateTo("/coursedefedit/0");
+    }
+
+    private async Task DeleteCourse(CourseDefinitionBaseDto course)
+    {
+        await CourseDefinitionService.DeleteCourse(course.CourseId);
+    }
+}
