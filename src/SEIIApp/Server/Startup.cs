@@ -83,7 +83,7 @@ namespace SEIIApp.Server {
             services.AddScoped<Services.CourseDefinitionService>();
             services.AddScoped<Services.ChapterDefinitionService>();
             services.AddScoped<Services.ChapterElementDefinitionService>();
-
+            services.AddScoped<Services.UserDefinitionService>();
             services.AddScoped<Services.LoginService>();
 
 
@@ -98,8 +98,8 @@ namespace SEIIApp.Server {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.CourseDefinitionService courseDefinitionService,
-            Services.ChapterDefinitionService chapterDefinitionService, Services.ChapterElementDefinitionService chapterElementDefinitionService, Services.LoginService loginService) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Services.CourseDefinitionService courseDefinitionService, Services.ChapterDefinitionService chapterDefinitionService, 
+            Services.ChapterElementDefinitionService chapterElementDefinitionService, Services.LoginService loginService, Services.UserDefinitionService userDefinitionService) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
@@ -142,7 +142,7 @@ namespace SEIIApp.Server {
 #if DEBUG
             //*******************************************************************
             //*** Initialisierung von Test-Daten, nur bei In-Memory-DB **********
-            TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService, loginService);
+            TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService, loginService, userDefinitionService);
 #endif
 
         }

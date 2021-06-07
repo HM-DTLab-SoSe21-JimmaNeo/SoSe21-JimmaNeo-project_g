@@ -107,6 +107,41 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.UsersController.GetUser(System.Int32)">
+            <summary>
+            Return the User with the given id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UsersController.GetUserByAuth(SEIIApp.Shared.DomainTdo.LoginDto)">
+            <summary>
+            Return the User with the given id.
+            </summary>
+            <param name="loginDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UsersController.GetAllUsers">
+            <summary>
+            Returns all users.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UsersController.AddOrUpdateUser(SEIIApp.Shared.DomainTdo.UserDefinitionDto,System.Int32)">
+            <summary>
+            Adds or updates a user definition.
+            </summary>
+            <param name="model"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UsersController.DeleteUser(System.Int32)">
+            <summary>
+            Removes a User.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateCourseDefinition(System.String)">
             <summary>
             Creates a test course definition, which is visible and has a name.
@@ -137,10 +172,10 @@
             Creates a test video definition, with a descreption and a dummy URI.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateAuthentifizierung(System.String,System.String,System.String)">
+        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateAuthentifizierung(System.String,System.String,SEIIApp.Shared.DomainTdo.RoleType)">
             Authentifizierung
         </member>
-        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService,SEIIApp.Server.Services.LoginService)">
+        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService,SEIIApp.Server.Services.LoginService,SEIIApp.Server.Services.UserDefinitionService)">
             <summary>
             Initialze test data (just for in-memory database)
                --> IMPORTANT: when the testdata isnt really correctly instantiated, the error that follows isn't really
@@ -234,9 +269,34 @@
             Returns the course with the given role. Includes also chapters.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.Services.LoginService.AddAuth(SEIIApp.Server.Domain.Authentifizierung)">
+        <member name="M:SEIIApp.Server.Services.LoginService.AddAuth(SEIIApp.Server.Domain.AuthDefinition)">
             <summary>
             Adds a chapter.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.GetAllUsers">
+            <summary>
+            Returns all Users. Includes also the courses.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.GetUserById(System.Int32)">
+            <summary>
+            Returns the User with the given id. Includes also courses.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.AddUser(SEIIApp.Server.Domain.UserDefinition)">
+            <summary>
+            Adds a User.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.UpdateUser(SEIIApp.Server.Domain.UserDefinition)">
+            <summary>
+            Updates a User.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.RemoveUser(SEIIApp.Server.Domain.UserDefinition)">
+            <summary>
+            Removes a User and all dependencies.
             </summary>
         </member>
     </members>

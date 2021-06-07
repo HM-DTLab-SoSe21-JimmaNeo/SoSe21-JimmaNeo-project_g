@@ -2,6 +2,7 @@
 using SEIIApp.Server.Domain;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
+using SEIIApp.Shared.DomainTdo;
 
 namespace SEIIApp.Server.DataAccess {
 
@@ -100,17 +101,26 @@ namespace SEIIApp.Server.DataAccess {
 
 
         /// Authentifizierung
-        public static Authentifizierung CreateAuthentifizierung(String userName, String password, String role)
+        public static AuthDefinition CreateAuthentifizierung(String userName, String password, RoleType role)
         {
-            var newAuth = new Authentifizierung();
+            var newAuth = new AuthDefinition();
             newAuth.UserName = userName;
             newAuth.Password = password;
             newAuth.Role = role;
 
             return newAuth;
+
         }
 
+        public static UserDefinition CreateUser(String email)
+        {
+            var userDefinition = new UserDefinition();
+            userDefinition.Description = "Lorem ipsum";
+            userDefinition.Email = email;
+            userDefinition.AsignedCourses = new List<CourseDefinition>();
+            userDefinition.AuthDefinitions = new List<AuthDefinition>();
 
-
+            return userDefinition;
+        }
     }
 }

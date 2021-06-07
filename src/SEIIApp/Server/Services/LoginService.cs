@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SEIIApp.Server.DataAccess;
 using SEIIApp.Server.Domain;
 using System.Linq;
+using SEIIApp.Shared.DomainTdo;
 
 namespace SEIIApp.Server.Services {
     public class LoginService {
@@ -18,25 +19,25 @@ namespace SEIIApp.Server.Services {
         /// <summary>
         /// Returns the course with the given role. Includes also chapters.
         /// </summary>
-        public String GetRole(String userName, String password) {
+        public RoleType GetRole(String userName, String password) {
 
-            var result = (from auth in DatabaseContext.Authentifizierungen where auth.UserName == userName && auth.Password == password select auth.Role).FirstOrDefault();
+            var result = (from auth in DatabaseContext.AuthDefinitions where auth.UserName == userName && auth.Password == password select auth.Role).FirstOrDefault();
             return result;
 
         }
 
-        public Authentifizierung GetAuth(String userName, String password)
+        public AuthDefinition GetAuth(String userName, String password)
         {
 
-            var result = (from auth in DatabaseContext.Authentifizierungen where auth.UserName == userName && auth.Password == password select auth).FirstOrDefault();
+            var result = (from auth in DatabaseContext.AuthDefinitions where auth.UserName == userName && auth.Password == password select auth).FirstOrDefault();
             return result;
 
         }
 
-        public Authentifizierung GetAuth(int id)
+        public AuthDefinition GetAuth(int id)
         {
 
-            var result = (from auth in DatabaseContext.Authentifizierungen where auth.Id == id select auth).FirstOrDefault();
+            var result = (from auth in DatabaseContext.AuthDefinitions where auth.Id == id select auth).FirstOrDefault();
             return result;
 
         }
@@ -44,11 +45,11 @@ namespace SEIIApp.Server.Services {
         /// <summary>
         /// Adds a chapter.
         /// </summary>
-        public Authentifizierung AddAuth(Authentifizierung auth)
+        public AuthDefinition AddAuth(AuthDefinition auth)
         {
             try
             {
-                DatabaseContext.Authentifizierungen.Add(auth);
+                DatabaseContext.AuthDefinitions.Add(auth);
                 DatabaseContext.SaveChanges();
             } catch (Exception ex)
             {

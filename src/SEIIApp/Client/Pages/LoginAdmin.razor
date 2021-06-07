@@ -1,5 +1,5 @@
-﻿@page "/home/{Role:int}"
-@inject Services.LoginBackendAccessService LoginService
+﻿@page "/home/{Role:int}/{UserId:int}"
+@inject Services.UserDefinitionBackendService UserService
 
 @{ 
     if (Role == 1)
@@ -99,8 +99,10 @@
 
     [Parameter]
     public int Role { get; set; }
+    [Parameter]
+    public int UserId { get; set; }
     public String Username { get; set; }
-    public String RoleUser { get; set; }
+    public RoleType RoleUser { get; set; }
 
     private EditContext context { get; set; }
 
@@ -110,12 +112,12 @@
 
         int request = Role;
 
-        LoginDto login = await LoginService.GetLoginById(request);
+        int userId = UserId;
 
-        Username = login.userName;
-        RoleUser = login.Role;
+        UserDefinitionDto user = await UserService.GetUserById(UserId);
 
-
+        Username = user.AuthDefinitions[0].UserName;
+        RoleUser = user.AuthDefinitions[0].Role;
 
     }
 

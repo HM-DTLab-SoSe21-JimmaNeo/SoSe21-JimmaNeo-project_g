@@ -94,7 +94,7 @@
 
     public int Role = 1;
     public String Username { get; set; }
-    public String RoleUser { get; set; }
+    public RoleType RoleUser { get; set; }
 
     private EditContext context { get; set; }
 
@@ -106,7 +106,7 @@
 
         LoginDto login = await LoginService.GetLoginById(request);
 
-        Username = login.userName;
+        Username = login.UserName;
         RoleUser = login.Role;
 
 

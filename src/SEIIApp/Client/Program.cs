@@ -23,6 +23,8 @@ namespace SEIIApp.Client {
             builder.Services.AddScoped<Services.PictureElementDefinitionBackendAccessService>();
             builder.Services.AddScoped<Services.VideoElementDefinitionBackendAccessService>();
             builder.Services.AddScoped<Services.LoginBackendAccessService>();
+            builder.Services.AddScoped<Services.UserDefinitionBackendService>();
+            builder.Services.AddScoped<Services.BiscuitService>();
 
             await builder.Build().RunAsync();
         }

@@ -1,8 +1,9 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
 @inject Services.LoginBackendAccessService LoginService
+@inject Services.UserDefinitionBackendService UserService
 @layout MainLayoutBlank
-
+@inject Services.BiscuitService bisquitService
 <!doctype html>
 <html>
 <head>
@@ -137,7 +138,6 @@
 }
 
 
-
 @code {
 
     public String username { get; set; }
@@ -147,7 +147,7 @@
 
     private async void LoginAbfrage()
     {
-        String role = null;
+        RoleType role;
         String user = null;
         isLoginMessage = false;
         isLoginTest = false;
@@ -159,14 +159,37 @@
             try
             {
                 LoginDto login = await LoginService.GetLoginByUserPassword(username, password);
-                user = login.userName;
+                user = login.UserName;
 
                 role = login.Role;
 
-                int param = login.Id;
+                int param = 0;
 
-                NavigationManager.NavigateTo("/home/" + param);
+                UserDefinitionDto userDto = await UserService.GetUserByAuth(login);
 
+                int userId = userDto.UserId;
+
+                switch (role)
+                {
+                    case RoleType.Admin:
+                        param = 1;
+                        break;
+                    case RoleType.Student:
+                        param = 2;
+                        break;
+                    case RoleType.Teacher:
+                        param = 1;
+                        break;
+                    default:
+                        param = 1;
+                        break;
+                }
+
+                bisquitService.User = userDto;
+
+                NavigationManager.NavigateTo("/home/" + param + "/" + userId);
+
+                
             }
             catch (Exception e)
             {
