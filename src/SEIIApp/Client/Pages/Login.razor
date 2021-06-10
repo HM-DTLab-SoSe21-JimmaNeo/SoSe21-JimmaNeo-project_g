@@ -3,115 +3,65 @@
 @layout MainLayout;
 
 
-<!doctype html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="jumbotron.css" rel="stylesheet">
-</head>
 
-<body>
-
-    <main role="main">
-
-
-        @*@if (Role == 1 || Role == 2)
-        {
-            <div class="alert alert-success d-flex align-items-center" role="alert">
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                </svg>
-
-                <div>
-                    Du bist jetzt als @RoleUser angemeldet.
-                </div>
-
-                @if (Role == 1)
-                {
-                    <div>
-                        Du kannst nun sowohl Kurse erstellen als auch nutzen.
-                    </div>
-                }
-                else
-                {
-                    <div>
-                        Du kannst nun alle bereits erstellten Kurse nutzen.
-                    </div>
-                }
-
-
-            </div>
-        }*@
-
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="display-3">Welcome to Alexandria, @Username!</h1>
-                <p>Share Knowledge and improve your Knowledge !</p>
-                <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
-            </div>
-        </div>
-
-
+    <div class="jumbotron">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-secondary" role="button">View details &raquo;</a></p>
-                </div>
-                <div class="col-md-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-secondary" role="button">View details &raquo;</a></p>
-                </div>
-                <div class="col-md-4">
-                    <h2>Heading</h2>
-                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                    <p><a class="btn btn-secondary" role="button">View details &raquo;</a></p>
-                </div>
+            <h1 class="display-3">Welcome to Alexandria, @Username!</h1>
+            <p>Share Knowledge and improve your Knowledge !</p>
+            <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-secondary" role="button">View details &raquo;</a></p>
             </div>
-
-            <hr>
-
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-secondary" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-secondary" role="button">View details &raquo;</a></p>
+            </div>
         </div>
 
-    </main>
+        <hr>
+
+    </div>
+
 
     <footer class="container">
         <p>&copy; Alexandria 2021</p>
     </footer>
 
-</body>
 
 
-@code {
+    @code {
 
-    public int Role = 1;
-    public String Username { get; set; }
-    public RoleType RoleUser { get; set; }
+        public int Role = 1;
+        public String Username { get; set; }
+        public RoleType RoleUser { get; set; }
 
-    private EditContext context { get; set; }
+        private EditContext context { get; set; }
 
 
-    protected override async Task OnParametersSetAsync()
-    {
+        protected override async Task OnParametersSetAsync()
+        {
 
-        int request = Role;
+            int request = Role;
 
-        LoginDto login = await LoginService.GetLoginById(request);
+            LoginDto login = await LoginService.GetLoginById(request);
 
-        Username = login.UserName;
-        RoleUser = login.Role;
+            Username = login.UserName;
+            RoleUser = login.Role;
 
+        }
 
 
     }
-
-
-}
