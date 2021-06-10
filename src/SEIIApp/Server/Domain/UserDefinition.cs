@@ -4,9 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SEIIApp.Server.Domain {
+namespace SEIIApp.Server.Domain
+{
 
-    public class UserDefinition {
+    // Represents a user.
+    public class UserDefinition
+    {
 
         [Key]
         public int UserId { get; set; }

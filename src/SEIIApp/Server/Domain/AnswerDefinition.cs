@@ -4,9 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SEIIApp.Server.Domain {
+namespace SEIIApp.Server.Domain
+{
 
-    public class AnswerDefinition {
+    // Represents an answer of a question of a quiz chapter element.
+    public class AnswerDefinition
+    {
 
         [Key]
         public int Id { get; set; }
@@ -14,7 +17,6 @@ namespace SEIIApp.Server.Domain {
         public string AnswerText { get; set; }
 
         public bool IsCorrectAnswer { get; set; }
-
 
     }
 

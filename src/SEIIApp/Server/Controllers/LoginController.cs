@@ -5,22 +5,25 @@ using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
 
-namespace SEIIApp.Server.Controllers {
+namespace SEIIApp.Server.Controllers
+{
 
     [ApiController]
     [Route("api/login")]
-    public class LoginController : ControllerBase {
-       
+    public class LoginController : ControllerBase
+    {
+
         private LoginService LoginService { get; set; }
         private IMapper Mapper { get; set; }
 
-        public LoginController(LoginService LoginService, IMapper mapper) {
-            this.LoginService = LoginService;
+        public LoginController(LoginService loginService, IMapper mapper)
+        {
+            this.LoginService = loginService;
             this.Mapper = mapper;
         }
 
         /// <summary>
-        /// Return the quiz with the given id.
+        /// Return the login with the given id.
         /// </summary>
         /// <param userName="username"></param>
         /// <returns></returns>
@@ -28,7 +31,8 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Shared.DomainTdo.LoginDto> GetRole([FromRoute] string username) {
+        public ActionResult<Shared.DomainTdo.LoginDto> GetRole([FromRoute] string username)
+        {
 
             var auth = DataAccess.TestDataGenerator.CreateAuthentifizierung("dummy", "dummy", RoleType.Student);
 
@@ -51,7 +55,7 @@ namespace SEIIApp.Server.Controllers {
 
 
         /// <summary>
-        /// Adds or updates a course definition.
+        /// Adds or updates a login definition.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -101,4 +105,5 @@ namespace SEIIApp.Server.Controllers {
 
 
     }
+
 }

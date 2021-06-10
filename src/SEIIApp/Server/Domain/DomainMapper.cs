@@ -17,7 +17,7 @@ namespace SEIIApp.Server.Domain
         public DomainMapper()
         {
 
-            // Mapping for COURSE_DEFINITION (plus instructions)
+            // Mapping for COURSE_DEFINITION (plus instructions).
             // First, map data to dataDto!
             CreateMap<CourseDefinition, CourseDefinitionBaseDto>();
             CreateMap<CourseDefinitionBaseDto, CourseDefinition>();
@@ -30,7 +30,7 @@ namespace SEIIApp.Server.Domain
                 .ForMember(courseObj => courseObj.Chapters, opts => opts.MapFrom(obj => obj.Chapters.ToList()));
 
 
-            // Mapping for CHAPTER_DEFINITION
+            // Mapping for CHAPTER_DEFINITION.
             CreateMap<ChapterDefinition, ChapterDefinitionBaseDto>();
             CreateMap<ChapterDefinitionBaseDto, ChapterDefinition>();
             CreateMap<ChapterDefinition, ChapterDefinition>();
@@ -41,13 +41,13 @@ namespace SEIIApp.Server.Domain
                 .ForMember(chapterObj => chapterObj.ChapterElements, opt => opt.MapFrom(dto => dto.ChapterElements.ToList()));
 
 
-            // Mapping for CHAPTER_ELEMENT_DEFINITION
+            // Mapping for CHAPTER_ELEMENT_DEFINITION.
             CreateMap<ChapterElementDefinition, ChapterElementDefinitionDto>();
             CreateMap<ChapterElementDefinitionDto, ChapterElementDefinition>();
             CreateMap<ChapterElementDefinition, ChapterElementDefinition>();
 
 
-            // Mapping for QUIZ_DEFINITION
+            // Mapping for QUIZ_DEFINITION.
             CreateMap<QuizDefinition, QuizDefinitionBaseDto>();
             CreateMap<QuizDefinitionBaseDto, QuizDefinition>();
             CreateMap<QuizDefinition, QuizDefinition>();
@@ -58,7 +58,7 @@ namespace SEIIApp.Server.Domain
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
 
 
-            // Mapping for QUESTION_DEFINITION
+            // Mapping for QUESTION_DEFINITION.
             CreateMap<QuestionDefinition, QuestionDefinitionDto>()
                 .ForMember(questionDto => questionDto.Answers, opt => opt.MapFrom(obj => obj.Answers.ToArray()));
             CreateMap<QuestionDefinitionDto, QuestionDefinition>()
@@ -66,7 +66,7 @@ namespace SEIIApp.Server.Domain
             CreateMap<QuestionDefinition, QuestionDefinition>();
 
 
-            // Mapping for ANSWER_DEFINITION
+            // Mapping for ANSWER_DEFINITION.
             CreateMap<AnswerDefinition, AnswerDefinitionDto>();
             CreateMap<AnswerDefinitionDto, AnswerDefinition>();
             CreateMap<AnswerDefinition, AnswerDefinition>();
@@ -78,26 +78,20 @@ namespace SEIIApp.Server.Domain
             CreateMap<ExplanatoryTextDefinition, ExplanatoryTextDefinition>();
 
 
-            // Mapping for VIDEO_DEFINITION
+            // Mapping for VIDEO_DEFINITION.
             CreateMap<VideoDefinition, VideoDefinitionDto>();
             CreateMap<VideoDefinitionDto, VideoDefinition>();
             CreateMap<VideoDefinition, VideoDefinition>();
 
 
-            // Mapping for PICTURE_DEFINITION
+            // Mapping for PICTURE_DEFINITION.
             CreateMap<PictureDefinition, PictureDefinitionDto>();
             CreateMap<PictureDefinitionDto, PictureDefinition>();
             CreateMap<PictureDefinition, PictureDefinition>();
 
-            CreateMap<AuthDefinition, LoginDto>();
-            CreateMap<LoginDto, AuthDefinition>();
-
-            CreateMap<AuthDefinition, AuthDefinitionDto>();
-            CreateMap<AuthDefinitionDto, AuthDefinition>();
-
 
             // Mapping that shouldnt exist...
-            // Mapping for UltimateChapterElementDefinition
+            // Mapping for ULTIMATE_CHAPTER_ELEMENT_DEFINITION.
             CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinitionDto>();
             CreateMap<UltimateChapterElementDefinitionDto, UltimateChapterElementDefinition>();
 
@@ -107,7 +101,8 @@ namespace SEIIApp.Server.Domain
                 .ForMember(quizObj => quizObj.Questions, opts => opts.MapFrom(dto => dto.Questions.ToList()));
             CreateMap<UltimateChapterElementDefinition, UltimateChapterElementDefinition>();
 
-            // Mapping for User
+
+            // Mapping for USER.
             CreateMap<UserDefinition, UserDefinition>();
             CreateMap<UserDefinitionDto, UserDefinition>();
             CreateMap<UserDefinitionBaseDto, UserDefinition>();
@@ -127,7 +122,16 @@ namespace SEIIApp.Server.Domain
                 .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToList()))
                 .ForMember(user => user.AsignedCourses, opts => opts.MapFrom(obj => obj.AsignedCourses.ToList()));
 
+
+            // Mapping for AUTH_DEFINITION.
+            CreateMap<AuthDefinition, LoginDto>();
+            CreateMap<LoginDto, AuthDefinition>();
+
+            CreateMap<AuthDefinition, AuthDefinitionDto>();
+            CreateMap<AuthDefinitionDto, AuthDefinition>();
+
         }
 
     }
+
 }

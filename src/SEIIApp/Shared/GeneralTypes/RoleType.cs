@@ -3,7 +3,7 @@
 namespace SEIIApp.Shared.DomainTdo
 {
 
-    // Contains all types a chapter element can have.
+    // Contains all roles a user can have.
     public enum RoleType
     {
         Admin,      //0

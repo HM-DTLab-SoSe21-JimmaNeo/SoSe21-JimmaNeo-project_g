@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
-using System.Reflection.Metadata;
 
 namespace SEIIApp.Server.Controllers
 {
@@ -15,9 +14,7 @@ namespace SEIIApp.Server.Controllers
     {
 
         private ChapterElementDefinitionService ChapterElementDefinitionService { get; set; }
-
         private ChapterDefinitionService ChapterDefinitionService { get; set; }
-
         private IMapper Mapper { get; set; }
 
         public ChapterElementDefinitionController(ChapterElementDefinitionService chapterElementDefinitionService,
@@ -40,7 +37,7 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Shared.DomainTdo.ChapterDefinitionDto> GetChapter([FromRoute] int courseId,
+        public ActionResult<Shared.DomainTdo.ChapterElementDefinitionDto> GetChapter([FromRoute] int courseId,
             [FromRoute] int chapterId, [FromRoute] int id)
         {
             var element = ChapterElementDefinitionService.GetChapterElementById(id);
@@ -116,7 +113,7 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<ChapterDefinitionDto> AddOrUpdateChapterElement([FromRoute] int courseId,
+        public ActionResult<ChapterElementDefinitionDto> AddOrUpdateChapterElement([FromRoute] int courseId,
             [FromRoute] int chapterId, [FromBody] UltimateChapterElementDefinitionDto model)
         {
 
@@ -210,4 +207,5 @@ namespace SEIIApp.Server.Controllers
         }
 
     }
+
 }

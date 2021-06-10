@@ -5,8 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SEIIApp.Shared.DomainTdo {
-    public class QuestionDefinitionDto {
+namespace SEIIApp.Shared.DomainTdo
+{
+
+    // Data transfer object for the question of a quiz chapter element.
+    public class QuestionDefinitionDto
+    {
 
         [Required]
         [StringLength(250, MinimumLength = 1)]
@@ -16,4 +20,5 @@ namespace SEIIApp.Shared.DomainTdo {
         public AnswerDefinitionDto[] Answers { get; set; }
 
     }
+
 }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SEIIApp.Server.Domain
 {
 
-    // Represents the XXX
+    // Represents an authentification.
     public class AuthDefinition
     {
 
@@ -18,7 +18,6 @@ namespace SEIIApp.Server.Domain
         public String Password { get; set; }
 
         public RoleType Role { get; set; }
-
 
     }
 

@@ -95,14 +95,14 @@
         </member>
         <member name="M:SEIIApp.Server.Controllers.LoginController.GetRole(System.String)">
             <summary>
-            Return the quiz with the given id.
+            Return the login with the given id.
             </summary>
             <param userName="username"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.LoginController.AddAuth(SEIIApp.Shared.DomainTdo.LoginDto)">
             <summary>
-            Adds or updates a course definition.
+            Adds or updates a login definition.
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -191,27 +191,37 @@
         </member>
         <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.GetAllChapters">
             <summary>
-            Returns all chapters. Includes also the chapters.
+            Returns all chapters as an array, also contains the chapter elements of the chapters.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.GetChapterById(System.Int32)">
             <summary>
-            Returns the chapter with the given id. Includes also chapters.
+            Returns the chapter with the given id, also includes the chapter elements of the chapter.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.Addchapter(SEIIApp.Server.Domain.ChapterDefinition)">
             <summary>
-            Adds a chapter.
+            Adds a chapter and returns it.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.UpdateChapter(SEIIApp.Server.Domain.ChapterDefinition)">
             <summary>
-            Updates a chapter.
+            Updates a chapter and returns it.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.ChapterDefinitionService.RemoveChapter(SEIIApp.Server.Domain.ChapterDefinition)">
             <summary>
             Removes a chapter and all dependencies.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterElementDefinitionService.GetQueryableForChapterElementDefinitions">
+            <summary>
+            Returns all chapter elements from the data base.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.ChapterElementDefinitionService.GetQueryableForQuizDefinitions">
+            <summary>
+            Returns all quizes from the data base, including their questions and answers.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.ChapterElementDefinitionService.GetAllChapterElements">
@@ -241,22 +251,22 @@
         </member>
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.GetAllCourses">
             <summary>
-            Returns all courses. Includes also the chapters.
+            Returns all courses as an array, also contains the chapters of the courses.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.GetCourseById(System.Int32)">
             <summary>
-            Returns the course with the given id. Includes also chapters.
+            Returns the course with the given id, also includes the chapters of the course.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.AddCourse(SEIIApp.Server.Domain.CourseDefinition)">
             <summary>
-            Adds a course.
+            Adds a course and returns it.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.UpdateCourse(SEIIApp.Server.Domain.CourseDefinition)">
             <summary>
-            Updates a course.
+            Updates a course and returns it.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.CourseDefinitionService.RemoveCourse(SEIIApp.Server.Domain.CourseDefinition)">
@@ -266,37 +276,52 @@
         </member>
         <member name="M:SEIIApp.Server.Services.LoginService.GetRole(System.String,System.String)">
             <summary>
-            Returns the course with the given role. Includes also chapters.
+            Returns the role type for a given user and password.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.LoginService.GetAuth(System.String,System.String)">
+            <summary>
+            Returns the authentification for a given user and password.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.LoginService.GetAuth(System.Int32)">
+            <summary>
+            Returns the authentification with a given id.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.LoginService.AddAuth(SEIIApp.Server.Domain.AuthDefinition)">
             <summary>
-            Adds a chapter.
+            Adds an authentification.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.UserDefinitionService.GetAllUsers">
             <summary>
-            Returns all Users. Includes also the courses.
+            Returns all users. Includes also the courses.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.UserDefinitionService.GetUserById(System.Int32)">
             <summary>
-            Returns the User with the given id. Includes also courses.
+            Returns the user with the given id. Includes also the courses.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.UserDefinitionService.AddUser(SEIIApp.Server.Domain.UserDefinition)">
             <summary>
-            Adds a User.
+            Adds a user.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.UserDefinitionService.UpdateUser(SEIIApp.Server.Domain.UserDefinition)">
             <summary>
-            Updates a User.
+            Updates a user.
             </summary>
         </member>
         <member name="M:SEIIApp.Server.Services.UserDefinitionService.RemoveUser(SEIIApp.Server.Domain.UserDefinition)">
             <summary>
-            Removes a User and all dependencies.
+            Removes a user and all dependencies.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.GetUserByLogin(SEIIApp.Server.Domain.AuthDefinition)">
+            <summary>
+            Returns the user for a given authentification.
             </summary>
         </member>
     </members>

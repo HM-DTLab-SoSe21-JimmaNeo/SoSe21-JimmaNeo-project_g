@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 
+namespace SEIIApp.Shared.DomainTdo
+{
 
-namespace SEIIApp.Shared.DomainTdo {
-
-    public class CourseDefinitionBaseDto {
+    // Data transfer object for a course.
+    public class CourseDefinitionBaseDto
+    {
 
         public int CourseId { get; set; }
 
@@ -21,10 +22,13 @@ namespace SEIIApp.Shared.DomainTdo {
 
     }
 
-    public class CourseDefinitionDto : CourseDefinitionBaseDto {
+    // Data transfer object for a course which also contains the chapters of the course.
+    public class CourseDefinitionDto : CourseDefinitionBaseDto
+    {
 
         [ValidateComplexType]
         public ChapterDefinitionDto[] Chapters { get; set; }
+
     }
 
 }

@@ -5,21 +5,22 @@ using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
 
-namespace SEIIApp.Server.Controllers {
+namespace SEIIApp.Server.Controllers
+{
 
     [ApiController]
     [Route("api/chapterdefinition")]
-    public class ChapterDefinitionController : ControllerBase {
-       
+    public class ChapterDefinitionController : ControllerBase
+    {
+
         private ChapterDefinitionService ChapterDefinitionService { get; set; }
-
-        private CourseDefinitionService courseDefinitionService { get; set; }
-
+        private CourseDefinitionService CourseDefinitionService { get; set; }
         private IMapper Mapper { get; set; }
 
-        public ChapterDefinitionController(ChapterDefinitionService ChapterDefinitionService, CourseDefinitionService courseDefinitionService, IMapper mapper) {
-            this.ChapterDefinitionService = ChapterDefinitionService;
-            this.courseDefinitionService = courseDefinitionService;
+        public ChapterDefinitionController(ChapterDefinitionService chapterDefinitionService, CourseDefinitionService courseDefinitionService, IMapper mapper)
+        {
+            this.ChapterDefinitionService = chapterDefinitionService;
+            this.CourseDefinitionService = courseDefinitionService;
             this.Mapper = mapper;
         }
 
@@ -34,7 +35,8 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Shared.DomainTdo.ChapterDefinitionDto> GetChapter([FromRoute] int id, [FromRoute] int courseId) {
+        public ActionResult<Shared.DomainTdo.ChapterDefinitionDto> GetChapter([FromRoute] int id, [FromRoute] int courseId)
+        {
             var chapter = ChapterDefinitionService.GetChapterById(id);
             if (chapter == null) return StatusCode(StatusCodes.Status404NotFound);
 
@@ -48,7 +50,8 @@ namespace SEIIApp.Server.Controllers {
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<ChapterDefinitionBaseDto[]> GetAllChapters() {
+        public ActionResult<ChapterDefinitionBaseDto[]> GetAllChapters()
+        {
             var chapters = ChapterDefinitionService.GetAllChapters();
             var mappedChapters = Mapper.Map<ChapterDefinitionDto[]>(chapters);
             return Ok(mappedChapters);
@@ -67,21 +70,25 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<ChapterDefinitionDto> AddOrUpdateChapter([FromBody] ChapterDefinitionDto model, [FromRoute] int courseId) {
+        public ActionResult<ChapterDefinitionDto> AddOrUpdateChapter([FromBody] ChapterDefinitionDto model, [FromRoute] int courseId)
+        {
 
             if (courseId == 0) return Forbid();
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 var mappedModel = Mapper.Map<ChapterDefinition>(model);
 
-                if(model.ChapterId == 0) { //add
+                if (model.ChapterId == 0)
+                { //add
                     mappedModel = ChapterDefinitionService.Addchapter(mappedModel);
-                    CourseDefinition course = courseDefinitionService.GetCourseById(courseId);
+                    CourseDefinition course = CourseDefinitionService.GetCourseById(courseId);
                     course.Chapters.Add(mappedModel);
-                    courseDefinitionService.UpdateCourse(course);
+                    CourseDefinitionService.UpdateCourse(course);
                 }
-                else { //update
+                else
+                { //update
 
                     // Checks if the chapter already exists, else it cant update anything
                     if (ChapterDefinitionService.GetChapterById(mappedModel.ChapterId) == null) return UnprocessableEntity(ModelState);
@@ -104,17 +111,16 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteChapter([FromRoute] int id) {
+        public ActionResult DeleteChapter([FromRoute] int id)
+        {
             var chapter = ChapterDefinitionService.GetChapterById(id);
+
             if (chapter == null) return StatusCode(StatusCodes.Status404NotFound);
 
             ChapterDefinitionService.RemoveChapter(chapter);
             return Ok();
         }
 
-
-
-
-
     }
+
 }

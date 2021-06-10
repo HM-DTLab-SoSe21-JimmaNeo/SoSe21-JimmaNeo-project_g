@@ -6,20 +6,25 @@ using SEIIApp.Server.Domain;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SEIIApp.Server.Services {
-    public class UserDefinitionService {
+namespace SEIIApp.Server.Services
+{
+
+    public class UserDefinitionService
+    {
 
         private DatabaseContext DatabaseContext { get; set; }
         private IMapper Mapper { get; set; }
-
         private LoginService LoginService { get; set; }
-        public UserDefinitionService(DatabaseContext db, IMapper mapper, LoginService loginService) {
+
+        public UserDefinitionService(DatabaseContext db, IMapper mapper, LoginService loginService)
+        {
             this.DatabaseContext = db;
             this.Mapper = mapper;
             this.LoginService = loginService;
         }
 
-        private IQueryable<UserDefinition> GetQueryableForUserDefinitions() {
+        private IQueryable<UserDefinition> GetQueryableForUserDefinitions()
+        {
             return DatabaseContext
                 .UserDefinitions
                 .Include(User => User.AsignedCourses)
@@ -27,25 +32,28 @@ namespace SEIIApp.Server.Services {
         }
 
         /// <summary>
-        /// Returns all Users. Includes also the courses.
+        /// Returns all users. Includes also the courses.
         /// </summary>
-        public UserDefinition[] GetAllUsers() {
+        public UserDefinition[] GetAllUsers()
+        {
             return GetQueryableForUserDefinitions().ToArray();
         }
 
         /// <summary>
-        /// Returns the User with the given id. Includes also courses.
+        /// Returns the user with the given id. Includes also the courses.
         /// </summary>
-        public UserDefinition GetUserById(int id) {
+        public UserDefinition GetUserById(int id)
+        {
             UserDefinition UserDefinition = GetQueryableForUserDefinitions().Where(User => User.UserId == id).FirstOrDefault();
             return UserDefinition;
         }
 
         /// <summary>
-        /// Adds a User.
+        /// Adds a user.
         /// </summary>
-        public UserDefinition AddUser(UserDefinition User) {
-            if(User.AuthDefinitions == null)
+        public UserDefinition AddUser(UserDefinition User)
+        {
+            if (User.AuthDefinitions == null)
             {
                 User.AuthDefinitions = new List<AuthDefinition>();
                 User.AuthDefinitions.Add(new AuthDefinition());
@@ -62,18 +70,17 @@ namespace SEIIApp.Server.Services {
         }
 
         /// <summary>
-        /// Updates a User.
+        /// Updates a user.
         /// </summary>
-        public UserDefinition UpdateUser(UserDefinition User) {
-
+        public UserDefinition UpdateUser(UserDefinition User)
+        {
             User.ChangeDate = DateTime.Now;
 
             // Needed for the change of the username
-            foreach(AuthDefinition authDefinition in User.AuthDefinitions)
+            foreach (AuthDefinition authDefinition in User.AuthDefinitions)
             {
-               authDefinition.Password = LoginService.GetAuth(authDefinition.Id).Password;
+                authDefinition.Password = LoginService.GetAuth(authDefinition.Id).Password;
             }
-
 
             DatabaseContext.UserDefinitions.Update(User);
             DatabaseContext.SaveChanges();
@@ -81,13 +88,17 @@ namespace SEIIApp.Server.Services {
         }
 
         /// <summary>
-        /// Removes a User and all dependencies.
+        /// Removes a user and all dependencies.
         /// </summary>
-        public void RemoveUser(UserDefinition User) {
+        public void RemoveUser(UserDefinition User)
+        {
             DatabaseContext.UserDefinitions.Remove(User);
             DatabaseContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Returns the user for a given authentification.
+        /// </summary>
         public UserDefinition GetUserByLogin(AuthDefinition authDefinition)
         {
             UserDefinition UserDefinition = GetQueryableForUserDefinitions().Where(User => User.AuthDefinitions.Contains(authDefinition)).FirstOrDefault();
@@ -103,5 +114,7 @@ namespace SEIIApp.Server.Services {
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
     }
+
 }

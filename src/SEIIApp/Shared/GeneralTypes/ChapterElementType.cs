@@ -11,4 +11,5 @@ namespace SEIIApp.Shared.DomainTdo
         Picture,    //2
         Video       //3
     }
+
 }
