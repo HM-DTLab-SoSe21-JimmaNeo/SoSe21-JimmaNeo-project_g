@@ -4,94 +4,15 @@
 @inject Services.UserDefinitionBackendService UserService
 @layout MainLayoutBlank
 @inject Services.BiscuitService bisquitService
-<!doctype html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Snippet - BBBootstrap</title>
-    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-            background: linear-gradient(to right, #b92b27, #1565c0)
-        }
 
-        .card {
-            margin-bottom: 20px;
-            border: none
-        }
 
-        .box {
-            width: 500px;
-            padding: 40px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            background: #191919;
-            text-align: center;
-            transition: 0.25s;
-            margin-top: 100px
-        }
-
-            .box input[type="text"],
-            .box input[type="password"] {
-                border: 0;
-                background: none;
-                display: block;
-                margin: 20px auto;
-                text-align: center;
-                border: 2px solid #3498db;
-                padding: 10px 10px;
-                width: 250px;
-                outline: none;
-                color: white;
-                border-radius: 24px;
-                transition: 0.25s
-            }
-
-            .box h1 {
-                color: white;
-                text-transform: uppercase;
-                font-weight: 500
-            }
-
-            .box input[type="text"]:focus,
-            .box input[type="password"]:focus {
-                width: 300px;
-                border-color: #2ecc71
-            }
-
-            .box input[type="submit"] {
-                border: 0;
-                background: none;
-                display: block;
-                margin: 20px auto;
-                text-align: center;
-                border: 2px solid #2ecc71;
-                padding: 14px 40px;
-                outline: none;
-                color: white;
-                border-radius: 24px;
-                transition: 0.25s;
-                cursor: pointer
-            }
-
-                .box input[type="submit"]:hover {
-                    background: #2ecc71
-                }
-    </style>
-
-</head>
-<body oncontextmenu='return false' class='snippet-body'>
+<div oncontextmenu='return false' class="loginscreen">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div class="card">
-                    <form onsubmit="event.preventDefault()" class="box">
+                <div class="card" style=" margin-bottom: 20px; border: none">
+
+                    <form onsubmit="event.preventDefault()" class="boxlogin">
                         <h1>Alexandria</h1>
                         <p class="text-muted"> Logge dich mit deinem Usernamen und Passwort ein!</p>
 
@@ -104,8 +25,8 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+
 
 
 @if (isLoginMessage)
@@ -126,15 +47,18 @@
 
 @if (isLoginTest)
 {
-    <div class="alert alert-danger d-flex align-items-center" role="alert">
+<div class="alert alert-danger d-flex align-items-center" role="alert">
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Danger:">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-        </svg>
-        <div>
-            Leider ist der eingegebene Username oder das Passwort falsch. Probiere es bitte noch einmal.
-        </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Danger:">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+    </svg>
+
+    &nbsp;
+
+    <div>
+        Leider ist der eingegebene Username oder das Passwort falsch. Probiere es bitte noch einmal.
     </div>
+</div>
 }
 
 

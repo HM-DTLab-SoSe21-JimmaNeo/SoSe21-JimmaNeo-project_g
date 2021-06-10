@@ -42,9 +42,119 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+
+/* Homescreen Teacher / Admin */
+
+details {
+    border: 1px solid gainsboro;
+    grid-column: 2 / 3;
+    height: min-content;
+    transition: all .5s;
+    transition: all .5s;
+}
+
+summary {
+    position: relative;
+    line-height: 400%;
+    padding-left: 1em;
+}
+
+details summary {
+    background: rgb(242, 242, 242);
+}
+
+details summary::marker {
+    content: none;
+}
+
+details p {
+    padding: .5em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.faq {
+    padding-top: 1.5em;
+    padding-bottom: 0.5em;
+}
+
+
+/* Loginseite */
+
+.loginscreen {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #b92b27, #1565c0) !important;
+    height: 100vh;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
+    position: absolute;
+}
+
+.boxlogin {
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #191919;
+    text-align: center;
+    transition: 0.25s;
+    margin-top: 100px
+}
+
+.boxlogin input[type="text"],
+.boxlogin input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s
+}
+
+.boxlogin h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.boxlogin input[type="text"]:focus,
+.boxlogin input[type="password"]:focus {
+    width: 300px;
+    border-color: #2ecc71
+}
+
+.boxlogin input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.boxlogin input[type="submit"]:hover {
+    background: #2ecc71
+}

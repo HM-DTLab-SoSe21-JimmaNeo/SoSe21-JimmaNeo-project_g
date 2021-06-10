@@ -1,17 +1,30 @@
 ﻿@inherits LayoutComponentBase
 @inject Services.LoginBackendAccessService LoginService
 @inject Services.BiscuitService BiscuitService
+
+
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+        <NavMenu/>
     </div>
 
     <div class="main">
-        <div class="top-row px-4">
+        <div class="top-row px-4" style=" background: linear-gradient(to right, #b92b27, #1565c0)">
 
             <h2>@(BiscuitService.User.AuthDefinitions[0].Role)</h2>
 
-            <a href="useredit/@(BiscuitService.User.UserId)">@(BiscuitService.User.AuthDefinitions[0].UserName)</a>
+            <div class="userprofile">
+
+                <a class="btn btn-outline-light" href="useredit/@(BiscuitService.User.UserId)" style="border:none" role="button">@(BiscuitService.User.AuthDefinitions[0].UserName)</a>
+
+                &nbsp;
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                </svg>
+
+            </div>
 
         </div>
 
@@ -20,5 +33,3 @@
         </div>
     </div>
 </div>
-
-}
