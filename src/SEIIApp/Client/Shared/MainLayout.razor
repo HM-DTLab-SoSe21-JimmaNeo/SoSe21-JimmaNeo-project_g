@@ -11,11 +11,11 @@
     <div class="main">
         <div class="top-row px-4" style=" background: linear-gradient(to right, #b92b27, #1565c0)">
 
-            <h2>@(BiscuitService.User.AuthDefinitions[0].Role)</h2>
+            <h2>@(BiscuitService.GetUser().Result.AuthDefinitions[0].Role)</h2>
 
             <div class="userprofile">
 
-                <a class="btn btn-outline-light" href="useredit/@(BiscuitService.User.UserId)" style="border:none" role="button">@(BiscuitService.User.AuthDefinitions[0].UserName)</a>
+                <a class="btn btn-outline-light" href="useredit/@(BiscuitService.GetUser().Result.UserId)" style="border:none" role="button">@(BiscuitService.GetUser().Result.AuthDefinitions[0].UserName)</a>
 
                 &nbsp;
 

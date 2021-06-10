@@ -53,8 +53,6 @@ namespace SEIIApp.Client.Services {
 
 
 
-
-
     }
 
 }

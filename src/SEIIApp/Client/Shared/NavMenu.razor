@@ -1,5 +1,4 @@
-﻿@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
-@inject Services.BiscuitService BiscuitService
+﻿@inject Services.BiscuitService BiscuitService
 
 <div class="top-row pl-4 navbar navbar-dark" style="background-color: #b92b27;">
     <a class="navbar-brand" href="">Alexandria</a>
@@ -14,27 +13,23 @@
     <ul class="nav flex-column">
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/home/1" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
+
             <NavLink class="nav-link" href="coursedef">
                 <span class="oi oi-align-center" aria-hidden="true"></span> Course Management
             </NavLink>
         </li>
         @{
-            if (Courses != null)
-            {
-                foreach (var q in Courses)
+                if (Courses != null)
                 {
-                    <li class="nav-item px-3">
-                        <a class="nav-link" href="/coursedefedit/ @(q.CourseId)">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> @(q.CourseName)
-                        </a>
-                    </li>
+                    foreach (var q in Courses)
+                    {
+                        <li class="nav-item px-3">
+                            <a class="nav-link" href="/coursedefedit/ @(q.CourseId)">
+                                <span class="oi oi-list-rich" aria-hidden="true"></span> @(q.CourseName)
+                            </a>
+                        </li>
+                    }
                 }
-            }
         }
 
         <li class="nav-item px-3">
@@ -44,7 +39,8 @@
         </li>
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedef"> <!--//TODO Funktion kurs verlassen hinterlegen-->
+            <NavLink class="nav-link" href="coursedef">
+                <!--//TODO Funktion kurs verlassen hinterlegen-->
                 <span class="oi oi-account-login" aria-hidden="true"></span> Kurs verlassen
             </NavLink>
         </li>
@@ -56,10 +52,11 @@
 @code {
     private CourseDefinitionBaseDto[] Courses { get; set; }
 
+    public string userId;
+
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
 
     private void ToggleNavMenu()
     {
@@ -68,6 +65,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        this.Courses = BiscuitService.User.AsignedCourses;
+        var user = await BiscuitService.GetUser();
+        Courses = user.AsignedCourses;
     }
 }

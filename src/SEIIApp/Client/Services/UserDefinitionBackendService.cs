@@ -24,6 +24,11 @@ namespace SEIIApp.Client.Services {
         {
             return $"{GetUserDefinitionUrl()}/{id}";
         }
+        
+        private string GetUserDefinitionUrl(string id)
+        {
+            return $"{GetUserDefinitionUrl()}/{id}";
+        }
 
         private string GetUserByAuthUrl()
         {
@@ -34,6 +39,14 @@ namespace SEIIApp.Client.Services {
         /// Returns a certain user by id
         /// </summary>
         public async Task<UserDefinitionDto> GetUserById(int id)
+        {
+            return await HttpClient.GetFromJsonAsync<UserDefinitionDto>(GetUserDefinitionUrl(id));
+        }
+        
+        /// <summary>
+        /// Returns a certain user by id
+        /// </summary>
+        public async Task<UserDefinitionDto> GetUserById(string id)
         {
             return await HttpClient.GetFromJsonAsync<UserDefinitionDto>(GetUserDefinitionUrl(id));
         }

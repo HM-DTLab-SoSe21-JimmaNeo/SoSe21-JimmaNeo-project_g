@@ -1,7 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
 @inject Services.LoginBackendAccessService LoginService
-@inject Services.UserDefinitionBackendService UserService
 @layout MainLayoutBlank
 @inject Services.BiscuitService bisquitService
 
@@ -89,10 +88,6 @@
 
                 int param = 0;
 
-                UserDefinitionDto userDto = await UserService.GetUserByAuth(login);
-
-                int userId = userDto.UserId;
-
                 switch (role)
                 {
                     case RoleType.Admin:
@@ -109,11 +104,11 @@
                         break;
                 }
 
-                bisquitService.User = userDto;
 
-                NavigationManager.NavigateTo("/home/" + param + "/" + userId);
+                UserDefinitionDto userDto = await bisquitService.UpdateUser(login);
 
-                
+                NavigationManager.NavigateTo(bisquitService.UriBuilderStuff( "/home/" + param, userDto.UserId));
+
             }
             catch (Exception e)
             {

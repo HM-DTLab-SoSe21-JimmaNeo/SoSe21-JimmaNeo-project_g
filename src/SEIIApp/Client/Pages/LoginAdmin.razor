@@ -1,10 +1,10 @@
-﻿@page "/home/{Role:int}/{UserId:int}"
-@inject Services.UserDefinitionBackendService UserService
+﻿@inject Services.BiscuitService BiscuitService
 
 @{ 
+    
     if (Role == 1)
     {
-        @layout MainLayout;
+     //   @layout MainLayout;
     }
 }
 
@@ -204,12 +204,11 @@
 
         int userId = UserId;
 
-        UserDefinitionDto user = await UserService.GetUserById(UserId);
+        UserDefinitionDto user = await BiscuitService.UpdateUser(userId);
 
         Username = user.AuthDefinitions[0].UserName;
         RoleUser = user.AuthDefinitions[0].Role;
 
     }
-
 
 }
