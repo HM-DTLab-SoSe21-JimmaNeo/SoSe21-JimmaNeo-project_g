@@ -13,17 +13,24 @@ namespace SEIIApp.Server.Services
 
         private DatabaseContext DatabaseContext { get; set; }
         private IMapper Mapper { get; set; }
+
         public ChapterElementDefinitionService(DatabaseContext db, IMapper mapper)
         {
             this.DatabaseContext = db;
             this.Mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns all chapter elements from the data base.
+        /// </summary>
         private IQueryable<ChapterElementDefinition> GetQueryableForChapterElementDefinitions()
         {
             return DatabaseContext.ChapterElementDefinitions;
         }
 
+        /// <summary>
+        /// Returns all quizes from the data base, including their questions and answers.
+        /// </summary>
         private IQueryable<QuizDefinition> GetQueryableForQuizDefinitions()
         {
             return DatabaseContext
@@ -49,8 +56,8 @@ namespace SEIIApp.Server.Services
             ChapterElementDefinition chapterElementDefinition = GetQueryableForChapterElementDefinitions()
                 .Where(element => element.Id == id).FirstOrDefault();
 
-            //Is needed to avoid nullpointerexception
-            if(chapterElementDefinition == null)
+            //Is needed to avoid nullpointerexception.
+            if (chapterElementDefinition == null)
             {
                 return null;
             }
@@ -130,4 +137,5 @@ namespace SEIIApp.Server.Services
         }
 
     }
+
 }

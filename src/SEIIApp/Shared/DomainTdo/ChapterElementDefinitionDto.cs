@@ -13,4 +13,5 @@ namespace SEIIApp.Shared.DomainTdo
         public ChapterElementType ChapterElementType { get; set; }
 
     }
+
 }

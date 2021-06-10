@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-
 
 namespace SEIIApp.Shared.DomainTdo
 {
 
+    // Data transfer object for a chapter.
     public class ChapterDefinitionBaseDto
     {
+
         public int ChapterId { get; set; }
 
         [Required]
@@ -22,11 +22,13 @@ namespace SEIIApp.Shared.DomainTdo
 
     }
 
+    // Data transfer object for a chapter which also containins the chapter elements of the chapter.
     public class ChapterDefinitionDto : ChapterDefinitionBaseDto
     {
 
         [ValidateComplexType]
         public ChapterElementDefinitionDto[] ChapterElements { get; set; }
+
     }
 
 }

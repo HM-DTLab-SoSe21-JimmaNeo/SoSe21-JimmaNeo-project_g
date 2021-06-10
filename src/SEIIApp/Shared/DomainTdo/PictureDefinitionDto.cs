@@ -6,7 +6,7 @@ namespace SEIIApp.Shared.DomainTdo
 {
 
     // Data transfer object for the picture chapter element.
-    public class PictureDefinitionDto: ChapterElementDefinitionDto
+    public class PictureDefinitionDto : ChapterElementDefinitionDto
     {
 
         public String Description { get; set; }
@@ -16,4 +16,5 @@ namespace SEIIApp.Shared.DomainTdo
         public Blob Picture { get; set; }
 
     }
+
 }

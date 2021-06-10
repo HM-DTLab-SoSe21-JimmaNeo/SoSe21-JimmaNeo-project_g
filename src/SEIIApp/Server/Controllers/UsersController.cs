@@ -6,20 +6,21 @@ using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
 using System.Collections.Generic;
 
-namespace SEIIApp.Server.Controllers {
+namespace SEIIApp.Server.Controllers
+{
 
     [ApiController]
     [Route("api/users")]
-    public class UsersController : ControllerBase {
-       
+    public class UsersController : ControllerBase
+    {
+
         private UserDefinitionService UserDefinitionService { get; set; }
-
         private IMapper Mapper { get; set; }
-
         private LoginService LoginService { get; set; }
 
-        public UsersController(UserDefinitionService UserDefinitionService, LoginService loginService, IMapper mapper) {
-            this.UserDefinitionService = UserDefinitionService;
+        public UsersController(UserDefinitionService userDefinitionService, LoginService loginService, IMapper mapper)
+        {
+            this.UserDefinitionService = userDefinitionService;
             this.Mapper = mapper;
             this.LoginService = loginService;
         }
@@ -33,7 +34,8 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<UserDefinitionDto> GetUser([FromRoute] int id) {
+        public ActionResult<UserDefinitionDto> GetUser([FromRoute] int id)
+        {
             var User = UserDefinitionService.GetUserById(id);
             if (User == null) return StatusCode(StatusCodes.Status404NotFound);
 
@@ -52,7 +54,8 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<UserDefinitionDto> GetUserByAuth([FromBody] LoginDto loginDto) {
+        public ActionResult<UserDefinitionDto> GetUserByAuth([FromBody] LoginDto loginDto)
+        {
 
             var authDefinition = Mapper.Map<AuthDefinition>(loginDto);
 
@@ -69,7 +72,8 @@ namespace SEIIApp.Server.Controllers {
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<UserDefinitionBaseDto[]> GetAllUsers() {
+        public ActionResult<UserDefinitionBaseDto[]> GetAllUsers()
+        {
             var users = UserDefinitionService.GetAllUsers();
             var mappedUsers = Mapper.Map<UserDefinitionBaseDto[]>(users);
             return Ok(mappedUsers);
@@ -85,18 +89,22 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<UserDefinitionDto> AddOrUpdateUser([FromBody] UserDefinitionDto model, [FromRoute] int userId) {
+        public ActionResult<UserDefinitionDto> AddOrUpdateUser([FromBody] UserDefinitionDto model, [FromRoute] int userId)
+        {
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 var mappedModel = Mapper.Map<UserDefinition>(model);
 
-                if (model.UserId == 0) { //add
+                if (model.UserId == 0)
+                { //add
 
                     mappedModel = UserDefinitionService.AddUser(mappedModel);
 
                 }
-                else { //update
+                else
+                { //update
 
                     // Checks if the User already exists, else it cant update anything
                     if (UserDefinitionService.GetUserById(mappedModel.UserId) == null) return UnprocessableEntity(ModelState);
@@ -119,7 +127,8 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteUser([FromRoute] int id) {
+        public ActionResult DeleteUser([FromRoute] int id)
+        {
             var User = UserDefinitionService.GetUserById(id);
             if (User == null) return StatusCode(StatusCodes.Status404NotFound);
 
@@ -128,4 +137,5 @@ namespace SEIIApp.Server.Controllers {
         }
 
     }
+
 }

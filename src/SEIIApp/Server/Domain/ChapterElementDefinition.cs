@@ -16,4 +16,5 @@ namespace SEIIApp.Server.Domain
         public ChapterElementType ChapterElementType { get; set; }
 
     }
+
 }

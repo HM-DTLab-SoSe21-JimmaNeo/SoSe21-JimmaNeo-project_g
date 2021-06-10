@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace SEIIApp.Shared.DomainTdo
 {
 
-    // Data transfer object for the explanatory text chapter element.
-    public class ExplanatoryTextDefinitionDto: ChapterElementDefinitionDto
+    // Data transfer object for an explanatory text chapter element.
+    public class ExplanatoryTextDefinitionDto : ChapterElementDefinitionDto
     {
 
         [Required]

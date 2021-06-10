@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SEIIApp.Server.Domain
 {
 
-    // Represents the chapters of a course.
+    // Represents a chapter of a course.
     public class ChapterDefinition
     {
 

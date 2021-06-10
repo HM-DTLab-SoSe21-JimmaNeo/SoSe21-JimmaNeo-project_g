@@ -5,8 +5,8 @@ using SEIIApp.Shared.DomainTdo;
 namespace SEIIApp.Server.Domain
 {
 
-    // Represents an picture element for chapters.
-    public class PictureDefinition: ChapterElementDefinition
+    // Represents a picture chapter element.
+    public class PictureDefinition : ChapterElementDefinition
     {
 
         public String Description { get; set; }
@@ -14,4 +14,5 @@ namespace SEIIApp.Server.Domain
         public Blob Picture { get; set; }
 
     }
+
 }

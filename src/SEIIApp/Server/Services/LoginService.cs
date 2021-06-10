@@ -6,44 +6,50 @@ using SEIIApp.Server.Domain;
 using System.Linq;
 using SEIIApp.Shared.DomainTdo;
 
-namespace SEIIApp.Server.Services {
-    public class LoginService {
+namespace SEIIApp.Server.Services
+{
+
+    public class LoginService
+    {
 
         private DatabaseContext DatabaseContext { get; set; }
         private IMapper Mapper { get; set; }
-        public LoginService(DatabaseContext db, IMapper mapper) {
+
+        public LoginService(DatabaseContext db, IMapper mapper)
+        {
             this.DatabaseContext = db;
             this.Mapper = mapper;
         }
 
         /// <summary>
-        /// Returns the course with the given role. Includes also chapters.
+        /// Returns the role type for a given user and password.
         /// </summary>
-        public RoleType GetRole(String userName, String password) {
-
+        public RoleType GetRole(String userName, String password)
+        {
             var result = (from auth in DatabaseContext.AuthDefinitions where auth.UserName == userName && auth.Password == password select auth.Role).FirstOrDefault();
             return result;
-
-        }
-
-        public AuthDefinition GetAuth(String userName, String password)
-        {
-
-            var result = (from auth in DatabaseContext.AuthDefinitions where auth.UserName == userName && auth.Password == password select auth).FirstOrDefault();
-            return result;
-
-        }
-
-        public AuthDefinition GetAuth(int id)
-        {
-
-            var result = (from auth in DatabaseContext.AuthDefinitions where auth.Id == id select auth).FirstOrDefault();
-            return result;
-
         }
 
         /// <summary>
-        /// Adds a chapter.
+        /// Returns the authentification for a given user and password.
+        /// </summary>
+        public AuthDefinition GetAuth(String userName, String password)
+        {
+            var result = (from auth in DatabaseContext.AuthDefinitions where auth.UserName == userName && auth.Password == password select auth).FirstOrDefault();
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the authentification with a given id.
+        /// </summary>
+        public AuthDefinition GetAuth(int id)
+        {
+            var result = (from auth in DatabaseContext.AuthDefinitions where auth.Id == id select auth).FirstOrDefault();
+            return result;
+        }
+
+        /// <summary>
+        /// Adds an authentification.
         /// </summary>
         public AuthDefinition AddAuth(AuthDefinition auth)
         {
@@ -51,16 +57,17 @@ namespace SEIIApp.Server.Services {
             {
                 DatabaseContext.AuthDefinitions.Add(auth);
                 DatabaseContext.SaveChanges();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                
-            }
 
+            }
 
             return auth;
         }
 
 
     }
+
 }

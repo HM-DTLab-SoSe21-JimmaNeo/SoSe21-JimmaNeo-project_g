@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SEIIApp.Shared.DomainTdo {
+namespace SEIIApp.Shared.DomainTdo
+{
 
-    public class QuizDefinitionBaseDto : ChapterElementDefinitionDto {
+    // Data transfer object for a quiz chapter element.
+    public class QuizDefinitionBaseDto : ChapterElementDefinitionDto
+    {
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
@@ -12,8 +15,10 @@ namespace SEIIApp.Shared.DomainTdo {
 
     }
 
-    public class QuizDefinitionDto : QuizDefinitionBaseDto {
-        
+    // Data transfer object for a quiz chapter element which also contains the questions of the quiz.
+    public class QuizDefinitionDto : QuizDefinitionBaseDto
+    {
+
         [ValidateComplexType]
         public QuestionDefinitionDto[] Questions { get; set; }
 

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace SEIIApp.Shared.DomainTdo
 {
+
+    // Data transfer object for a user.
     public class UserDefinitionBaseDto
     {
 
@@ -26,6 +28,7 @@ namespace SEIIApp.Shared.DomainTdo
 
     }
 
+    // Data transfer object for a user which also contains the assigned courses of the user.
     public class UserDefinitionDto : UserDefinitionBaseDto
     {
         public CourseDefinitionBaseDto[] AsignedCourses { get; set; }

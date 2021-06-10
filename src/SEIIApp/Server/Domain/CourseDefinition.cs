@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SEIIApp.Server.Domain {
+namespace SEIIApp.Server.Domain
+{
 
-    public class CourseDefinition{
+    // Represents a course.
+    public class CourseDefinition
+    {
 
         [Key]
         public int CourseId { get; set; }

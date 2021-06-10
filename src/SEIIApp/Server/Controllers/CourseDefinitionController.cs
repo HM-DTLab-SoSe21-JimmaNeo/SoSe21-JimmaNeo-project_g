@@ -5,17 +5,20 @@ using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
 
-namespace SEIIApp.Server.Controllers {
+namespace SEIIApp.Server.Controllers
+{
 
     [ApiController]
     [Route("api/coursedefinition")]
-    public class CourseDefinitionController : ControllerBase {
-       
+    public class CourseDefinitionController : ControllerBase
+    {
+
         private CourseDefinitionService CourseDefinitionService { get; set; }
         private IMapper Mapper { get; set; }
 
-        public CourseDefinitionController(CourseDefinitionService CourseDefinitionService, IMapper mapper) {
-            this.CourseDefinitionService = CourseDefinitionService;
+        public CourseDefinitionController(CourseDefinitionService courseDefinitionService, IMapper mapper)
+        {
+            this.CourseDefinitionService = courseDefinitionService;
             this.Mapper = mapper;
         }
 
@@ -28,7 +31,8 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Shared.DomainTdo.CourseDefinitionDto> GetCourse([FromRoute] int id) {
+        public ActionResult<Shared.DomainTdo.CourseDefinitionDto> GetCourse([FromRoute] int id)
+        {
             var course = CourseDefinitionService.GetCourseById(id);
             if (course == null) return StatusCode(StatusCodes.Status404NotFound);
 
@@ -42,7 +46,8 @@ namespace SEIIApp.Server.Controllers {
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<CourseDefinitionBaseDto[]> GetAllCourses() {
+        public ActionResult<CourseDefinitionBaseDto[]> GetAllCourses()
+        {
             var courses = CourseDefinitionService.GetAllCourses();
             var mappedCourses = Mapper.Map<CourseDefinitionDto[]>(courses);
             return Ok(mappedCourses);
@@ -57,17 +62,21 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        public ActionResult<CourseDefinitionDto> AddOrUpdateCourse([FromBody] CourseDefinitionDto model) {
-            if (ModelState.IsValid) {
+        public ActionResult<CourseDefinitionDto> AddOrUpdateCourse([FromBody] CourseDefinitionDto model)
+        {
+            if (ModelState.IsValid)
+            {
 
                 var mappedModel = Mapper.Map<CourseDefinition>(model);
 
-                if(model.CourseId == 0) { //add
+                if (model.CourseId == 0)
+                { //add
                     mappedModel = CourseDefinitionService.AddCourse(mappedModel);
                 }
-                else { //update
+                else
+                { //update
 
-                    // Checks if the course already exists, else it cant update anything
+                    // Checks if the course already exists, else it cant update anything.
                     if (CourseDefinitionService.GetCourseById(mappedModel.CourseId) == null) return UnprocessableEntity(ModelState);
 
                     mappedModel = CourseDefinitionService.UpdateCourse(mappedModel);
@@ -88,17 +97,16 @@ namespace SEIIApp.Server.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteCourse([FromRoute] int id) {
+        public ActionResult DeleteCourse([FromRoute] int id)
+        {
             var course = CourseDefinitionService.GetCourseById(id);
+
             if (course == null) return StatusCode(StatusCodes.Status404NotFound);
 
             CourseDefinitionService.RemoveCourse(course);
             return Ok();
         }
 
-
-
-
-
     }
+
 }
