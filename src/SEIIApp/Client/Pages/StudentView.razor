@@ -1,0 +1,153 @@
+﻿@page "/studentView"
+@layout MainLayoutUser;
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementBackendService
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.TextElementDefinitionBackendAccessService TextElementBackendService
+
+
+
+@code {
+    /* right now only hard code example
+    public CourseDefinitionBaseDto[] Courses { get; set; }
+    public ChapterDefinitionDto Chapter { get; set; }
+    public ExplanatoryTextDefinitionDto Text { get; set; }
+    int courseId = 1;
+    int chapterId = 1;
+    String textElementTitle;
+    String textElementContent;
+
+    protected override async Task OnParametersSetAsync(){
+
+        Courses = await CourseDefinitionService.GetCourseOverview();
+        await base.OnParametersSetAsync();
+
+        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(courseId, chapterId);
+        await base.OnParametersSetAsync();
+
+
+        //this.Text = await TextElementBackendService.GetTextElementById(1, 1, 2);
+        //await base.OnParametersSetAsync();
+
+        //Task test = textElement(1, 1, 2);
+
+    }
+
+    //protected async Task textElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element ){
+    protected async Task<ExplanatoryTextDefinitionDto> textElement(int eins, int zwei, int drei)
+    {
+        //Text = await TextElementBackendService.GetTextElementById(course.CourseId, Chapter.ChapterId, element.Id);
+
+
+
+        Task<ExplanatoryTextDefinitionDto> TaskText = TextElementBackendService.GetTextElementById(1, 1, 2);
+        Text = await TaskText;
+
+        Console.WriteLine("Title Text: " + Text.Title);
+        Console.WriteLine("Inhalt Text: " + Text.ContentText);
+
+        return Text;
+        //await this.Text;
+        //ExplanatoryTextDefinitionDto textRueckgabe = await TextElementBackendService.GetTextElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        //textElementTitle = textRueckgabe.Title;
+        //textElementContent = textRueckgabe.ContentText;
+
+        /*textElementTitle = Text.Title;
+        textElementContent = Text.ContentText;
+
+    }
+        }
+
+@{ if (Courses?.Length > 0){
+
+        <!-- Ausgabe der Kapitel-->
+        @foreach (var course in Courses){
+            <ol>
+                <li>@(course.CourseName) </li>
+                    <li>
+                        <ul>
+                            @{ if (Chapter != null && Chapter.ChapterElements != null)
+                                {
+                                    if (Chapter.ChapterElements.Length > 0)
+                                    {
+                                        @foreach (var element in Chapter.ChapterElements)
+                                        {
+                                            if (element.ChapterElementType.Equals(ChapterElementType.Text))
+                                            {
+                                                //var rueckgabeTextElement = textElement(course, Chapter, element);
+                                                //rueckgabeTextElement.Wait();
+
+                                                //<li>Titel: @textElementContent <br /></li>
+                                                Task<ExplanatoryTextDefinitionDto> textTask = textElement(1, 1, 2);
+
+                                                if (Text != null){
+
+                                                    <p> HIER WÜRDE EIN TEXT ELEMENT STEHEN</p>
+                                                    <li>Titel: @Text.Title <br /></li>
+
+                                                    <li>Inhalt: @Text.ContentText <br /></li>
+                                                }
+                                            }
+                                            <li>@(element.ChapterElementType) </li>
+                                        }
+                                    }
+                                }
+                            }
+                        </ul>
+                    </li>
+             </ol>
+
+                }
+    } */
+}
+
+<!-- TODO
+    x Inhalte aus Chapter ziehen
+        -> Service Klassen Ordner
+        ->
+    x Inhalttyp überprüfen - in Methode auslagern?
+    x dem Typ entsprechende Darstellung
+    x kosmetische Sachen-->
+<!-- <h1>ChapterDefinitionDto.ChapterName</h1> -->
+<!-- <h1>Chapter example</h1> -->
+<!-- Wie Vergleich machen? bzw. ChapterElementType abfragen? -->
+@{ // if (ChapterElementDefinitionDto.ChapterElementType.Equals(ChapterElementType.Video)) //allgemeine Form
+
+    <h1> Title of course </h1>
+    <br />
+
+    if (ChapterElementType.Video.Equals(ChapterElementType.Video)) //Beispiel
+    { //TODO Elementtyp bei ChapterDefinition hinzufügen
+      //Video Anzeige
+        <h3 style="text-align: center;"> Title of Video</h3>
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/RKuUPO6NNcU" title="Title">
+        </iframe>
+        <p> Video Description</p>
+        <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+    }
+    if (ChapterElementType.Picture.Equals(ChapterElementType.Picture)) //Beispiel
+    { //TODO Elementtyp bei ChapterDefinition hinzufügen
+        <figure>
+            <h3 style="text-align: center;"> Title of Picture</h3>
+            <img src="https://media.nurse.org/images/blog/2017/10/13/arm-veins-blood-draw-norg.png" alt="Blood Withdrawl" width="500" height="700" />
+            <figcaption> Caption of picture </figcaption>
+        </figure>
+        <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+    }
+    if (ChapterElementType.Quiz.Equals(ChapterElementType.Quiz)) //Beispiel
+    { //TODO Elementtyp bei ChapterDefinition hinzufügen
+
+    }
+    if (ChapterElementType.Text.Equals(ChapterElementType.Text)) //Beispiel
+    {
+        <h3 style="text-align: center;"> Title of PDF</h3>
+        <iframe src="https://docs.google.com/gview?url=https://www.liberty.edu/graduate/iacuc/wp-content/uploads/sites/75/2019/07/Guidelines_BLOOD_SAMPLE_WITHDRAWAL.pdf&embedded=true"
+                style="width:600px; height:500px;" frameborder="1"></iframe>
+
+
+    }
+
+}
+
+}
+
