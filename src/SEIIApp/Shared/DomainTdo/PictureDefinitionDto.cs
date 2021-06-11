@@ -8,7 +8,6 @@ namespace SEIIApp.Shared.DomainTdo
     // Data transfer object for the picture chapter element.
     public class PictureDefinitionDto : ChapterElementDefinitionDto
     {
-
         public String Description { get; set; }
 
         [Required]

@@ -1,5 +1,5 @@
-﻿@page "/textedit/{id:int}"
-
+﻿@page "/textedit/{ChapterId:int}/{Id:int}"
+@inject NavigationManager NavigationManager
 @inject Services.TextElementDefinitionBackendAccessService TextElementDefinitionService
 
 <h5>Explanatory Text Definition</h5>
@@ -19,6 +19,7 @@
     </EditForm>
 
     <button class="btn btn-light" @onclick="SaveTextToBackend">Save Complete Text Element</button>
+    <button class="btn btn-light" @onclick="NavigateBack">Save and go back</button>
 
 }
 else
@@ -28,21 +29,21 @@ else
 
 @code{
     [Parameter]
-    public int id { get; set; }
+    public int Id { get; set; }
+    [Parameter]
+    public int ChapterId { get; set; }
+    public int CourseId = 1;
 
-    public int courseId = 1;
 
-    public int chapterId = 1;
     public ChapterElementDefinitionDto ChapterElementDefinitionDto { get; set; }
     public ExplanatoryTextDefinitionDto ExplanatoryTextDefinitionDto { get; set; }
     private EditContext context { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
-        if (id != 0)
+        if (Id != 0)
         {
-            var existingElement = await TextElementDefinitionService.GetTextElementById(courseId, chapterId, id);
-            ExplanatoryTextDefinitionDto existingText = (ExplanatoryTextDefinitionDto)existingElement;
+            var existingText = await TextElementDefinitionService.GetTextElementById(CourseId, ChapterId, Id);
             PrepareEditOrAddOfTextElementDefinition(existingText);
         }
         else
@@ -67,10 +68,11 @@ else
 
     private async void SaveTextToBackend()
     {
+        ExplanatoryTextDefinitionDto.ChapterElementType = (ChapterElementType)1;
         var isValid = context.Validate();
         if (isValid)
         {
-            var answer = await TextElementDefinitionService.AddOrUpdateTextElement(courseId, chapterId, ExplanatoryTextDefinitionDto);
+            var answer = await TextElementDefinitionService.AddOrUpdateTextElement(CourseId, ChapterId, ExplanatoryTextDefinitionDto);
             if (answer != null)
             {
                 this.ExplanatoryTextDefinitionDto.Id = answer.Id; //refresh id (if created)
@@ -78,4 +80,9 @@ else
         }
     }
 
+    public void NavigateBack()
+    {
+        SaveTextToBackend();
+        NavigationManager.NavigateTo("/elementdef/" + ChapterId);
+    }
 }

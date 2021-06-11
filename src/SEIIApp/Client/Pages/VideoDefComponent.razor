@@ -1,76 +1,85 @@
-﻿@page "/videoedit/{id:int}"
-
+﻿@page "/videoedit/{ChapterId:int}/{id:int}"
+@inject NavigationManager NavigationManager
 @inject Services.VideoElementDefinitionBackendAccessService VideoElementDefinitionService
 
 <h5>Video Definition</h5>
 
 @if (VideoDefinitionDto != null)
 {
-<EditForm EditContext="@context" OnSubmit="OnSubmit">
+    <EditForm EditContext="@context" OnSubmit="OnSubmit">
 
-    <label>insert Picture URI</label>
-    <br />
-    <InputText @bind-Value="Uri" />
 
-</EditForm>
-       
+        <label>insert a Youtube URL here</label>
+        <br />
+        <InputText @bind-Value="Uri" />
+
+    </EditForm>
+
     <button class="btn btn-light" @onclick="SaveVideoToBackend">Save Video Element</button>
+    <button class="btn btn-light" @onclick="NavigateBack">Save and go back</button>
+}
+else
+{
+    <h5>Video definition in loading (or not found) ...</h5>
+}
 
- }
+@code{
+    [Parameter]
+    public int Id { get; set; }
+    [Parameter]
+    public int ChapterId { get; set; }
+    public int CourseId = 1;
+    public string Uri = "";
+
+    public VideoDefinitionDto VideoDefinitionDto { get; set; }
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != 0)
+        {
+            var existingText = await VideoElementDefinitionService.GetVideoElementById(CourseId, ChapterId, Id);
+            PrepareEditOrAddOfVideoElementDefinition(existingText);
+        }
         else
         {
-        <h5>Video definition in loading (or not found) ...</h5>
+            PrepareEditOrAddOfVideoElementDefinition(new VideoDefinitionDto());
         }
+        await base.OnParametersSetAsync();
 
-        @code{
-            [Parameter]
-            public int id { get; set; }
-            public int courseId = 1;
-            public int chapterId = 1;
-            public string Uri = "";
+        context = new EditContext(VideoDefinitionDto);
+    }
 
-            public VideoDefinitionDto VideoDefinitionDto { get; set; }
-            private EditContext context { get; set; }
+    private void PrepareEditOrAddOfVideoElementDefinition(VideoDefinitionDto c)
+    {
+        this.VideoDefinitionDto = c;
+    }
 
-            protected override async Task OnParametersSetAsync()
+
+    private void OnSubmit(EditContext context)
+    {
+
+    }
+
+    private async void SaveVideoToBackend()
+    {
+        VideoDefinitionDto.VideoUri = new System.Uri(Uri);
+        VideoDefinitionDto.ChapterElementType = (ChapterElementType)3;
+
+        var isValid = context.Validate();
+        if (isValid)
+        {
+            var answer = await VideoElementDefinitionService.AddOrUpdateVideoElement(CourseId, ChapterId, VideoDefinitionDto);
+            if (answer != null)
             {
-                if (id != 0)
-                {
-                    var existingElement = await VideoElementDefinitionService.GetVideoElementById(courseId, chapterId, id);
-                    VideoDefinitionDto existingText = (VideoDefinitionDto)existingElement;
-                    PrepareEditOrAddOfVideoElementDefinition(existingText);
-                }
-                else
-                {
-                    PrepareEditOrAddOfVideoElementDefinition(new VideoDefinitionDto());
-                }
-                await base.OnParametersSetAsync();
-
-                context = new EditContext(VideoDefinitionDto);
+                this.VideoDefinitionDto.Id = answer.Id; //refresh id (if created)
             }
-
-            private void PrepareEditOrAddOfVideoElementDefinition(VideoDefinitionDto c)
-            {
-                this.VideoDefinitionDto = c;
-            }
-
-
-            private void OnSubmit(EditContext context)
-            {
-
-            }
-
-            private async void SaveVideoToBackend()
-            {
-                var isValid = context.Validate();
-                if (isValid)
-                {
-                    var answer = await VideoElementDefinitionService.AddOrUpdateVideoElement(courseId, chapterId, VideoDefinitionDto);
-                    if (answer != null)
-                    {
-                        this.VideoDefinitionDto.Id = answer.Id; //refresh id (if created)
-                    }
-                }
-            }
-
         }
+    }
+
+    public void NavigateBack()
+    {
+        SaveVideoToBackend();
+        NavigationManager.NavigateTo("/elementdef/" + ChapterId);
+    }
+}

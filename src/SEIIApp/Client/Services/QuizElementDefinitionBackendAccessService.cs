@@ -46,7 +46,7 @@ namespace SEIIApp.Client.Services {
         /// </summary>
         public async Task<QuizDefinitionDto> AddOrUpdateQuizElement(int courseId, int TextId, QuizDefinitionDto dto)
         {
-            var response = await HttpClient.PutAsJsonAsync(GetQuizElementDefinitionUrl(courseId, TextId), dto);
+            var response = await HttpClient.PutAsJsonAsync(GetQuizElementDefinitionUrlWithId(courseId, TextId, dto.Id), dto);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.DeserializeResponseContent<QuizDefinitionDto>();

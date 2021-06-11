@@ -1,38 +1,39 @@
-﻿@page "/quizedit/{Id:int}"
-
+﻿@page "/quizedit/{ChapterId:int}/{Id:int}"
+@inject NavigationManager NavigationManager
 @inject Services.QuizElementDefinitionBackendAccessService QuizElementDefinitionService
 
 <h5>Quiz Definition</h5>
 
 @if (QuizDefinitionDto != null)
 {
-<EditForm EditContext="@context" OnSubmit="OnSubmit">
-    <ObjectGraphDataAnnotationsValidator />
+    <EditForm EditContext="@context" OnSubmit="OnSubmit">
+        <ObjectGraphDataAnnotationsValidator />
 
-    <label>Quiz Name</label>
-    <InputText @bind-Value="QuizDefinitionDto.QuizName" />
+        <label>Quiz Name</label>
+        <InputText @bind-Value="QuizDefinitionDto.QuizName" />
 
-    @if (QuizDefinitionDto.Questions != null)
-    {
-    @foreach (var question in QuizDefinitionDto.Questions)
-    {
-        <div class="card">
-            <div class="card-body">
-                <!-- Component for questions in quiz -->
-                <QuestionDefComponent QuestionDefinitionDto="question"></QuestionDefComponent>
-                <button class="btn btn-light btn-sm" @onclick="() => RemoveQuestion(question)">Remove Question</button>
-            </div>
-        </div>
+        @if (QuizDefinitionDto.Questions != null)
+        {
+            @foreach (var question in QuizDefinitionDto.Questions)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Component for questions in quiz -->
+                        <QuestionDefComponent QuestionDefinitionDto="question"></QuestionDefComponent>
+                        <button class="btn btn-light btn-sm" @onclick="() => RemoveQuestion(question)">Remove Question</button>
+                    </div>
+                </div>
+            }
+        }
 
-        
-    }
-    }
-
-    <ValidationSummary />
-
-    <button class="btn btn-light btn-sm" @onclick="AddQuestion">Add Question</button> //fixen
-    <button class="btn btn-light" @onclick="SaveQuizToBackend">Save Complete Quiz</button>
-</EditForm>
+        <ValidationSummary />
+        @if (QuizDefinitionDto.Id != 0)
+        {
+            <button class="btn btn-light btn-sm" @onclick="AddQuestion">Add Question</button>
+        }
+        <button class="btn btn-light" @onclick="SaveQuizToBackend">Save Complete Quiz</button>
+        <button class="btn btn-light" @onclick="NavigateBack">Save and go back</button>
+    </EditForm>
 
 }
 else
@@ -43,8 +44,10 @@ else
 @code{
     [Parameter]
     public int Id { get; set; }
-    public int courseId = 1;
-    public int chapterId = 1;
+    [Parameter]
+    public int ChapterId { get; set; }
+    public int CourseId = 1;
+
     public QuizDefinitionDto QuizDefinitionDto { get; set; }
     private EditContext context { get; set; }
 
@@ -52,8 +55,7 @@ else
     {
         if (Id != 0)
         {
-            var existingElement = await QuizElementDefinitionService.GetQuizElementById(courseId, chapterId, Id);
-            QuizDefinitionDto existingQuiz = (QuizDefinitionDto)existingElement;
+            var existingQuiz = await QuizElementDefinitionService.GetQuizElementById(CourseId, ChapterId, Id);
             PrepareEditOrAddOfQuizElementDefinition(existingQuiz);
         }
         else
@@ -70,24 +72,12 @@ else
         this.QuizDefinitionDto = c;
     }
 
-    private void Müllsammler() //richtig doper code :D
-        {
-
-        }
-
     private void AddQuestion()
     {
-        try
-        {
-            //Add element to question definition array if (QuizDefinitionDto.Questions != null)
-            QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Concat(new QuestionDefinitionDto[] {
+        //Add element to question definition array if (QuizDefinitionDto.Questions != null)
+        QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Concat(new QuestionDefinitionDto[] {
             new QuestionDefinitionDto()
         }).ToArray();
-        }
-        catch
-        {
-            Müllsammler();
-            }
     }
 
     private void RemoveQuestion(QuestionDefinitionDto question)
@@ -102,15 +92,27 @@ else
 
     private async void SaveQuizToBackend()
     {
+        QuizDefinitionDto.ChapterElementType = (ChapterElementType)0;
         var isValid = context.Validate();
         if (isValid)
         {
-            var answer = await QuizElementDefinitionService.AddOrUpdateQuizElement(courseId, chapterId, QuizDefinitionDto);
+            var answer = await QuizElementDefinitionService.AddOrUpdateQuizElement(CourseId, ChapterId, QuizDefinitionDto);
             if (answer != null)
             {
                 this.QuizDefinitionDto.Id = answer.Id; //refresh id (if created)
+                Navigator();
             }
         }
     }
 
+    private void Navigator()
+    {
+        NavigationManager.NavigateTo("/quizedit/" + ChapterId + "/" + QuizDefinitionDto.Id);
+    }
+
+    public void NavigateBack()
+    {
+        SaveQuizToBackend();
+        NavigationManager.NavigateTo("/elementdef/" + ChapterId);
+    }
 }

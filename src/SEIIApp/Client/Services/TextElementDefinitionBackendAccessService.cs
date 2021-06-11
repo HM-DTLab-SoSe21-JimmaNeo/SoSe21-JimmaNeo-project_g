@@ -46,7 +46,7 @@ namespace SEIIApp.Client.Services {
         /// </summary>
         public async Task<ExplanatoryTextDefinitionDto> AddOrUpdateTextElement(int courseId, int TextId, ExplanatoryTextDefinitionDto dto)
         {
-            var response = await HttpClient.PutAsJsonAsync(GetTextElementDefinitionUrl(courseId, TextId), dto);
+            var response = await HttpClient.PutAsJsonAsync(GetTextElementDefinitionUrlWithId(courseId, TextId, dto.Id), dto);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.DeserializeResponseContent<ExplanatoryTextDefinitionDto>();

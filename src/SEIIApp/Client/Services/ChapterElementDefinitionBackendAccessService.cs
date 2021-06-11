@@ -22,7 +22,7 @@ namespace SEIIApp.Client.Services {
             return $"api/coursedefinition/{courseId}/{chapterId}";
         }
 
-        private string GetChapterElementDefinitionUrlWithId(int courseId, int chapterId,int id) {
+        private string GetChapterElementDefinitionUrlWithId(int courseId, int chapterId, int id) {
             return $"{GetChapterElementDefinitionUrl(courseId, chapterId)}/{id}";
         }
 
@@ -46,7 +46,7 @@ namespace SEIIApp.Client.Services {
         /// </summary>
         public async Task<ChapterElementDefinitionDto> AddOrUpdateChapterElement(int courseId, int chapterId, ChapterElementDefinitionDto dto)
         {
-            var response = await HttpClient.PutAsJsonAsync(GetChapterElementDefinitionUrl(courseId, chapterId), dto);
+            var response = await HttpClient.PutAsJsonAsync(GetChapterElementDefinitionUrlWithId(courseId, chapterId, 2), dto);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.DeserializeResponseContent<ChapterElementDefinitionDto>();

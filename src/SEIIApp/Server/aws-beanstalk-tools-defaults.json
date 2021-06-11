@@ -1,0 +1,13 @@
+
+{
+    "region" : "eu-central-1",
+    "configuration" : "Debug",
+    "framework"     : "net5.0",
+    "self-contained" : true,
+    "application"    : "Alexandria",
+    "environment"    : "AlexandriaTest",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "",
+    "proxy-server"         : "nginx"
+}

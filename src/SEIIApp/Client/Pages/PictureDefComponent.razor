@@ -1,81 +1,88 @@
-﻿@page "/pictureedit/{id:int}"
-
+﻿@page "/pictureedit/{ChapterId:int}/{Id:int}"
+@inject NavigationManager NavigationManager
 @inject Services.PictureElementDefinitionBackendAccessService PictureElementDefinitionService
 
 <h5>Picture Definition</h5>
 
 @if (PictureDefinitionDto != null)
 {
-<EditForm EditContext="@context" OnSubmit="OnSubmit">
+    <EditForm EditContext="@context" OnSubmit="OnSubmit">
 
-    <label>insert Picture URI</label>
-    <br />
-    <InputText @bind-Value="Uri" />
-    <br />
-    <label>insert picture Description here</label>
-    <br />
-    <InputTextArea cols="100" rows="10"  @bind-Value="PictureDefinitionDto.Description" />
+        <label>insert Picture URI</label>
+        <br />
+        <InputFile OnChange="@OnFileSelection"></InputFile>
+        <br />
+        <label>insert picture Description here</label>
+        <br />
+        <InputTextArea cols="100" rows="10" @bind-Value="PictureDefinitionDto.Description" />
+    </EditForm>
 
-</EditForm>
-       
     <button class="btn btn-light" @onclick="SavePictureToBackend">Save Picture Element</button>
+    <button class="btn btn-light" @onclick="NavigateBack">Save and go back</button>
+}
+else
+{
+    <h5>Picture definition in loading (or not found) ...</h5>
+}
 
- }
+@code{
+    [Parameter]
+    public int Id { get; set; }
+    [Parameter]
+    public int ChapterId { get; set; }
+    public int CourseId = 1;
+
+    public PictureDefinitionDto PictureDefinitionDto { get; set; }
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != 0)
+        {
+            var existingText = await PictureElementDefinitionService.GetPictureElementById(CourseId, ChapterId, Id);
+            PrepareEditOrAddOfPictureElementDefinition(existingText);
+        }
         else
         {
-        <h5>Picture definition in loading (or not found) ...</h5>
+            PrepareEditOrAddOfPictureElementDefinition(new PictureDefinitionDto());
         }
+        await base.OnParametersSetAsync();
 
-        @code{
-            [Parameter]
-            public int id { get; set; }
+        context = new EditContext(PictureDefinitionDto);
+    }
 
-            public int courseId = 1;
-            public int chapterId = 1;
-            public string Uri = "";
+    private void PrepareEditOrAddOfPictureElementDefinition(PictureDefinitionDto c)
+    {
+        this.PictureDefinitionDto = c;
+    }
 
-            public PictureDefinitionDto PictureDefinitionDto { get; set; }
-            private EditContext context { get; set; }
+    private void OnSubmit(EditContext context)
+    {
 
-            protected override async Task OnParametersSetAsync()
+    }
+
+    private async void SavePictureToBackend()
+    {
+        PictureDefinitionDto.ChapterElementType = (ChapterElementType)2;
+        var isValid = context.Validate();
+        if (isValid)
+        {
+            var answer = await PictureElementDefinitionService.AddOrUpdatePictureElement(CourseId, ChapterId, PictureDefinitionDto);
+            if (answer != null)
             {
-                if (id != 0)
-                {
-                    var existingElement = await PictureElementDefinitionService.GetPictureElementById(courseId, chapterId, id);
-                    PictureDefinitionDto existingText = (PictureDefinitionDto)existingElement;
-                    PrepareEditOrAddOfPictureElementDefinition(existingText);
-                }
-                else
-                {
-                    PrepareEditOrAddOfPictureElementDefinition(new PictureDefinitionDto());
-                }
-                await base.OnParametersSetAsync();
-
-                context = new EditContext(PictureDefinitionDto);
+                this.PictureDefinitionDto.Id = answer.Id; //refresh id (if created)
             }
-
-            private void PrepareEditOrAddOfPictureElementDefinition(PictureDefinitionDto c)
-            {
-                this.PictureDefinitionDto = c;
-            }
-
-
-            private void OnSubmit(EditContext context)
-            {
-
-            }
-
-            private async void SavePictureToBackend()
-            {
-                var isValid = context.Validate();
-                if (isValid)
-                {
-                    var answer = await PictureElementDefinitionService.AddOrUpdatePictureElement(courseId, chapterId, PictureDefinitionDto);
-                    if (answer != null)
-                    {
-                        this.PictureDefinitionDto.Id = answer.Id; //refresh id (if created)
-                    }
-                }
-            }
-
         }
+    }
+
+    private async Task OnFileSelection(InputFileChangeEventArgs e)
+    {
+
+    }
+
+    public void NavigateBack()
+    {
+        SavePictureToBackend();
+        NavigationManager.NavigateTo("/elementdef/" + ChapterId);
+    }
+}

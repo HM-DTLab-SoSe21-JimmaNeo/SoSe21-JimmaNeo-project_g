@@ -46,7 +46,7 @@ namespace SEIIApp.Client.Services {
         /// </summary>
         public async Task<VideoDefinitionDto> AddOrUpdateVideoElement(int courseId, int TextId, VideoDefinitionDto dto)
         {
-            var response = await HttpClient.PutAsJsonAsync(GetVideoElementDefinitionUrl(courseId, TextId), dto);
+            var response = await HttpClient.PutAsJsonAsync(GetVideoElementDefinitionUrlWithId(courseId, TextId, dto.Id), dto);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.DeserializeResponseContent<VideoDefinitionDto>();

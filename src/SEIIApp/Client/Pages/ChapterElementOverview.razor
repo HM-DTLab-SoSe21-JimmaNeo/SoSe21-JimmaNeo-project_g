@@ -1,10 +1,10 @@
-﻿@page "/elementdef/1/1"
+﻿@page "/elementdef/{ChapterId:int}"
 @inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
 @inject NavigationManager NavigationManager
 
 <h3 style="margin-bottom: 1em;">All Chapter Elements in the Chapter</h3>
 
-@{ if (Chapter != null && Chapter.ChapterElements != null)
+@{ if (Chapter != null)
     {
         if (Chapter.ChapterElements.Length > 0)
         {
@@ -52,7 +52,11 @@
         }
         else
         {
-            <h5>test</h5>
+            <h5>create new Chapter Elements</h5>
+            <button type="button" class="btn btn-outline-primary" @onclick="AddText" style="margin-right:0.75em; margin-top: 0.75em;">Add Text</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="AddQuiz" style="margin-right:0.75em; margin-top: 0.75em;">Add Quiz</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="AddPicture" style="margin-right:0.75em; margin-top: 0.75em;">Add Picture</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="AddVideo" style="margin-right:0.75em; margin-top: 0.75em;">Add Video</button>
         }
     }
     else
@@ -61,19 +65,17 @@
     }
 }
 
-
 @code {
+    [Parameter]
+    public int ChapterId { get; set; }
+    int CourseId = 1;
 
     public ChapterDefinitionDto Chapter { get; set; }
-
-    int courseId = 1;
-    int chapterId = 1;
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(courseId, chapterId);
-
+        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(CourseId, ChapterId);
     }
 
     private void EditElement(ChapterElementDefinitionDto element)
@@ -81,43 +83,42 @@
         switch (element.ChapterElementType)
         {
             case ChapterElementType.Text:
-                NavigationManager.NavigateTo("/textedit/" + element.Id);
+                NavigationManager.NavigateTo("/textedit/" + ChapterId + "/" + element.Id);
                 break;
             case ChapterElementType.Quiz:
-                NavigationManager.NavigateTo("/quizedit/" + element.Id);
+                NavigationManager.NavigateTo("/quizedit/" + ChapterId + "/" + element.Id);
                 break;
             case ChapterElementType.Picture:
-                NavigationManager.NavigateTo("/pictureedit/" + element.Id);
+                NavigationManager.NavigateTo("/pictureedit/" + ChapterId + "/" + element.Id);
                 break;
             case ChapterElementType.Video:
-                NavigationManager.NavigateTo("/videoedit/" + element.Id);
+                NavigationManager.NavigateTo("/videoedit/" + ChapterId + "/" + element.Id);
                 break;
         }
     }
 
     private void AddText()
     {
-        NavigationManager.NavigateTo("/textedit/0");
+        NavigationManager.NavigateTo("/textedit/" + ChapterId + "/0");
     }
 
     private void AddQuiz()
     {
-        NavigationManager.NavigateTo("/quizedit/0");
+        NavigationManager.NavigateTo("/quizedit/" + ChapterId + "/0");
     }
 
     private void AddPicture()
     {
-        NavigationManager.NavigateTo("/pictureedit/0");
+        NavigationManager.NavigateTo("/pictureedit/" + ChapterId + "/0");
     }
 
     private void AddVideo()
     {
-        NavigationManager.NavigateTo("/videoedit/0");
+        NavigationManager.NavigateTo("/videoedit/" + ChapterId + "/0");
     }
 
     private async Task DeleteChapterElement(ChapterElementDefinitionDto element)
     {
-        await ChapterElementDefinitionService.DeleteChapterElement(courseId, chapterId, element.Id);
+        await ChapterElementDefinitionService.DeleteChapterElement(CourseId, ChapterId, element.Id);
     }
-
 }
