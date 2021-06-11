@@ -59,7 +59,8 @@
 
     private void AddChapterElement()
     {
-        NavigationManager.NavigateTo("/elementdef/1/1");
+        int ChapterId = ChapterDefinitionDto.ChapterId;
+        NavigationManager.NavigateTo($"/elementdef/{ChapterId}");
     }
     private void RemoveChapterElement(ChapterElementDefinitionDto chapterName)
     {

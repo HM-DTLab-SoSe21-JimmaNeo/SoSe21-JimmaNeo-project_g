@@ -46,7 +46,7 @@ namespace SEIIApp.Client.Services {
         /// </summary>
         public async Task<PictureDefinitionDto> AddOrUpdatePictureElement(int courseId, int TextId, PictureDefinitionDto dto)
         {
-            var response = await HttpClient.PutAsJsonAsync(GetPictureElementDefinitionUrl(courseId, TextId), dto);
+            var response = await HttpClient.PutAsJsonAsync(GetPictureElementDefinitionUrlWithId(courseId, TextId, dto.Id), dto);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.DeserializeResponseContent<PictureDefinitionDto>();
