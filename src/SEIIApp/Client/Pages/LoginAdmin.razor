@@ -1,7 +1,9 @@
 ﻿@page "/home/{Role:int}/{UserId:int}"
 @inject Services.UserDefinitionBackendService UserService
+@inject NavigationManager NavigationManager
 
-@{ 
+
+@{
     if (Role == 1)
     {
         @layout MainLayout;
@@ -13,6 +15,8 @@
 
     @if (Role == 1 || Role == 2)
     {
+
+        if (Role == 2) { NavigationManager.NavigateTo("/studentView"); }
         <div class="alert alert-success d-flex align-items-center" role="alert">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -179,9 +183,9 @@
 
 </main>
 
-    <footer class="container">
-        <p>&copy; Alexandria 2021</p>
-    </footer>
+<footer class="container">
+    <p>&copy; Alexandria 2021</p>
+</footer>
 
 
 
