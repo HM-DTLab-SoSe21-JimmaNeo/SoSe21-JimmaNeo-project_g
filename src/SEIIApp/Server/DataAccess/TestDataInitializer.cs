@@ -86,14 +86,13 @@ namespace SEIIApp.Server.DataAccess {
                     userStudent.AsignedCourses.Add(course);
                 }
 
-                /**
-                if(i < 3)                   //<-- TODO this needs to be implemented as soon as 
-                                            // foeigns keys work
-                {
-                    userStudent.AsignedCourses.Add(course);
-                    userTeacher.AsignedCourses.Add(course);
-                }
-                */
+                // TODO this needs to be implemented as soon as foeigns keys work
+                //if(i < 3)                   
+                //{
+                //userStudent.AsignedCourses.Add(course);
+                //userTeacher.AsignedCourses.Add(course);
+                //}
+
 
             }
 
