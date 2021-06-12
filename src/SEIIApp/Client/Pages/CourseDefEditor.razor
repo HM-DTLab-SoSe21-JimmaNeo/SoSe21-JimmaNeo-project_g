@@ -1,6 +1,7 @@
 ﻿@page "/coursedefedit/{CourseId:int}"
 
 @inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject IJSRuntime jsRuntime
 
 <h3 style="margin-bottom:1em;">Course Definitions Editor</h3>
 
@@ -10,120 +11,123 @@
     <EditForm EditContext="@context" OnSubmit="OnSubmit">
         <ObjectGraphDataAnnotationsValidator />
 
-    <div class="form-group row" style="margin-bottom:0.5em;">
-        <label for="coursename" class="col-md-auto">Course Name</label>
-        <div class="col-md-auto">
-            <InputText id="coursename" name="coursename" class="form-control here" required="required" type="text" @bind-Value="CourseDefinitionDto.CourseName" />
-        </div>
-    </div>
-
-    @foreach (var chapter in CourseDefinitionDto.Chapters)
-    {
-<div class="card" style="margin-bottom: 0.5em; margin-top: 0.25em; width: 30rem;">
-    <div class="card-body">
-
-        <div class="form-group row">
-            <!-- Component for chapters in course -->
-            <ChapterDefComponent ChapterDefinitionDto="chapter"></ChapterDefComponent>
-
-            <div>
-                <button type="button" class="btn btn-danger" @onclick="() => RemoveChapter(chapter)">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                    </svg>
-
-                </button>
-
+        <div class="form-group row" style="margin-bottom:0.5em;">
+            <label for="coursename" class="col-md-auto">Course Name</label>
+            <div class="col-md-auto">
+                <InputText id="coursename" name="coursename" class="form-control here" required="required" type="text" @bind-Value="CourseDefinitionDto.CourseName" />
             </div>
-
         </div>
 
-    </div>
-</div>}
+        @foreach (var chapter in CourseDefinitionDto.Chapters)
+        {
+            <div class="card" style="margin-bottom: 0.5em; margin-top: 0.25em; width: 30rem;">
+                <div class="card-body">
 
-    <ValidationSummary />
+                    <div class="form-group row">
+                        <!-- Component for chapters in course -->
+                        <ChapterDefComponent ChapterDefinitionDto="chapter"></ChapterDefComponent>
 
-    <label>should the course be visible?</label>
-    <InputCheckbox @bind-Value="CourseDefinitionDto.Visible" />
-    <hr />
-    <button type="button" class="btn btn-outline-primary" @onclick="AddChapter" style="margin-right:0.75em; margin-top: 0.75em;">Add Chapter</button>
-    <button type="button" class="btn btn-primary" @onclick="SaveCourseToBackend" style="margin-top: 0.75em;">Save</button>
+                        <div>
+                            <button type="button" class="btn btn-danger" @onclick="() => RemoveChapter(chapter)">
 
-</EditForm> }
-            else
-            {
-<h5>Course definition in loading (or not found) ...</h5>}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>}
+
+        <ValidationSummary />
+
+        <label>should the course be visible?</label>
+        <InputCheckbox @bind-Value="CourseDefinitionDto.Visible" />
+        <hr />
+        <button type="button" class="btn btn-outline-primary" @onclick="AddChapter" style="margin-right:0.75em; margin-top: 0.75em;">Add Chapter</button>
+        <button type="button" class="btn btn-primary" @onclick="SaveCourseToBackend" style="margin-top: 0.75em;">Save</button>
+
+    </EditForm> }
+else
+{
+    <h5>Course definition in loading (or not found) ...</h5>}
 
 
 
 
 @code { [Parameter]
-            public int CourseId { get; set; }
+    public int CourseId { get; set; }
 
-            public CourseDefinitionDto CourseDefinitionDto { get; set; }
+    public CourseDefinitionDto CourseDefinitionDto { get; set; }
 
-            private EditContext context { get; set; }
+    private EditContext context { get; set; }
 
-            protected override async Task OnParametersSetAsync()
-            {
-                if (CourseId != 0)
-                {
-                    var existingCourse = await CourseDefinitionService.GetCourseById(CourseId);
-                    PrepareEditOrAddOfCourseDefinition(existingCourse);
-                }
-                else
-                {
-                    PrepareEditOrAddOfCourseDefinition(new CourseDefinitionDto());
-                }
-                await base.OnParametersSetAsync();
+    protected override async Task OnParametersSetAsync()
+    {
+        if (CourseId != 0)
+        {
+            var existingCourse = await CourseDefinitionService.GetCourseById(CourseId);
+            PrepareEditOrAddOfCourseDefinition(existingCourse);
+        }
+        else
+        {
+            PrepareEditOrAddOfCourseDefinition(new CourseDefinitionDto());
+        }
+        await base.OnParametersSetAsync();
 
-                context = new EditContext(CourseDefinitionDto);
-            }
+        context = new EditContext(CourseDefinitionDto);
+    }
 
-            private void PrepareEditOrAddOfCourseDefinition(CourseDefinitionDto c)
-            {
-                if (c.Chapters == null) c.Chapters = Array.Empty<ChapterDefinitionDto>();
-                this.CourseDefinitionDto = c;
-            }
+    private void PrepareEditOrAddOfCourseDefinition(CourseDefinitionDto c)
+    {
+        if (c.Chapters == null) c.Chapters = Array.Empty<ChapterDefinitionDto>();
+        this.CourseDefinitionDto = c;
+    }
 
-            private void AddChapter()
-            {
-                //Add element to chapter definition array
-                CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Concat(new ChapterDefinitionDto[] {
+    private void AddChapter()
+    {
+        //Add element to chapter definition array
+        CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Concat(new ChapterDefinitionDto[] {
             new ChapterDefinitionDto()
         }).ToArray();
-            }
+    }
 
-            private void RemoveChapter(ChapterDefinitionDto chapter)
+    private async Task RemoveChapter(ChapterDefinitionDto chapter)
+    {
+        if (await jsRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {chapter.ChapterName}?"))
+        {
+            CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Where(c => c != chapter).ToArray();
+        }
+    }
+
+    private void OnSubmit(EditContext context)
+    {
+
+    }
+
+    private async void SaveCourseToBackend()
+    {
+        if (CourseDefinitionDto.CourseId == 0)
+        {
+            CourseDefinitionDto.ChangeDate = new DateTime();
+            CourseDefinitionDto.CreationDate = new DateTime();
+        }
+        else
+        {
+            CourseDefinitionDto.ChangeDate = new DateTime();
+        }
+
+        var isValid = context.Validate();
+        if (isValid)
+        {
+            var answer = await CourseDefinitionService.AddOrUpdateCourse(CourseDefinitionDto);
+            if (answer != null)
             {
-                CourseDefinitionDto.Chapters = CourseDefinitionDto.Chapters.Where(c => c != chapter).ToArray();
+                this.CourseDefinitionDto.CourseId = answer.CourseId; //refresh id (if created)
             }
-
-            private void OnSubmit(EditContext context)
-            {
-
-            }
-
-            private async void SaveCourseToBackend()
-            {
-                if (CourseDefinitionDto.CourseId == 0)
-                {
-                    CourseDefinitionDto.ChangeDate = new DateTime();
-                    CourseDefinitionDto.CreationDate = new DateTime();
-                }
-                else
-                {
-                    CourseDefinitionDto.ChangeDate = new DateTime();
-                }
-
-                var isValid = context.Validate();
-                if (isValid)
-                {
-                    var answer = await CourseDefinitionService.AddOrUpdateCourse(CourseDefinitionDto);
-                    if (answer != null)
-                    {
-                        this.CourseDefinitionDto.CourseId = answer.CourseId; //refresh id (if created)
-                    }
-                }
-            } }
+        }
+    } }
