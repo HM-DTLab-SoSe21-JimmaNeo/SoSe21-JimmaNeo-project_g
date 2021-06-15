@@ -24,14 +24,23 @@
             </NavLink>
         </li>
         @{
-            if (Courses != null)
+            if (Courses != null && Courses?.Length > 0)
             {
-                foreach (var q in Courses)
+                foreach (var course in Courses)
                 {
                     <li class="nav-item px-3">
-                        <a class="nav-link" href="/coursedefedit/ @(q.CourseId)">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> @(q.CourseName)
-                        </a>
+                        @if (course.Visible) // Icon for visible courses.
+                        {
+                            <a class="nav-link" href="/coursedefedit/ @(course.CourseId)">
+                                <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
+                            </a>
+                        }
+                        @if (!course.Visible) // And another Icon for non-visible courses.
+                        {
+                            <a class="nav-link" href="/coursedefedit/ @(course.CourseId)">
+                                <span class="oi oi-ban" aria-hidden="true"></span> @(course.CourseName)
+                            </a>
+                        }
                     </li>
                 }
             }
@@ -44,7 +53,8 @@
         </li>
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedef"> <!--//TODO Funktion kurs verlassen hinterlegen-->
+            <NavLink class="nav-link" href="coursedef">
+                <!--//TODO Funktion kurs verlassen hinterlegen-->
                 <span class="oi oi-account-login" aria-hidden="true"></span> Kurs verlassen
             </NavLink>
         </li>

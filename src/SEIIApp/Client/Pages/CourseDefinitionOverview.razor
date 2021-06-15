@@ -6,7 +6,7 @@
 <h3 style="margin-bottom: 1em">Course Definitions Overview</h3>
 
 
-@{ if (Courses?.Length > 0)
+@{ if (Courses != null && Courses?.Length > 0)
     {
 
         @foreach (var course in Courses)
@@ -31,7 +31,7 @@
 
                 </button>
 
-                <button type="button" class="btn btn-danger btn-add" @onclick="() => DeleteCourse(course)">
+                <button type="button" class="btn btn-danger btn-add" @onclick="() => DeleteCourse(course)" style="margin-right: 0.25em;">
 
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -39,6 +39,11 @@
                     </svg>
 
                 </button>
+
+                <div>
+                    <input type="checkbox" @onchange="eventArgs => { UpdateVisibilityToBackend(course, (bool)eventArgs.Value); }" id="visibility" checked=@course.Visible style="margin-top: 0.75em;">
+                    <label for="visibility">Visible</label>
+                </div>
 
             </div>
 
@@ -94,6 +99,23 @@
         {
             await CourseDefinitionService.DeleteCourse(course.CourseId);
         }
+    }
+
+    private async void UpdateVisibilityToBackend(CourseDefinitionBaseDto course, bool visible)
+    {
+        // Used to avoid the invalid cast from 'CourseDefinitionBaseDto' into 'CourseDefinitionDto'.
+        CourseDefinitionDto tempCourse = await CourseDefinitionService.GetCourseById(course.CourseId);
+
+        // Change the visibility.
+        tempCourse.Visible = visible;
+
+        var answer = await CourseDefinitionService.AddOrUpdateCourse(tempCourse);
+        if (answer != null)
+        {
+            // Refresh id if created).
+            course.CourseId = answer.CourseId;
+        }
+
     }
 
 }
