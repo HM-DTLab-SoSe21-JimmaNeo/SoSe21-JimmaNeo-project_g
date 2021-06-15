@@ -1,0 +1,102 @@
+﻿@page "/courseuserasignation/{courseId:int}"
+
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.BiscuitService BiscuitService
+@inject NavigationManager NavigationManager
+
+<h3 style="margin-bottom:1em;">Course Overview</h3>
+
+<EditForm EditContext="@context">
+
+    @if (UserInCourseDto.Users != null)
+    {
+
+        foreach (var user in UserInCourseDto.Users)
+        {
+    <div class="col-2">
+        <input id="username" name="username" placeholder="@(user.AuthDefinitions[0].UserName)" class="form-control here" required="required" type="text" disabled>
+
+        @if (user.AuthDefinitions[0].Role >= BiscuitService.User.AuthDefinitions[0].Role)
+        {
+            <button type="button" class="bi bi-x-circle-fill" @onclick="() => RemoveUserFromCourse(user)" style="margin-right: 0.25em;">
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                </svg>
+
+
+            </button>
+        }
+
+    </div>
+        }
+
+    }
+    else
+    {
+        <h5>Users in loading (or not found) ...</h5>
+    }
+
+    <br />
+    <br />
+
+    <div class="form-group row">
+        <label for="userid" class="col-1 col-form-label">User</label>
+        <div class="col-4">
+            <InputText id="email" name="email" class="form-control here" required="required" type="text" @bind-Value="userId" />
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-add" @onclick="AddUserToCourse" style="margin-top: 1em">Add User To Course</button>
+
+</EditForm>
+
+
+
+@code {
+    [Parameter]
+    public int courseId { get; set; }
+
+    public string userId { get; set; }
+
+    public UserInCourseDto UserInCourseDto { get; set; }
+
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        userId = "enter UserId";
+        Console.WriteLine("Here");
+        UserInCourseDto = await CourseDefinitionService.GetUsersForCourse(courseId);
+        context = new EditContext(userId);
+        Console.WriteLine(UserInCourseDto.CourseId);
+        Console.WriteLine(UserInCourseDto.Users.Length);
+
+    }
+
+    private async void EditCourseUserAsignations(CourseDefinitionBaseDto courseDefinitionDto)
+    {
+        NavigationManager.NavigateTo("/courseuserasignation/" + courseDefinitionDto.CourseId);
+    }
+
+    private async void RemoveUserFromCourse(UserDefinitionBaseDto user)
+    {
+        await CourseDefinitionService.LeaveCourse(courseId, user.UserId);
+        NavigationManager.NavigateTo("/courseuserasignation/" + courseId);
+    }
+
+    private async void AddUserToCourse()
+    {
+
+        int userIdInt;
+        if (Int32.TryParse(userId, out userIdInt))
+        {
+            if (userIdInt == null || userIdInt == 0)
+            {
+                return;
+            }
+            await CourseDefinitionService.AddUserToCourse(courseId, userIdInt);
+            NavigationManager.NavigateTo("/courseuserasignation/" + courseId);
+        }
+    }
+}

@@ -22,22 +22,26 @@ namespace SEIIApp.Server.DataAccess {
 
             var authAdmin2 = TestDataGenerator.CreateAuthentifizierung("admin", "admin", RoleType.Admin);
             loginService.AddAuth(authAdmin2);
+            
+            var authTeacher2 = TestDataGenerator.CreateAuthentifizierung("teacher", "teacher", RoleType.Teacher);
+            loginService.AddAuth(authTeacher2);
 
             var userAdmin = TestDataGenerator.CreateUser("adminMail@mailinator.com");
             var authAdmin = TestDataGenerator.CreateAuthentifizierung("admin", "admin", RoleType.Admin);
             userAdmin.AuthDefinitions.Add(authAdmin);
             userAdmin.AuthDefinitions.Add(authAdmin2);
-            userDefinitionService.AddUser(userAdmin);
 
+            var authStudent2 = TestDataGenerator.CreateAuthentifizierung("user", "user", RoleType.Student);
+            loginService.AddAuth(authStudent2);
             var userStudent = TestDataGenerator.CreateUser("studentMail@mailinator.com");
             var authStudent = TestDataGenerator.CreateAuthentifizierung("student", "student", RoleType.Student);
             userStudent.AuthDefinitions.Add(authStudent);
-            userDefinitionService.AddUser(userStudent);
+            userStudent.AuthDefinitions.Add(authStudent2);
 
             var userTeacher = TestDataGenerator.CreateUser("teacherMail@mailinator.com");
             var authTeacher = TestDataGenerator.CreateAuthentifizierung("teacher", "teacher", RoleType.Teacher);
             userTeacher.AuthDefinitions.Add(authTeacher);
-            userDefinitionService.AddUser(userTeacher);
+            userTeacher.AuthDefinitions.Add(authTeacher2);
 
 
             for (int i = 0; i < 5; i++) {
@@ -79,22 +83,28 @@ namespace SEIIApp.Server.DataAccess {
 
                 }
 
-                userAdmin.AsignedCourses.Add(course);
+                var courseId = new AsignedCoursesIdClass();
+                courseId.AsignedCoursesId = course.CourseId;
+                userAdmin.AsignedCoursesId.Add(courseId);
 
-                if(i == 3)
+
+                if (i == 0 || i == 1)
                 {
-                    userStudent.AsignedCourses.Add(course);
+                    var courseIdVar1 = new AsignedCoursesIdClass();
+                    courseIdVar1.AsignedCoursesId = course.CourseId;
+                    userStudent.AsignedCoursesId.Add(courseIdVar1);
+                }
+                if(i == 0 || i == 1 || i== 2)
+                {
+                    var courseIdVar2 = new AsignedCoursesIdClass();
+                    courseIdVar2.AsignedCoursesId = course.CourseId;
+                    userTeacher.AsignedCoursesId.Add(courseIdVar2);
                 }
 
-                // TODO this needs to be implemented as soon as foeigns keys work
-                //if(i < 3)                   
-                //{
-                //userStudent.AsignedCourses.Add(course);
-                //userTeacher.AsignedCourses.Add(course);
-                //}
-
-
             }
+            userDefinitionService.AddUser(userAdmin);
+            userDefinitionService.AddUser(userStudent);
+            userDefinitionService.AddUser(userTeacher);
 
         }
 

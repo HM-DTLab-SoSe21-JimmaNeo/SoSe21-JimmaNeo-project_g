@@ -1,0 +1,115 @@
+﻿@page "/usercreate"
+
+@inject Services.UserDefinitionBackendService UserService
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject NavigationManager NavigationManager
+@inject Services.BiscuitService BiscuitService
+
+<h3>User Creation</h3>
+
+
+
+@if (UserDefinitionDto != null)
+{
+
+
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
+
+
+    <div class="col-md-12">
+        <form>
+            <div class="form-group row">
+                <label for="email" class="col-1 col-form-label">E-Mail</label>
+                <div class="col-4">
+                    <InputText id="email" name="email" class="form-control here" required="required" type="text" @bind-Value="UserDefinitionDto.Email" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <br />
+
+
+    <button name="submitStudent" type="submit" class="btn btn-primary" @onclick="SaveStudentToBackend">Create Student</button>
+    <button name="submitteacher" type="submit" class="btn btn-primary" @onclick="SaveTeacherToBackend">Create Teacher</button>
+    @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
+    {
+        <button name="submitAdmin" type="submit" class="btn btn-primary" @onclick="SaveAdminToBackend">Create Admin</button>
+
+    }
+
+
+</EditForm>
+
+    <br />
+    <br />
+
+}
+
+
+@code{
+    [Parameter]
+    public int id { get; set; }
+
+
+    public UserDefinitionDto UserDefinitionDto { get; set; }
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        UserDefinitionDto = new UserDefinitionDto();
+        context = new EditContext(UserDefinitionDto);
+    }
+
+    private void OnSubmit(EditContext context)
+    {
+
+    }
+
+    private async void SaveStudentToBackend()
+    {
+        var student = await SaveUserToBackend();
+        student.AuthDefinitions[0].Role = RoleType.Student;
+        await UserService.AddOrUpdateUser(student);
+        ReturnToPreviousView();
+    }
+
+    private async void SaveTeacherToBackend()
+    {
+        var student = await SaveUserToBackend();
+        student.AuthDefinitions[0].Role = RoleType.Teacher;
+        await UserService.AddOrUpdateUser(student);
+        ReturnToPreviousView();
+    }
+
+    private async void SaveAdminToBackend()
+    {
+        var student = await SaveUserToBackend();
+        student.AuthDefinitions[0].Role = RoleType.Admin;
+        await UserService.AddOrUpdateUser(student);
+        ReturnToPreviousView();
+    }
+
+
+    private async Task<UserDefinitionDto> SaveUserToBackend()
+    {
+        var answer = await UserService.AddOrUpdateUser(UserDefinitionDto);
+        return answer;
+    }
+
+    private async void ReturnToPreviousView()
+    {
+
+        if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
+        {
+            NavigationManager.NavigateTo("/useroverview");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/courseuseroverview");
+
+        }
+    }
+
+}

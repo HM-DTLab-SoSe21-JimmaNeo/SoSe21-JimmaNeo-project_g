@@ -73,6 +73,10 @@ namespace SEIIApp.Server.Controllers
                 { //add
                     mappedModel = LoginService.AddAuth(mappedModel);
                 }
+                else
+                {
+                    mappedModel = LoginService.UpdateAuth(mappedModel);
+                }
 
                 model = Mapper.Map<LoginDto>(mappedModel);
                 return Ok(model);

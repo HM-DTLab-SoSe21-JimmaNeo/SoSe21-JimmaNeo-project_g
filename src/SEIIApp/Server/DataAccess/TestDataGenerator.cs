@@ -112,13 +112,14 @@ namespace SEIIApp.Server.DataAccess {
 
         }
 
-        public static UserDefinition CreateUser(String email)
+        public static UserDefinitionCourses CreateUser(String email)
         {
-            var userDefinition = new UserDefinition();
+            var userDefinition = new UserDefinitionCourses();
             userDefinition.Description = "Lorem ipsum";
             userDefinition.Email = email;
             userDefinition.AsignedCourses = new List<CourseDefinition>();
             userDefinition.AuthDefinitions = new List<AuthDefinition>();
+            userDefinition.AsignedCoursesId = new List<AsignedCoursesIdClass>();
 
             return userDefinition;
         }

@@ -67,6 +67,12 @@ namespace SEIIApp.Server.Services
             return auth;
         }
 
+        public AuthDefinition UpdateAuth(AuthDefinition auth)
+        {
+            DatabaseContext.AuthDefinitions.Update(auth);
+            DatabaseContext.SaveChanges();
+            return auth;
+        }
 
     }
 

@@ -103,22 +103,26 @@ namespace SEIIApp.Server.Domain
 
 
             // Mapping for USER.
-            CreateMap<UserDefinition, UserDefinition>();
-            CreateMap<UserDefinitionDto, UserDefinition>();
             CreateMap<UserDefinitionBaseDto, UserDefinition>();
             CreateMap<UserDefinition, UserDefinitionBaseDto>();
-            CreateMap<UserDefinition, UserDefinitionDto>();
+            CreateMap<UserDefinitionCourses, UserDefinition>();
+            CreateMap<UserDefinition, UserDefinitionCourses>();
+            CreateMap<UserDefinitionCourses, UserDefinitionCourses>();
+            CreateMap<UserDefinitionDto, UserDefinitionCourses>();
+            CreateMap<UserDefinitionBaseDto, UserDefinitionCourses>();
+            CreateMap<UserDefinitionCourses, UserDefinitionBaseDto>();
+            CreateMap<UserDefinitionCourses, UserDefinitionDto>();
 
-            CreateMap<UserDefinition, UserDefinitionBaseDto>()
+            CreateMap<UserDefinitionCourses, UserDefinitionBaseDto>()
                 .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToArray()));
-            CreateMap<UserDefinitionBaseDto, UserDefinition>()
+            CreateMap<UserDefinitionBaseDto, UserDefinitionCourses>()
                 .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToList()));
 
-            CreateMap<UserDefinition, UserDefinitionDto>()
+            CreateMap<UserDefinitionCourses, UserDefinitionDto>()
                 .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToArray()))
                 .ForMember(user => user.AsignedCourses, opts => opts.MapFrom(obj => obj.AsignedCourses.ToArray()));
 
-            CreateMap<UserDefinitionDto, UserDefinition>()
+            CreateMap<UserDefinitionDto, UserDefinitionCourses>()
                 .ForMember(user => user.AuthDefinitions, opts => opts.MapFrom(obj => obj.AuthDefinitions.ToList()))
                 .ForMember(user => user.AsignedCourses, opts => opts.MapFrom(obj => obj.AsignedCourses.ToList()));
 

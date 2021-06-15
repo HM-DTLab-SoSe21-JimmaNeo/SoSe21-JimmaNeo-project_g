@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
-using System.Collections.Generic;
 
 namespace SEIIApp.Server.Controllers
 {
@@ -50,7 +49,7 @@ namespace SEIIApp.Server.Controllers
         /// <param name="loginDto"></param>
         /// <returns></returns>
         [Route("~/api/getuserbyauth")]
-        [HttpPut()]         // IMPORTANT: we use this as a HttpGet, because we need to send a body, even though its stupid
+        [HttpPut()]         // IMPORTANT: we use this as a HttpGet, because we need to send a body
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -95,7 +94,7 @@ namespace SEIIApp.Server.Controllers
             if (ModelState.IsValid)
             {
 
-                var mappedModel = Mapper.Map<UserDefinition>(model);
+                var mappedModel = Mapper.Map<UserDefinitionCourses>(model);
 
                 if (model.UserId == 0)
                 { //add
