@@ -44,10 +44,32 @@
         </li>
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedef"> <!--//TODO Funktion kurs verlassen hinterlegen-->
+            <NavLink class="nav-link" href="coursedef">
+                <!--//TODO Funktion kurs verlassen hinterlegen-->
                 <span class="oi oi-account-login" aria-hidden="true"></span> Kurs verlassen
             </NavLink>
         </li>
+
+        @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Teacher)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="courseuseroverview">
+                    <span class="oi oi-people" aria-hidden="true"></span> User Management
+                </NavLink>
+            </li>
+
+        }
+        
+        @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="useroverview">
+                    <span class="oi oi-people" aria-hidden="true"></span> User Management
+                </NavLink>
+            </li>
+
+        }
+
 
 
     </ul>

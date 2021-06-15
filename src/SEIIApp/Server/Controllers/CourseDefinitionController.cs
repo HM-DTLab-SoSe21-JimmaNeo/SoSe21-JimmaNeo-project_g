@@ -14,10 +14,13 @@ namespace SEIIApp.Server.Controllers
     {
 
         private CourseDefinitionService CourseDefinitionService { get; set; }
+
+        private UserDefinitionService UserDefinitionService { get; set; }
         private IMapper Mapper { get; set; }
 
-        public CourseDefinitionController(CourseDefinitionService courseDefinitionService, IMapper mapper)
+        public CourseDefinitionController(CourseDefinitionService courseDefinitionService, IMapper mapper, UserDefinitionService userDefinitionService)
         {
+            this.UserDefinitionService = userDefinitionService;
             this.CourseDefinitionService = courseDefinitionService;
             this.Mapper = mapper;
         }
@@ -107,6 +110,71 @@ namespace SEIIApp.Server.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Gets all users to a course.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/users")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult GetUsersInCourse([FromRoute] int id)
+        {
+            var users = UserDefinitionService.GetUsersForCourse(id);
+            var mappedUsers = Mapper.Map<UserDefinitionBaseDto[]>(users);
+
+            UserInCourseDto courseUserDto = new();
+            courseUserDto.Users = mappedUsers;
+            courseUserDto.CourseId = id;
+
+            return Ok(courseUserDto);
+        }
+
+
+        /// <summary>
+        /// Adds a user to a course.
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpPut("{courseId}/users/edit/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult AddUserToCourse([FromRoute] int courseId, [FromRoute] int userId)
+        {
+            var users = UserDefinitionService.AddUserToCourse(courseId, userId);
+            var mappedUsers = Mapper.Map<UserDefinitionBaseDto[]>(users);
+
+            UserInCourseDto courseUserDto = new();
+            courseUserDto.Users= mappedUsers;
+            courseUserDto.CourseId = courseId;
+
+            return Ok(courseUserDto);
+
+        }
+
+
+        /// <summary>
+        /// Removes a user from a course.
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpDelete("{courseId}/users/edit/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult RemoveUserFromCourse([FromRoute] int courseId, [FromRoute] int userId)
+        {
+            var users = UserDefinitionService.RemoveUserFromCourse(courseId, userId);
+            var mappedUsers = Mapper.Map<UserDefinitionBaseDto[]>(users);
+
+            UserInCourseDto courseUserDto = new();
+            courseUserDto.Users = mappedUsers;
+            courseUserDto.CourseId = courseId;
+
+            return Ok(courseUserDto);
+
+        }
     }
 
 }

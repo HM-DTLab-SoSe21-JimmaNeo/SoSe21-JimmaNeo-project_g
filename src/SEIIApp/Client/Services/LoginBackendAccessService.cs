@@ -50,10 +50,15 @@ namespace SEIIApp.Client.Services {
             return await HttpClient.GetFromJsonAsync<LoginDto>(GetLoginDefinitionUrlWithId(id));
         }
 
-
-
-
-
+        public async Task<LoginDto> UpdateUserPassword(LoginDto loginDto)
+        {
+            var response = await HttpClient.PutAsJsonAsync(GetLoginUrl(), loginDto);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<LoginDto>();
+            }
+            else return null;
+        }
 
     }
 

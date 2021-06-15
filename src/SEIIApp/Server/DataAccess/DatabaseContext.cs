@@ -50,6 +50,8 @@ namespace SEIIApp.Server.DataAccess
         // Database entries for user definitions.
         public DbSet<Domain.UserDefinition> UserDefinitions { get; set; }
 
+        public DbSet<Domain.AsignedCoursesIdClass> AsignedCoursesIds { get; set; }
+
     }
 
 }

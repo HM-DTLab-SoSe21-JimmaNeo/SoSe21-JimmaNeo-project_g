@@ -12,6 +12,7 @@ namespace SEIIApp.Server.Services
     {
 
         private DatabaseContext DatabaseContext { get; set; }
+
         private IMapper Mapper { get; set; }
 
         public CourseDefinitionService(DatabaseContext db, IMapper mapper)

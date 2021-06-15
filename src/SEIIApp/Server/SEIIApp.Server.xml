@@ -93,6 +93,29 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseDefinitionController.GetUsersInCourse(System.Int32)">
+            <summary>
+            Gets all users to a course.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseDefinitionController.AddUserToCourse(System.Int32,System.Int32)">
+            <summary>
+            Adds a user to a course.
+            </summary>
+            <param name="courseId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseDefinitionController.RemoveUserFromCourse(System.Int32,System.Int32)">
+            <summary>
+            Removes a user from a course.
+            </summary>
+            <param name="courseId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.LoginController.GetRole(System.String)">
             <summary>
             Return the login with the given id.
@@ -304,17 +327,17 @@
             Returns the user with the given id. Includes also the courses.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.Services.UserDefinitionService.AddUser(SEIIApp.Server.Domain.UserDefinition)">
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.AddUser(SEIIApp.Server.Domain.UserDefinitionCourses)">
             <summary>
             Adds a user.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.Services.UserDefinitionService.UpdateUser(SEIIApp.Server.Domain.UserDefinition)">
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.UpdateUser(SEIIApp.Server.Domain.UserDefinitionCourses)">
             <summary>
             Updates a user.
             </summary>
         </member>
-        <member name="M:SEIIApp.Server.Services.UserDefinitionService.RemoveUser(SEIIApp.Server.Domain.UserDefinition)">
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.RemoveUser(SEIIApp.Server.Domain.UserDefinitionCourses)">
             <summary>
             Removes a user and all dependencies.
             </summary>
@@ -323,6 +346,13 @@
             <summary>
             Returns the user for a given authentification.
             </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.GetUsersForCourse(System.Int32)">
+            <summary>
+            Gets alls Users for a course.
+            </summary>
+            <param name="courseId"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

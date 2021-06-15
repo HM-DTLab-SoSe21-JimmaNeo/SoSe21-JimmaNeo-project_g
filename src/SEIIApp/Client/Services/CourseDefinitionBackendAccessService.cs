@@ -24,6 +24,14 @@ namespace SEIIApp.Client.Services {
         private string GetCourseDefinitionUrlWithId(int id) {
             return $"{GetCourseDefinitionUrl()}/{id}";
         }
+        
+        private string GetCourseUsersUrlWithId(int id) {
+            return $"{GetCourseDefinitionUrl()}/{id}/users";
+        }
+        
+        private string GetCourseUsersEditUrlWithId(int courseId, int userId) {
+            return $"{GetCourseDefinitionUrl()}/{courseId}/users/edit/{userId}";
+        }
 
         /// <summary>
         /// Returns a certain course by id
@@ -57,6 +65,36 @@ namespace SEIIApp.Client.Services {
             var response = await HttpClient.DeleteAsync(GetCourseDefinitionUrlWithId(courseId));
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
+        
+        
+        /// <summary>
+        /// Leaves a course and returns true if successfull
+        /// </summary>
+        public async Task<bool> LeaveCourse(int courseId, int userId) {
+            var response = await HttpClient.DeleteAsync(GetCourseUsersEditUrlWithId(courseId, userId));
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
 
+        public async Task<bool> AddUserToCourse(int courseId, int userId)
+        {
+            var response = await HttpClient.PutAsJsonAsync(GetCourseUsersEditUrlWithId(courseId, userId), new UserInCourseDto()); // We dont read the body
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        /// <summary>
+        /// Gets user form a specific course.
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
+        public async Task<UserInCourseDto> GetUsersForCourse(int courseId)
+        {
+            var response = await HttpClient.GetAsync(GetCourseUsersUrlWithId(courseId));
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<UserInCourseDto>();
+            }
+            return null;
+        }
     }
 }
