@@ -26,6 +26,8 @@ namespace SEIIApp.Shared.DomainTdo
         // Specific for a picture chapter element:
         public String Description { get; set; }
 
+        public Uri PictureUri { get; set; }
+
         public Blob Picture { get; set; }
 
 
