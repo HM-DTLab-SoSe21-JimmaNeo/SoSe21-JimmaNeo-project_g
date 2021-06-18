@@ -6,16 +6,13 @@
 
 @if (PictureDefinitionDto != null)
 {
-    <EditForm EditContext="@context" OnSubmit="OnSubmit">
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
 
-        <label>insert Picture URI</label>
-        <br />
-        <InputFile OnChange="@OnFileSelection"></InputFile>
-        <br />
-        <label>insert picture Description here</label>
-        <br />
-        <InputTextArea cols="100" rows="10" @bind-Value="PictureDefinitionDto.Description" />
-    </EditForm>
+    <label>insert a Picture URL here</label>
+    <br />
+    <InputText @bind-Value="Uri" />
+
+</EditForm>
 
     <button class="btn btn-light" @onclick="SavePictureToBackend">Save Picture Element</button>
     <button class="btn btn-light" @onclick="NavigateBack">Save and go back</button>
@@ -31,6 +28,7 @@ else
     [Parameter]
     public int ChapterId { get; set; }
     public int CourseId = 1;
+    public string Uri = "";
 
     public PictureDefinitionDto PictureDefinitionDto { get; set; }
     private EditContext context { get; set; }
@@ -63,6 +61,7 @@ else
 
     private async void SavePictureToBackend()
     {
+        PictureDefinitionDto.PictureUri = new System.Uri(Uri);
         PictureDefinitionDto.ChapterElementType = (ChapterElementType)2;
         var isValid = context.Validate();
         if (isValid)
@@ -73,11 +72,6 @@ else
                 this.PictureDefinitionDto.Id = answer.Id; //refresh id (if created)
             }
         }
-    }
-
-    private async Task OnFileSelection(InputFileChangeEventArgs e)
-    {
-
     }
 
     public void NavigateBack()
