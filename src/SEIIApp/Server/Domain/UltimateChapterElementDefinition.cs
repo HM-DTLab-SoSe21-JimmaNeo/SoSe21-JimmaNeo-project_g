@@ -31,6 +31,8 @@ namespace SEIIApp.Server.Domain
 
         public Blob Picture { get; set; }
 
+        public Uri PictureUri { get; set; }
+
 
         // Specific for a quiz chapter element:
         public string QuizName { get; set; }
