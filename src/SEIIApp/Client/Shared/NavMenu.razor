@@ -18,11 +18,15 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedef">
-                <span class="oi oi-align-center" aria-hidden="true"></span> Course Management
-            </NavLink>
-        </li>
+        @if (BiscuitService.User.AuthDefinitions[0].Role != RoleType.Student)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="coursedef">
+                    <span class="oi oi-align-center" aria-hidden="true"></span> Course Management
+                </NavLink>
+            </li>
+        }
+
         @{
             if (Courses != null && Courses?.Length > 0)
             {
@@ -68,7 +72,7 @@
             </li>
 
         }
-        
+
         @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
         {
             <li class="nav-item px-3">

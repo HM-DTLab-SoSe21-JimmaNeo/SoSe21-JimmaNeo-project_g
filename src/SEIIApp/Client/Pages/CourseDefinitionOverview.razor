@@ -2,6 +2,7 @@
 @inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime jsRuntime
+@inject Services.BiscuitService BiscuitService
 
 <h3 style="margin-bottom: 1em">Course Definitions Overview</h3>
 
@@ -80,7 +81,15 @@
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        Courses = await CourseDefinitionService.GetCourseOverview();
+        if(BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
+        {
+            Courses = await CourseDefinitionService.GetCourseOverview();
+
+        }
+        else
+        {
+            Courses = BiscuitService.User.AsignedCourses;
+        }
     }
 
     private void EditCourse(CourseDefinitionBaseDto course)
