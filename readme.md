@@ -38,7 +38,7 @@ We don't use any special frameworks or anthing like it, the backend works proper
 
 Now to the IMPORTANT stuff you need to know when you want to continue the development of the app:
 
-We weren't able to implement cookies, therefore the [BiscuitService](SEIIApp\Client\Services\BiscuitService.cs) exists.
+We weren't able to implement cookies, therefore the [BiscuitService](src/SEIIApp\Client\Services\BiscuitService.cs) exists.
 This just pretends to be a cookie, so pls replace this with something working, as for now this causes the page to crash during a reload.
 
 The backend contains the UltimateChapterElementDefinitionDto, this is usefull to use the same endpoint for all ChapterElementTypes, pls dont use this in the frontend.
