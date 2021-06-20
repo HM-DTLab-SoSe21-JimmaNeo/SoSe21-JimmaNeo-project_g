@@ -7,7 +7,7 @@ frontend and backend.
 
 ### Einfache Content Creation für Wissensvermittlung in kürzester Zeit mit *Alexandria*
 
-*Mit einem einfachen Baukastensystem lassen sich viele verschiedene Blöcke an Lerninhalten undWissensinhalten zu fertigen Lernkursen zusammenführen.*
+*Mit einem einfachen Baukastensystem lassen sich viele verschiedene Blöcke an Lerninhalten und Wissensinhalten zu fertigen Lernkursen zusammenführen.*
 
 MÜNCHEN - 26.05.2021 - Um im Rahmen des Partnerprojekts JimmaNeo auch während der Corona Pandemie weiterhin praktisches Wissen zur Versorgung von Neugeborenen vermitteln zu können, bedarf es einer Alternative zu den gewohnten praktischen Trainings in Äthiopien. Die Neugeborenensterblichkeitsrate beträgt hier 5,8%. In Deutschland beträgt diese gerade einmal 0,3%. Da es aufgrund der Reisebeschränkungen und der allgemein unsicheren Lage in Äthiopien jedoch nicht möglich ist, Trainings vor Ort durchzuführen, wird hier bereits auf eine digitale Lösung zurückgegriffen.
 Für eine gute digitale Alternative zu den praktischen Trainings vor Ort fehlen hier allerdings noch wichtige Aspekte, weshalb sich dazu entschlossen wurde, in Zusammenarbeit mit Amazon und Studenten der Hochschule München, eine neue digitale Lernplattform zu entwickeln.
