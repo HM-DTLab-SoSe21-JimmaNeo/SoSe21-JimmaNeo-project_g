@@ -27,6 +27,23 @@ Eine Perspektive, wie sie ohne eine genau auf unser Problem zugeschnittene, digi
 Die neusten Informationen zum Projekt erhalten sie über die Ankündigungen der Ludwig-Maximilians-Universität sowie der Hochschule München.
 
 # 2 Description
+By landing on our Website you will see the Login on the first page. (link).
+There are three diffrent categories of Persons that can login into the Website. Admin, Teacher and User.
+
+As Admin you have all rights on this Website. 
+On the top of the Home-Menu you can see the name of the account your logged in. On the right of the account name you can change your Account. The Account includes your Email, Password and a little Info about the Account-User. You can also change your Password here and create, leave or delete some Courses. On this side you have also the control about wich user is added to which Course.
+
+Back on the Homepage by klicking the Home-Button you can see some news about the Programm or new Courses.
+By clicking on "Create new Course" on the sidebar you can create a new Course. New Courses will be listed in the sidebar above older ones.
+
+The Admin can see all Courses in the Course-Management on the sidebar. The Courses are also separately listed on the sidebar. If the Admin clicks on them he can go directly to the capters of the Course. The Admin can add or delete some Chapters. He can also Edit all of them. 
+By editing a chapter he can see all Chapterelements of the Chapter. A Chapterelement is a Text, Quiz, Picture or a Video that can be used to create some new Tasks for the Users. Should a Chapterelement get updated then the Admin can edit the already existing Chapterelements or can even delete them.
+
+On the Homepage under "User Management" the admin can create some new Accounts for Users to be able to login and use the function of the Website. First of all only a Email adress is needed to create a new User.
+
+
+
+
 
 # 3 Software architecture
 
