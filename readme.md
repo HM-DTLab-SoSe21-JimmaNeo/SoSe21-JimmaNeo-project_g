@@ -46,6 +46,7 @@ The backend contains the UltimateChapterElementDefinitionDto, this is usefull to
 You should be able to start this by simply choosing SEIIApp.Server and start this run configuration, no further adjustments needed.
 
 # 4 Team and contact
-Our Team contains 6 Persons. Dominik and Julian were mainly responsible for the backend, while Markus, Max, Sophie and Felix worked mainly in the frontend. For Questions contact Markus at markus.kinast@hm.edu.
+Our Team contains 6 Persons. Dominik and Julian were mainly responsible for the backend, while Markus, Max, Sophie and Felix worked mainly in the frontend. 
+For Questions contact Markus at markus.kinast@hm.edu.
 
 # 5 Attachments
