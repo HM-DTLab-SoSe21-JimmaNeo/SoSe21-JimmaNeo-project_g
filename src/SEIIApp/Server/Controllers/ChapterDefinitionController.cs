@@ -45,14 +45,15 @@ namespace SEIIApp.Server.Controllers
         }
 
         /// <summary>
-        /// Returns all chapters names and ids.
+        /// Returns all chapters names and ids for a given course.
         /// </summary>
+        /// /// <param name="courseId"></param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<ChapterDefinitionBaseDto[]> GetAllChapters()
+        public ActionResult<ChapterDefinitionBaseDto[]> GetAllChapters([FromQuery] int courseId)
         {
-            var chapters = ChapterDefinitionService.GetAllChapters();
+            var chapters = CourseDefinitionService.GetCourseById(courseId).Chapters.ToArray();
             var mappedChapters = Mapper.Map<ChapterDefinitionDto[]>(chapters);
             return Ok(mappedChapters);
         }
