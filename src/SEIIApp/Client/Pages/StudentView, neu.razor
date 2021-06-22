@@ -1,0 +1,77 @@
+﻿@page "/studentViewTest"
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementBackendService
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.TextElementDefinitionBackendAccessService TextElementBackendService
+
+
+
+@code {
+
+    int courseId = 1;
+    int chapterId = 1;
+    String textElementTitle;
+    String textElementContent;
+    public ExplanatoryTextDefinitionDto Text { get; set; } = new ExplanatoryTextDefinitionDto();
+    public CourseDefinitionBaseDto[] Courses { get; set; }
+    public ChapterDefinitionDto Chapter { get; set; }
+
+    /*    protected async ExplanatoryTextDefinitionDto giveMeTextElement()
+    {
+    return TextElementBackendService.GetTextElementById(1, 1, 2).Result;
+    }
+    */
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        Courses = await CourseDefinitionService.GetCourseOverview();
+        await base.OnParametersSetAsync();
+
+        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(courseId, chapterId);
+        await base.OnParametersSetAsync();
+
+
+        //this.Text = await TextElementBackendService.GetTextElementById(1, 1, 2);
+        //await base.OnParametersSetAsync();
+
+        //Task test = textElement(1, 1, 2);
+
+    }
+
+   
+}
+
+
+
+@{ if (Courses?.Length > 0)
+    {
+
+        <!-- Ausgabe der Kapitel-->
+        @foreach (var course in Courses)
+        {
+            <ol>
+                <li>@(course.CourseName) </li>
+                <li>
+                    <ul>
+                        @{ if (Chapter != null && Chapter.ChapterElements != null)
+                            {
+                                if (Chapter.ChapterElements.Length > 0)
+                                {
+                                    @foreach (var element in Chapter.ChapterElements)
+                                    {
+                                                                                        <li>@(element.ChapterElementType) </li>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </ul>
+                                                                </li>
+                                                         </ol>
+
+                                                            }
+                                                }
+                                            }
+
+
+                                        

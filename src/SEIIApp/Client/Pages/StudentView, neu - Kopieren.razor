@@ -1,0 +1,235 @@
+﻿@page "/pageStudent"
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementBackendService
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.TextElementDefinitionBackendAccessService TextElementBackendService
+@inject Services.PictureElementDefinitionBackendAccessService PictureElementBackendService
+@using System.Collections
+
+@code {
+
+    public CourseDefinitionBaseDto[] Courses { get; set; }
+    public ChapterDefinitionDto Chapter { get; set; }
+    int courseId = 1;
+    int chapterId = 1;
+    String textElementTitle;
+    String textElementContent;
+
+    List<ChapterElementDefinitionDto> chapterElemente = new List<ChapterElementDefinitionDto>();
+    List<ChapterElementDefinitionDto> chapterElementeTypes = new List<ChapterElementDefinitionDto>();
+
+    ArrayList textElemente = new ArrayList();
+    ArrayList videoElemente = new ArrayList();
+    int aktuellesChapterElement = 0;
+    int letztesChapterElement = 0;
+
+    int anzahlKurse = 0;
+    int anzahlChapterElemente = 0;
+    int i = 0;
+
+    /*    protected async ExplanatoryTextDefinitionDto giveMeTextElement()
+        {
+            return TextElementBackendService.GetTextElementById(1, 1, 2).Result;
+        }
+    */
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Courses = await CourseDefinitionService.GetCourseOverview();
+        await base.OnParametersSetAsync();
+
+        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(courseId, chapterId);
+        await base.OnParametersSetAsync();
+
+
+
+        if (Courses?.Length > 0)
+        {
+            @foreach (var course in Courses)
+            {
+                //anzahlKurse.Add(Courses.Length);
+                if (Chapter != null && Chapter.ChapterElements != null)
+                {
+                    //anzahlChapter.Add(Chapter.ChapterElements.Length);
+                    if (Chapter.ChapterElements.Length > 0)
+                    {
+                        Console.WriteLine("Anzahl ChapterElemente in Chapter: " + Chapter.ChapterElements.Length);
+                        @foreach (var element in Chapter.ChapterElements)
+                        {
+                            Console.WriteLine("CE in CE Array: " + element.ChapterElementType);
+                            Console.WriteLine("ChapterElement in Chapter: " + element.Id);
+                            if (element.ChapterElementType.Equals(ChapterElementType.Text))
+                            {
+                                GetTextElement(course, Chapter, element);
+                            }
+                            else if (element.ChapterElementType.Equals(ChapterElementType.Video))
+                            {
+                                Console.WriteLine("Picture Element gesichtet");
+                                getVideoElement(course, Chapter, element);
+                            }
+                        }
+                        if(chapterElemente.LastOrDefault() != null && chapterElemente.Last().Id > 0)
+                        {
+                            ChapterElementDefinitionDto neuesChapter = new ChapterElementDefinitionDto();
+                            neuesChapter.Id = -1;
+                            chapterElemente.Add(neuesChapter);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected async void GetTextElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
+    {
+        Task<ExplanatoryTextDefinitionDto> TaskText = TextElementBackendService.GetTextElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        ExplanatoryTextDefinitionDto Text = await TaskText;
+
+        textElemente.Add(Text);
+        chapterElemente.Add(Text);
+        base.StateHasChanged();
+    }
+
+    protected async void getVideoElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
+    {
+        Console.WriteLine("Picture Element Methode");
+        Task<PictureDefinitionDto> pictureTask = PictureElementBackendService.GetPictureElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        PictureDefinitionDto picture = await pictureTask;
+
+        videoElemente.Add(picture);
+        chapterElemente.Add(picture);
+        base.StateHasChanged();
+    }
+}
+
+<!-- ATE foreach (ExplanatoryTextDefinitionDto textElement in textElemente)
+{
+    <p>(ATE textElement.Title) </p>
+    <p>( ATE textElement.ContentText) </p>
+    <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+}
+    -->
+<!--
+ATE foreach (VideoDefinitionDto videoElement in videoElemente)
+{
+    { Console.WriteLine("Video URI: " + videoElement.VideoUri); }
+    { Console.WriteLine("Video URL: " + videoElement.VideoUri.DnsSafeHost); }
+
+    <iframe width="420" height="315" src="ATE videoElement.VideoUri.DnsSafeHost">
+    </iframe> 
+    <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+}-->
+
+@{ if (Courses?.Length > 0)
+    {
+        @foreach (var course in Courses)
+        {
+            <h1>@(course.CourseName)</h1>
+            <ol>
+                <li>@(Chapter.ChapterName) </li> <!-- TODO Ausgabe aller Chapter ergaenzen-->
+                @{anzahlChapterElemente = Chapter.ChapterElements.Length;
+                }
+                <li>
+                    <ul>
+                        @{ if (Chapter != null && Chapter.ChapterElements != null)
+                            {
+                                if (Chapter.ChapterElements.Length > 0)
+                                {
+                                    //for (int j = 0; j < anzahlChapterElemente; j++)
+                                    //{
+                                    //Console.WriteLine("Anzahl CEs: " + this.chapterElemente.Count);
+                                    //Console.WriteLine("Values: " + this.chapterElemente[0]);
+                                    //int j = 0;
+                                    //foreach (var element in Chapter.ChapterElements)
+                                    foreach (var chapterElement in chapterElemente)
+                                    {
+                                        Console.WriteLine("CE id: " + chapterElement.Id);
+                                        Console.WriteLine("CE: " + chapterElement.ChapterElementType);
+                                        /*
+                                        if(chapterElement.Id < 0)
+                                        {
+                                            break; //TODO bisher noch keine Trennung nach chaptern
+                                        } */
+                                        if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
+                                        {
+                                            ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
+                                            <p>(@textElement.Title) </p>
+                                            <p>(@textElement.ContentText) </p>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }
+                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
+                                        {
+                                            Console.WriteLine("Video");
+                                            VideoDefinitionDto videoElement = (VideoDefinitionDto)chapterElement;
+                                            <iframe width="420" height="315" src="@videoElement.VideoUri.DnsSafeHost">
+                                            </iframe>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }
+                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Picture))
+                                        {
+                                            Console.WriteLine("Picture");
+                                            PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
+                                            <figure>
+                                                <img src="" alt="@pictureElement.Description" width="500" height="700" />
+                                                <!-- <figcaption>@pictureElement.Description</figcaption> TODO hinzufuegen?-->
+                                            </figure>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
+                                        {
+                                            Console.WriteLine("Quiz");
+                                        }
+
+                                        //    if (Chapter.ChapterElements[j].ChapterElementType.Equals(ChapterElementType.Text) && chapterElemente.Count >= 0) //TODO geht nicht
+                                        //{
+
+                                        //ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElemente; //TODO geht nicht ...
+                                        //ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElemente;
+                                        //Console.WriteLine("VAlue CEs: " + textElement.ContentText);
+                                        //<hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                    }
+                                    //  j++;
+                                    // }
+                                    //}
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            </ol>
+
+        }
+
+    }
+}
+
+
+@{ if (Courses?.Length > 0)
+    {
+        @foreach (var course in Courses)
+        {
+            <h1>@(course.CourseName)</h1>
+            <ol>
+                <li>@(Chapter.ChapterName) </li> <!-- TODO Ausgabe aller Chapter ergaenzen-->
+                @{anzahlChapterElemente = Chapter.ChapterElements.Length;
+                }
+                <li>
+                    <ul>
+                        @{ if (Chapter != null && Chapter.ChapterElements != null)
+                            {
+                                if (Chapter.ChapterElements.Length > 0)
+                                {
+                                    @foreach (var element in Chapter.ChapterElements)
+                                    {
+                                        <li>@(element.ChapterElementType) </li>
+                                    }
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            </ol>
+
+        }
+
+    }
+}
