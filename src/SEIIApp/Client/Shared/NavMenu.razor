@@ -1,7 +1,7 @@
 ﻿@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
 @inject Services.BiscuitService BiscuitService
 
-<div class="top-row pl-4 navbar navbar-dark" style="background-color: #b92b27;">
+<div class="top-row pl-4 navbar navbar-dark" style="background-color: #1565c0;">
     <a class="navbar-brand" href="">Alexandria</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -14,14 +14,14 @@
     <ul class="nav flex-column">
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/home/1" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" style="color:white" href="/home/1" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
         @if (BiscuitService.User.AuthDefinitions[0].Role != RoleType.Student)
         {
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="coursedef">
+                <NavLink class="nav-link" style="color:white" href="coursedef">
                     <span class="oi oi-align-center" aria-hidden="true"></span> Course Management
                 </NavLink>
             </li>
@@ -35,13 +35,13 @@
                     <li class="nav-item px-3">
                         @if (course.Visible) // Icon for visible courses.
                         {
-                            <a class="nav-link" href="/coursedefedit/ @(course.CourseId)">
+                            <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
                                 <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
                             </a>
                         }
                         @if (!course.Visible) // And another Icon for non-visible courses.
                         {
-                            <a class="nav-link" href="/coursedefedit/ @(course.CourseId)">
+                            <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
                                 <span class="oi oi-ban" aria-hidden="true"></span> @(course.CourseName)
                             </a>
                         }
@@ -51,22 +51,16 @@
         }
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedefedit/0">
+            <NavLink class="nav-link" style="color:white" href="coursedefedit/0">
                 <span class="oi oi-plus" aria-hidden="true"></span> Create new Course
             </NavLink>
         </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="coursedef">
-                <!--//TODO Funktion kurs verlassen hinterlegen-->
-                <span class="oi oi-account-login" aria-hidden="true"></span> Kurs verlassen
-            </NavLink>
-        </li>
 
         @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Teacher)
         {
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="courseuseroverview">
+                <NavLink class="nav-link" style="color:white" href="courseuseroverview">
                     <span class="oi oi-people" aria-hidden="true"></span> User Management
                 </NavLink>
             </li>
@@ -76,7 +70,7 @@
         @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
         {
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="useroverview">
+                <NavLink class="nav-link" style="color:white" href="useroverview">
                     <span class="oi oi-people" aria-hidden="true"></span> User Management
                 </NavLink>
             </li>
