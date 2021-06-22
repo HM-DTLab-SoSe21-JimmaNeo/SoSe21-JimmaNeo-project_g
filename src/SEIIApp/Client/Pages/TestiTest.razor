@@ -7,6 +7,7 @@
 @inject Services.PictureElementDefinitionBackendAccessService PictureElementBackendService
 @inject Services.VideoElementDefinitionBackendAccessService VideoElementBackendService
 @inject Services.QuizElementDefinitionBackendAccessService QuizElementBackendService
+@inject Services.ChapterDefinitionBackendAccessService ChapterDefinitionService
 
 @using System.Collections
 @using System.Threading.Tasks;
@@ -15,7 +16,8 @@
 
     public CourseDefinitionBaseDto[] Courses { get; set; }
     public ChapterDefinitionDto Chapter { get; set; }
-    //public ChapterDefinitionDto Chapters { get; set; }
+
+    private Dictionary<int, ChapterDefinitionDto[]> ChatersForCourses { get; set; } = new Dictionary<int, ChapterDefinitionDto[]>();
 
     int courseId = 1;
     int chapterId = 1;
@@ -61,12 +63,17 @@
         //Console.WriteLine("vor getChapter Aufruf ");
         //getChapter(courseId, chapterId);
 
+        //Course[] befuellen
+        foreach (var c in Courses)
+        {
+            ChatersForCourses.Add(c.CourseId, await ChapterDefinitionService.GetChapterOverview(c.CourseId));
+        }
+
         if (Courses?.Length > 0)
         {
             @foreach (var course in Courses)
             {
                 //TODO alle Chapter dieses Kurses in Array -> foreach Arraychapter
-                
 
                 //Console.WriteLine("foreach Kurs aufruf");
                 //anzahlKurse.Add(Courses.Length);
@@ -107,11 +114,11 @@
                         chapterId++;
                         await getChapter(courseId, chapterId);
                         //getChapter(courseId, chapterId);
-                   /*     while (threadWait)
-                        {
-                            //Console.WriteLine("threadWait: " + threadWait);
-                            System.Threading.Thread.Sleep(100);
-                        } */
+                        /*     while (threadWait)
+                             {
+                                 //Console.WriteLine("threadWait: " + threadWait);
+                                 System.Threading.Thread.Sleep(100);
+                             } */
                         threadWait = true;
                         /* if (chapterElemente.LastOrDefault() != null && chapterElemente.Last().Id > 0)
                          {
@@ -184,7 +191,7 @@
 
         threadWait = false;
         Console.WriteLine("getChapter: " + threadWait);
-        
+
         /*
         Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(courseId, chapterId);
         await base.StateHasChanged();
@@ -227,11 +234,11 @@ ATE foreach (VideoDefinitionDto videoElement in videoElemente)
     <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
 }-->
 
-@{ 
-    if(Courses == null)
-            {
-                <div>Courses is null</div>
-            }
+@{
+    if (Courses == null)
+    {
+        <div>Courses is null</div>
+    }
 }
 
 
