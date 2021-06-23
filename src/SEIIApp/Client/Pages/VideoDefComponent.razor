@@ -63,6 +63,10 @@ else
 
     private async void SaveVideoToBackend()
     {
+        if (Uri == null)
+        {
+            Uri = "1";
+        }
         VideoDefinitionDto.VideoUri = new System.Uri(Uri);
         VideoDefinitionDto.ChapterElementType = (ChapterElementType)3;
 

@@ -159,6 +159,7 @@ namespace SEIIApp.Server.Controllers
                         videoDefinition.Description = temporaryModel.Description;
                         videoDefinition.VideoUri = temporaryModel.VideoUri;
                         videoDefinition.Video = temporaryModel.Video;
+                        videoDefinition.ChapterElementType = ChapterElementType.Video;
                         mappedModel = videoDefinition;
                         break;
                     default:

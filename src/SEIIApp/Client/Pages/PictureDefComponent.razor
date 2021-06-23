@@ -61,6 +61,10 @@ else
 
     private async void SavePictureToBackend()
     {
+        if(Uri == null)
+        {
+            Uri = "1";
+        }
         PictureDefinitionDto.PictureUri = new System.Uri(Uri);
         PictureDefinitionDto.ChapterElementType = (ChapterElementType)2;
         var isValid = context.Validate();
