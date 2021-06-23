@@ -19,7 +19,7 @@ namespace SEIIApp.Client.Services {
 
         private string GetChapterDefinitionUrl(int CourseId) {
 
-            return $"api/coursedefinition/{CourseId}";
+            return $"api/coursedefinition/1";
         }
 
         private string GetChapterDefinitionUrlWithId(int ChapterId) {
@@ -36,10 +36,11 @@ namespace SEIIApp.Client.Services {
         /// <summary>
         /// Returns all chapter stored on the backend
         /// </summary>
-        public async Task<ChapterDefinitionDto> GetChapterOverview(int CourseId)
+        public async Task<ChapterDefinitionDto[]> GetChapterOverview(int courseId)
         {
-            return await HttpClient.GetFromJsonAsync<ChapterDefinitionDto>(GetChapterDefinitionUrl(CourseId));
+            return await HttpClient.GetFromJsonAsync<ChapterDefinitionDto[]>($"api/chapterdefinition?courseId={courseId}");
         }
+
 
         /// <summary>
         /// Adds or updates a chapter on the backend. Returns the chapter if successful else null

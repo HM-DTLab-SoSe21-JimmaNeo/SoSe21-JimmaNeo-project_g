@@ -1,0 +1,153 @@
+﻿@page "/chapterstudentview/{CourseId:int}/{ChapterId:int}"
+
+@layout MainLayout;
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementBackendService
+@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.ChapterElementDefinitionBackendAccessService ChapterElementDefinitionService
+@inject Services.TextElementDefinitionBackendAccessService TextElementBackendService
+@inject Services.PictureElementDefinitionBackendAccessService PictureElementBackendService
+@inject Services.VideoElementDefinitionBackendAccessService VideoElementBackendService
+@inject Services.QuizElementDefinitionBackendAccessService QuizElementBackendService
+@inject Services.ChapterDefinitionBackendAccessService ChapterDefinitionService
+
+@using System.Collections
+@using System.Threading.Tasks;
+
+@code {
+
+    public CourseDefinitionBaseDto Course { get; set; }
+    public ChapterDefinitionDto Chapter { get; set; }
+
+    [Parameter]
+    public int ChapterId { get; set; }
+    [Parameter]
+    public int CourseId { get; set; }
+
+    List<ChapterElementDefinitionDto> chapterElemente = new List<ChapterElementDefinitionDto>();
+
+    int aktuellesChapterElementIndex = 0;
+    int letztesChapterElementIndex = 0;
+    bool isLoading = true;
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Course = await CourseDefinitionService.GetCourseById(CourseId);
+
+        Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(CourseId, ChapterId);
+
+             
+        foreach (var element in Chapter.ChapterElements)
+        {
+            if (element.ChapterElementType.Equals(ChapterElementType.Text))
+            {
+                await GetTextElement(Course, Chapter, element);
+            }
+            else if (element.ChapterElementType.Equals(ChapterElementType.Video))
+            {
+                await getVideoElement(Course, Chapter, element);
+            }
+            else if (element.ChapterElementType.Equals(ChapterElementType.Picture))
+            {
+                await getPictureElement(Course, Chapter, element);
+            }
+            else if (element.ChapterElementType.Equals(ChapterElementType.Quiz))
+            {
+                await getQuizElement(Course, Chapter, element);
+            }
+        }                            
+            isLoading = false;        
+    }
+
+    protected async Task GetTextElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
+    {
+        Task<ExplanatoryTextDefinitionDto> TaskText = TextElementBackendService.GetTextElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        ExplanatoryTextDefinitionDto Text = await TaskText;
+
+        chapterElemente.Add(Text);
+        base.StateHasChanged();
+    }
+
+    protected async Task getPictureElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
+    {
+        Task<PictureDefinitionDto> pictureTask = PictureElementBackendService.GetPictureElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        PictureDefinitionDto picture = await pictureTask;
+
+        chapterElemente.Add(picture);
+        base.StateHasChanged();
+    }
+
+    protected async Task getVideoElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
+    {
+        Task<VideoDefinitionDto> videoTask = VideoElementBackendService.GetVideoElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        VideoDefinitionDto video = await videoTask;
+
+        chapterElemente.Add(video);
+        base.StateHasChanged();
+    }
+
+    protected async Task getQuizElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
+    {
+        Task<QuizDefinitionDto> quizTask = QuizElementBackendService.GetQuizElementById(course.CourseId, Chapter.ChapterId, element.Id);
+        QuizDefinitionDto quiz = await quizTask;
+
+        chapterElemente.Add(quiz);
+        base.StateHasChanged();
+    }
+}
+
+<!-- start of view when view logic is done-->
+@if (!isLoading)
+{
+        <h1>@(Course.CourseName)</h1>
+            <ol>
+                <li>@(Chapter.ChapterName) </li>
+                <li>
+                    <ul>
+                        @{
+                            if (Chapter != null)
+                            {
+                                if (chapterElemente.Count > 0)
+                                {
+                                    for (letztesChapterElementIndex = aktuellesChapterElementIndex + Chapter.ChapterElements.Length - 1; aktuellesChapterElementIndex <= letztesChapterElementIndex; aktuellesChapterElementIndex++)
+                                    {
+                                        ChapterElementDefinitionDto chapterElement = chapterElemente[aktuellesChapterElementIndex];
+
+                                        if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
+                                        {
+                                            ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
+                                            <p>(@textElement.Title) </p>
+                                            <p>(@textElement.ContentText) </p>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }
+                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
+                                        {
+                                            VideoDefinitionDto videoElement = (VideoDefinitionDto)chapterElement;
+                                            <iframe width="420" height="315" src="@videoElement.VideoUri.DnsSafeHost">
+                                            </iframe>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }
+                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Picture))
+                                        {
+                                            PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
+                                            <figure>
+                                                <img src="" alt="@pictureElement.Description" width="500" height="700" />
+                                                <!-- <figcaption>ATE pictureElement.Description</figcaption> TODO hinzufuegen?-->
+                                            </figure>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }
+                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
+                                        {
+                                            <p> Quiz Darstellung in progress </p>
+                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            </ol>
+          
+}
