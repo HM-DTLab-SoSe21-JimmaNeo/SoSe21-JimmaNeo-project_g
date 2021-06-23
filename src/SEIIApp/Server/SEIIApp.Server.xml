@@ -12,11 +12,10 @@
             <param name="courseId"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.GetAllChapters(System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.GetAllChapters">
             <summary>
-            Returns all chapters names and ids for a given course.
+            Returns all chapters names and ids.
             </summary>
-            /// <param name="courseId"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.ChapterDefinitionController.AddOrUpdateChapter(SEIIApp.Shared.DomainTdo.ChapterDefinitionDto,System.Int32)">
