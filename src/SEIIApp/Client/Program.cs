@@ -25,6 +25,8 @@ namespace SEIIApp.Client {
             builder.Services.AddScoped<Services.LoginBackendAccessService>();
             builder.Services.AddScoped<Services.UserDefinitionBackendService>();
             builder.Services.AddScoped<Services.BiscuitService>();
+            builder.Services.AddScoped<Services.ChapterDefinitionBackendAccessService>();
+
 
             await builder.Build().RunAsync();
         }

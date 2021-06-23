@@ -1,4 +1,5 @@
 ﻿@inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.ChapterDefinitionBackendAccessService ChapterDefinitionService
 @inject Services.BiscuitService BiscuitService
 
 <div class="top-row pl-4 navbar navbar-dark" style="background-color: #1565c0;">
@@ -28,7 +29,15 @@
         }
 
         @{
-            if (Courses != null && Courses?.Length > 0)
+            if (IsLoading)
+            {
+                <li>Is loading</li>
+            } 
+        }
+
+
+        @{
+            if (!IsLoading && Courses != null && Courses?.Length > 0)
             {
                 foreach (var course in Courses)
                 {
@@ -38,14 +47,29 @@
                             <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
                                 <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
                             </a>
+
+                            <ul>
+
+                                    @foreach (var chapter in ChatersForCourses[course.CourseId])
+                                    {
+                                    <li class="nav-item px-3">
+                                        <a class="nav-link" style="color:white; margin-left: -1.5rem;" href="/elementdef/ @(chapter.ChapterId)" >
+                                            <span class="oi oi-book" aria-hidden="true"></span> @(chapter.ChapterName)
+                                        </a>
+                                    </li>
+                                    }
+                                
+                            </ul>
+
                         }
+
                         @if (!course.Visible) // And another Icon for non-visible courses.
                         {
                             <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
                                 <span class="oi oi-ban" aria-hidden="true"></span> @(course.CourseName)
                             </a>
                         }
-                    </li>
+                        </li>
                 }
             }
         }
@@ -89,6 +113,9 @@
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    private Dictionary<int, ChapterDefinitionDto[]> ChatersForCourses { get; set; } = new Dictionary<int, ChapterDefinitionDto[]>();
+
+    private bool IsLoading { get; set; }
 
     private void ToggleNavMenu()
     {
@@ -97,6 +124,15 @@
 
     protected override async Task OnInitializedAsync()
     {
+        this.IsLoading = true;
         this.Courses = BiscuitService.User.AsignedCourses;
+
+        foreach (var c in Courses)
+        {
+            ChatersForCourses.Add(c.CourseId, await ChapterDefinitionService.GetChapterOverview(c.CourseId));
+        }
+
+        this.IsLoading = false;
     }
+
 }
