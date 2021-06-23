@@ -1,4 +1,4 @@
-﻿using SEIIApp.Shared.DomainTdo;
+using SEIIApp.Shared.DomainTdo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +39,7 @@ namespace SEIIApp.Client.Services {
         public async Task<ChapterDefinitionDto[]> GetChapterOverview(int courseId)
         {
             return await HttpClient.GetFromJsonAsync<ChapterDefinitionDto[]>($"api/chapterdefinition?courseId={courseId}");
+            //return Course.Chapters;
         }
 
 

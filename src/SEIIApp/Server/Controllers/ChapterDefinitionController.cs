@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainTdo;
+using System.Linq;
 
 namespace SEIIApp.Server.Controllers
 {
@@ -47,7 +48,7 @@ namespace SEIIApp.Server.Controllers
         /// <summary>
         /// Returns all chapters names and ids for a given course.
         /// </summary>
-        /// /// <param name="courseId"></param>
+        /// <param name="courseId"></param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
