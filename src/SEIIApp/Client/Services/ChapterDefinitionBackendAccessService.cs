@@ -19,7 +19,7 @@ namespace SEIIApp.Client.Services {
 
         private string GetChapterDefinitionUrl(int CourseId) {
 
-            return $"api/coursedefinition/{CourseId}";
+            return $"api/coursedefinition/1";
         }
 
         private string GetChapterDefinitionUrlWithId(int ChapterId) {
@@ -41,6 +41,7 @@ namespace SEIIApp.Client.Services {
             return await HttpClient.GetFromJsonAsync<ChapterDefinitionDto[]>($"api/chapterdefinition?courseId={courseId}");
             //return Course.Chapters;
         }
+
 
         /// <summary>
         /// Adds or updates a chapter on the backend. Returns the chapter if successful else null
