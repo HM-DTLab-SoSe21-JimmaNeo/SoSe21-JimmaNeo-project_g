@@ -67,3 +67,7 @@ Our Team contains 6 Persons. Dominik and Julian were mainly responsible for the 
 For Questions contact Markus at markus.kinast@hm.edu.
 
 # 5 Attachments
+To get a first insight into the application and general informations, all files that were created during the implementation are listed below:
+* [Storyboard](documents/LMU_TEAM_G_STORYBOARD.pdf)
+* [FAQ](documents/LMU_TEAM_G_FAQ.pdf)
+* [PressRelease](documents/LMU_TEAM_G_PR.pdf)
