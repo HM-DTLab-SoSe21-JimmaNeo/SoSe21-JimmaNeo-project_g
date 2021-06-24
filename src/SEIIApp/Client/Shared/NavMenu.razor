@@ -33,7 +33,7 @@
             if (IsLoading)
             {
                 <li>Is loading</li>
-            } 
+            }
         }
 
 
@@ -45,36 +45,35 @@
                     <li class="nav-item px-3">
                         @if (BiscuitService.User.AuthDefinitions[0].Role != RoleType.Student)
                         {
-                            <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
-                                <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
-                            </a>
-
-                            <ul>
-
-                                    @foreach (var chapter in ChatersForCourses[course.CourseId])
-                                    {
-                                    <li class="nav-item px-3">
-                                        <a class="nav-link" style="color:white; margin-left: -1.5rem;" href="/elementdef/ @(chapter.ChapterId)" >
-                                            <span class="oi oi-book" aria-hidden="true"></span> @(chapter.ChapterName)
-                                        </a>
-                                    </li>
-                                    }
-                                
-                            </ul>
-
-                        }
-
-                        @if (!course.Visible) // And another Icon for non-visible courses.
-                        {
                             @if (course.Visible) // Icon for visible courses.
                             {
-                                <a class="nav-link" style="color:white" href="/coursestudentview/ @(course.CourseId)">
+                                <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
                                     <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
                                 </a>
                             }
+                            @if (!course.Visible) // And another Icon for non-visible courses.
+                            {
+                                <a class="nav-link" style="color:white" href="/coursedefedit/ @(course.CourseId)">
+                                    <span class="oi oi-ban" aria-hidden="true"></span> @(course.CourseName)
+                                </a>
+                            }
 
-                        }
-                        </li>
+
+                            <ul>
+
+                                @foreach (var chapter in ChatersForCourses[course.CourseId])
+                                {
+                                    <li class="nav-item px-3">
+                                        <a class="nav-link" style="color:white; margin-left: -1.5rem;" href="/elementdef/ @(chapter.ChapterId)">
+                                            <span class="oi oi-book" aria-hidden="true"></span> @(chapter.ChapterName)
+                                        </a>
+                                    </li>
+                                }
+
+                            </ul>
+
+                        }                       
+                    </li>
                 }
                 if (BiscuitService.User.AuthDefinitions[0].Role.Equals(RoleType.Student))
                 {
