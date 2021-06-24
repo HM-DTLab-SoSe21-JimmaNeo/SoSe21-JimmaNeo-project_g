@@ -31,6 +31,7 @@ By landing on our Website you will see the Login on the first page.
 There are three diffrent categories of Persons that can login into the Website. Admin, Teacher and User.
 
 
+User:
 
 As User you can see the news on the Hompage.
 On the top left side of the Page the user can click on his Account.
@@ -43,7 +44,7 @@ Below that he sees all of his Courses. He can either click on them to open the C
 By clicking on one of the Chapter he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a Text, a Video or Picture.
 
 
-
+Teacher:
 
 As teacher you can do at least everything that the user can do.
 In the Teacher account you can see all of your Courses. The Courses can be left by you, deleted, edited or you can create a new one.
@@ -56,7 +57,7 @@ The second new Button on the left is the Create Course Button. It takes the Teac
 By editing one of the Chapters he can create a new Text, Quiz, Picture or Video as ChapterElement of the Chapter.
 
 
-
+Admin:
 
 As Admin you can do at least everything that the user can do.
 In the Admin account you can see all Courses.
