@@ -1,0 +1,13 @@
+﻿@page "/reload/{CourseId:int}"
+@inject NavigationManager NavigationManager
+
+
+@code{ 
+    [Parameter]
+    public int CourseId { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        NavigationManager.NavigateTo($"coursedefedit/" + CourseId);
+    }
+}

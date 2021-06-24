@@ -14,6 +14,8 @@
                 <div class="col-md-auto">
                     <InputText id="chaptername" name="chaptername" class="form-control here" required="required" type="text" @bind-Value="ChapterDefinitionDto.ChapterName" />
                 </div>
+                @if (ChapterDefinitionDto.ChapterId != 0)
+                {
                 <div class="col col-lg-1">
                     <button type="button" class="btn btn-success" @onclick="AddChapterElement">
 
@@ -23,6 +25,7 @@
 
                     </button>
                 </div>
+                }
             </div>
         </div>
 
