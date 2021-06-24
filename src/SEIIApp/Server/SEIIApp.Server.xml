@@ -206,6 +206,15 @@
                traceable to here
             </summary>
         </member>
+        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeUsefullTestData(SEIIApp.Server.Services.CourseDefinitionService,SEIIApp.Server.Services.ChapterDefinitionService,SEIIApp.Server.Services.ChapterElementDefinitionService,SEIIApp.Server.Services.LoginService,SEIIApp.Server.Services.UserDefinitionService)">
+             <summary>
+             Initialze USEFULL test data (just for in-memory database)
+            
+             Content in large parts from
+             https://www.mayoclinic.org/diseases-conditions/premature-birth/symptoms-causes/syc-20376730
+             and https://healthywa.wa.gov.au/Articles/A_E/Diagnostic-tests-for-your-baby-during-pregnancy
+             </summary>
+        </member>
         <member name="M:SEIIApp.Server.Domain.DomainMapper.#ctor">
             Hello my friend, you came here because you found a mapper that maps stuff and this given mapper
             is blocking you in your api development?

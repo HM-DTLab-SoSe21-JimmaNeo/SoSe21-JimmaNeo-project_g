@@ -8,12 +8,11 @@
 {
     <EditForm EditContext="@context" OnSubmit="OnSubmit">
 
-        <label>Course Name</label>
         <br />
-        <InputText @bind-Value="ExplanatoryTextDefinitionDto.Title" />
+        <InputText @bind-Value="ExplanatoryTextDefinitionDto.Title" style="width: 500px;"/>
         <br />
 
-        <label>insert the text here</label>
+        <label>insert the text here:</label>
         <br />
         <InputTextArea cols="100" rows="20" @bind-Value="ExplanatoryTextDefinitionDto.ContentText" />
     </EditForm>

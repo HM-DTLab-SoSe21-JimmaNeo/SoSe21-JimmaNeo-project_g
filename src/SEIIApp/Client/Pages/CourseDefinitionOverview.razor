@@ -15,12 +15,10 @@
             // for the moment we can leave this in the original standart, but on longterm we have to change it back
             //          <li>@(course.CourseName) <button class="btn btn-primary" @onclick="() => EditCourse(course)">Edit</button><button class="btn btn-primary" @onclick="() => DeleteCourse(course)">Delete</button></li>
 
-            <div class="form-group row" style="margin-bottom: 0.5em">
+            <div class="form-group row" style="margin-bottom: 0.5em;">
 
 
-                <div class="col-2">
-                    <input id="coursename" name="coursename" placeholder="@(course.CourseName)" class="form-control here" required="required" type="text" disabled>
-                </div>
+                <input id="coursename" name="coursename" placeholder="@(course.CourseName)" class="form-control here" required="required" type="text" disabled style="width: 150px; margin-right: 0.25em">
 
                 <button type="button" class="btn btn-success btn-add" @onclick="() => EditCourse(course)" style="margin-right: 0.25em;">
 
@@ -81,7 +79,7 @@
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        if(BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
+        if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
         {
             Courses = await CourseDefinitionService.GetCourseOverview();
 
