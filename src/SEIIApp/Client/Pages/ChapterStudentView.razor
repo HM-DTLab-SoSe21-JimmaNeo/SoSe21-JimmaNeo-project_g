@@ -32,12 +32,13 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        isLoading = true;
         await base.OnParametersSetAsync();
         Course = await CourseDefinitionService.GetCourseById(CourseId);
 
         Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(CourseId, ChapterId);
 
-             
+
         foreach (var element in Chapter.ChapterElements)
         {
             if (element.ChapterElementType.Equals(ChapterElementType.Text))
@@ -56,8 +57,8 @@
             {
                 await getQuizElement(Course, Chapter, element);
             }
-        }                            
-            isLoading = false;        
+        }
+        isLoading = false;
     }
 
     protected async Task GetTextElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
@@ -100,54 +101,56 @@
 <!-- start of view when view logic is done-->
 @if (!isLoading)
 {
-        <h1>@(Course.CourseName)</h1>
-            <ol>
-                <li>@(Chapter.ChapterName) </li>
-                <li>
-                    <ul>
-                        @{
-                            if (Chapter != null)
-                            {
-                                if (chapterElemente.Count > 0)
-                                {
-                                    for (letztesChapterElementIndex = aktuellesChapterElementIndex + Chapter.ChapterElements.Length - 1; aktuellesChapterElementIndex <= letztesChapterElementIndex; aktuellesChapterElementIndex++)
-                                    {
-                                        ChapterElementDefinitionDto chapterElement = chapterElemente[aktuellesChapterElementIndex];
+    <h1 class="title">@(Course.CourseName)</h1>
+    <h2 class="subTitle">@(Chapter.ChapterName) </h2>
+    <div class="outerWrapper">
+        @{
+            if (Chapter != null)
+            {
+                if (chapterElemente.Count > 0)
+                {
+                    for (letztesChapterElementIndex = aktuellesChapterElementIndex + Chapter.ChapterElements.Length - 1; aktuellesChapterElementIndex <= letztesChapterElementIndex; aktuellesChapterElementIndex++)
+                    {
+                        ChapterElementDefinitionDto chapterElement = chapterElemente[aktuellesChapterElementIndex];
 
-                                        if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
-                                        {
-                                            ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
-                                            <p>(@textElement.Title) </p>
-                                            <p>(@textElement.ContentText) </p>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
-                                        {
-                                            VideoDefinitionDto videoElement = (VideoDefinitionDto)chapterElement;
-                                            <iframe width="420" height="315" src="@videoElement.VideoUri.DnsSafeHost">
-                                            </iframe>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Picture))
-                                        {
-                                            PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
-                                            <figure>
-                                                <img src="" alt="@pictureElement.Description" width="500" height="700" />
-                                                <!-- <figcaption>ATE pictureElement.Description</figcaption> TODO hinzufuegen?-->
-                                            </figure>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
-                                        {
-                                            <p> Quiz Darstellung in progress </p>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                    }
-                                }
-                            }
+                        if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
+                        {
+                            ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
+                            <div class="chapterSection">
+                                <p>(@textElement.Title) </p>
+                                <p>(@textElement.ContentText) </p>
+                            </div>
                         }
-                    </ul>
-                </li>
-            </ol>
-          
+                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
+                        {
+                            VideoDefinitionDto videoElement = (VideoDefinitionDto)chapterElement;
+                            <div class="chapterSection">
+                                <iframe width="420" height="315" src="@videoElement.VideoUri.DnsSafeHost">
+                                </iframe>
+                            </div>
+                        }
+                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Picture))
+                        {
+                            PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
+                            <div class="chapterSection">
+                                <figure>
+                                    <img src="" alt="@pictureElement.Description" width="500" height="700" />
+                                    <!-- <figcaption>ATE pictureElement.Description</figcaption> TODO hinzufuegen?-->
+                                </figure>
+                            </div>
+
+                        }
+                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
+                        {
+                            <div class="chapterSection">
+                                <p> Quiz Darstellung in progress </p>
+                            </div>
+                        }
+                    }
+                }
+
+            }
+        }
+    </div>
+
 }

@@ -72,52 +72,87 @@
 
                             </ul>
 
-                        }                       
+                        }
+                        else
+                        {
+                            @if (course.Visible)
+                            {
+                                <a class="nav-link" style="color:white" href="/coursestudentview/ @(course.CourseId)">
+                                    <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
+                                </a>
+
+
+                                <ul>
+                                     @foreach (var chapter in ChatersForCourses[course.CourseId])
+                                    {
+                                        <li class="nav-item px-3">
+                                            <a class="nav-link" style="color:white; margin-left: -1.5rem;" href="/chapterstudentview/@(course.CourseId)/@(chapter.ChapterId)">
+                                                <span class="oi oi-book" aria-hidden="true"></span> @(chapter.ChapterName)
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            }
+                        }
+
+                        @if (!course.Visible) // And another Icon for non-visible courses.
+                        {
+                            @if (course.Visible) // Icon for visible courses.
+                            {
+                                <a class="nav-link" style="color:white" href="/coursestudentview/ @(course.CourseId)">
+                                    <span class="oi oi-list-rich" aria-hidden="true"></span> @(course.CourseName)
+                                </a>
+                            }
+
+                        }
                     </li>
                 }
                 if (BiscuitService.User.AuthDefinitions[0].Role.Equals(RoleType.Student))
                 {
-                    <a class="nav-link" style="color:white" href="/getallchapters">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> getAllCourses
-                    </a>
-                }
-                else
-                {
+                    <li class="nav-item px-3">
+                        <a class="nav-link" style="color:white" href="/getallchapters">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> getAllCourses
+                        </a>
+                    </li>
+                        }
+                        else
+                        {
                     <li class="nav-item px-3">
                         <NavLink class="nav-link" style="color:white" href="coursedefedit/0">
                             <span class="oi oi-plus" aria-hidden="true"></span> Create new Course
                         </NavLink>
                     </li>
-                }
-            }
-        }
+                    }
+                    }
+                    }
 
 
 
 
-        @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Teacher)
-        {
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" style="color:white" href="courseuseroverview">
-                    <span class="oi oi-people" aria-hidden="true"></span> User Management
-                </NavLink>
-            </li>
+                    @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Teacher)
+                    {
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" style="color:white" href="courseuseroverview">
+                                <span class="oi oi-people" aria-hidden="true"></span> User Management
+                            </NavLink>
+                        </li>
 
-        }
+                    }
 
-        @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
-        {
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" style="color:white" href="useroverview">
-                    <span class="oi oi-people" aria-hidden="true"></span> User Management
-                </NavLink>
-            </li>
+                    @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
+                    {
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" style="color:white" href="useroverview">
+                                <span class="oi oi-people" aria-hidden="true"></span> User Management
+                            </NavLink>
+                        </li>
 
-        }
+                    }
 
 
 
-    </ul>
+                </ul>
 </div>
 
 @code {
