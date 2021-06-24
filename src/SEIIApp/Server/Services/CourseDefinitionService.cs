@@ -24,7 +24,7 @@ namespace SEIIApp.Server.Services
         private IQueryable<CourseDefinition> GetQueryableForCourseDefinitions()
         {
             return DatabaseContext.CourseDefinitions
-                .Include(course => course.Chapters).ThenInclude(c => c.ChapterElements);
+                .Include(course => course.Chapters);
         }
 
         /// <summary>
