@@ -142,7 +142,9 @@ namespace SEIIApp.Server {
 #if DEBUG
             //*******************************************************************
             //*** Initialisierung von Test-Daten, nur bei In-Memory-DB **********
-            TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService, loginService, userDefinitionService);
+
+            //TestDataInitializer.InitializeTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService, loginService, userDefinitionService);
+            TestDataInitializer.InitializeUsefullTestData(courseDefinitionService, chapterDefinitionService, chapterElementDefinitionService, loginService, userDefinitionService);
 #endif
 
         }

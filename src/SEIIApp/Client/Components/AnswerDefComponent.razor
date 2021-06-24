@@ -3,7 +3,7 @@
 <EditForm Model="AnswerDefinitionDto">
     <DataAnnotationsValidator />
 
-    <InputText @bind-Value="AnswerDefinitionDto.AnswerText" />
+    <InputText @bind-Value="AnswerDefinitionDto.AnswerText" style="width: 350px;"/>
 
     <label>Is correct answer?</label>
     <InputCheckbox @bind-Value="AnswerDefinitionDto.IsCorrectAnswer"></InputCheckbox>
