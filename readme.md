@@ -27,19 +27,42 @@ Eine Perspektive, wie sie ohne eine genau auf unser Problem zugeschnittene, digi
 Die neusten Informationen zum Projekt erhalten sie über die Ankündigungen der Ludwig-Maximilians-Universität sowie der Hochschule München.
 
 # 2 Description
-By landing on our Website you will see the Login on the first page. (link).
+By landing on our Website you will see the Login on the first page.
 There are three diffrent categories of Persons that can login into the Website. Admin, Teacher and User.
 
-As Admin you have all rights on this Website. 
-On the top of the Home-Menu you can see the name of the account your logged in. On the right of the account name you can change your Account. The Account includes your Email, Password and a little Info about the Account-User. You can also change your Password here and create, leave or delete some Courses. On this side you have also the control about wich user is added to which Course.
 
-Back on the Homepage by klicking the Home-Button you can see some news about the Programm or new Courses.
-By clicking on "Create new Course" on the sidebar you can create a new Course. New Courses will be listed in the sidebar above older ones.
 
-The Admin can see all Courses in the Course-Management on the sidebar. The Courses are also separately listed on the sidebar. If the Admin clicks on them he can go directly to the capters of the Course. The Admin can add or delete some Chapters. He can also Edit all of them. 
-By editing a chapter he can see all Chapterelements of the Chapter. A Chapterelement is a Text, Quiz, Picture or a Video that can be used to create some new Tasks for the Users. Should a Chapterelement get updated then the Admin can edit the already existing Chapterelements or can even delete them.
+As User you can see the news on the Hompage.
+On the top left side of the Page the user can click on his Account.
+The User has a Username, Mail and Info that he is able to change there.
+He can also change his Password on this side.
+On the Bottom he can also see the Courses on that he got invited. He can only leave the Course if he wants to but he cant join one.
 
-On the Homepage under "User Management" the admin can create some new Accounts for Users to be able to login and use the function of the Website. First of all only a Email adress is needed to create a new User.
+On the Sidebar the User can back to the Homepage by clicking on the Home button.
+Below that he sees all of his Courses. He can either click on them to open the Course with all Chapters of the Course or he can hover over the Course Button on the Sidebar to see a Shortcut of the Chapter in the Course.
+By clicking on one of the Chapter he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a Text, a Video or Picture.
+
+
+
+
+As teacher you can do at least everything that the user can do.
+In the Teacher account you can see all of your Courses. The Courses can be left by you, deleted, edited or you can create a new one.
+(Furthermore you can Add a User to a Course?)
+
+As same as the user you have a Navigation Bar on the left but there are 2 more buttons.
+First of all there is the CourseManagement. The Teacher can see every Course of him. For every Course he can edit, delete or create a new one. Depending on the teachers decision the Course can be hidden for all others if he deactivates the Visible-Button.
+
+The second new Button on the left is the Create Course Button. It takes the Teacher directly to Side where he can create the Course by giving him a Coursename and choosing if he wants the Course to be visible. After that he can Add as many Chapters with Chapternames as he wants. He can also create or edit all Chapters of the new Course now.
+By editing one of the Chapters he can create a new Text, Quiz, Picture or Video as ChapterElement of the Chapter.
+
+
+
+
+As Admin you can do at least everything that the user can do.
+In the Admin account you can see all Courses.
+Furthermore you can Add a User to a Course
+
+There is a new Button UserManagement on the left. By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Admin can see all Users that are allowed to see the Course. If the Admin wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
 
 
 
