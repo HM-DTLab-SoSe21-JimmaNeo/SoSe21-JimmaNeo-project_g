@@ -116,9 +116,15 @@
                         if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
                         {
                             ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
+                            string[] subs = textElement.ContentText.Split(Environment.NewLine);
+
                             <div class="chapterSection">
-                                <p>(@textElement.Title) </p>
-                                <p>(@textElement.ContentText) </p>
+                                <p>@textElement.Title</p>
+
+                                @foreach (var sub in subs)
+                                {
+                                    <p>@sub</p>
+                                }
                             </div>
                         }
                         else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
@@ -139,7 +145,7 @@
                                         <a href="@pictureElement.PictureUri.AbsoluteUri" target="_blank">
                                             <img class="featuredImage" src="@pictureElement.PictureUri.AbsoluteUri" alt="@pictureElement.Description" />
                                         </a>
-                                        <figcaption style="color: grey; font-style: italic; font-size:smaller;">@pictureElement.Description</figcaption> 
+                                        <figcaption style="color: grey; font-style: italic; font-size:smaller;">@pictureElement.Description</figcaption>
 
                                     }
                                     else
@@ -165,9 +171,9 @@
                                             <form action="/coursestudentview">
                                                 @foreach (var answer in question.Answers)
                                                 {
-                                                <div style="padding: 0.1rem 3rem;">
-                                                    <input type="checkbox" />  @answer.AnswerText <br />
-                                                </div>
+                                                    <div style="padding: 0.1rem 3rem;">
+                                                        <input type="checkbox" />  @answer.AnswerText <br />
+                                                    </div>
                                                 }
                                             </form>
                                             <br />
@@ -182,7 +188,7 @@
                             }
                         }
                     }
-                        <button type="submit" style="background-color: #3c9ef4; margin-bottom: 0.25rem; max-width: 15rem; float: left; text-align: center; position: relative; right: -40%;"> Complete Course @Chapter.ChapterName</button>
+                    <button type="submit" style="background-color: #3c9ef4; margin-bottom: 0.25rem; max-width: 15rem; float: left; text-align: center; position: relative; right: -40%;"> Complete Course @Chapter.ChapterName</button>
                 }
 
             }
