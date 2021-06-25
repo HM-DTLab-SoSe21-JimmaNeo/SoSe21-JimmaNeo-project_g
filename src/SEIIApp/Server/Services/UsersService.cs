@@ -5,6 +5,9 @@ using SEIIApp.Server.DataAccess;
 using SEIIApp.Server.Domain;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
+using SEIIApp.Shared.DomainTdo;
 
 namespace SEIIApp.Server.Services
 {
@@ -140,7 +143,6 @@ namespace SEIIApp.Server.Services
                 {
                     var auth = new AuthDefinition();
                     auth.Password = RandomPassword();  // TODO: Send Password via mail
-                    auth.Password = "password";        // Then delete this line  
                     auth.UserName = User.Email;
                     LoginService.AddAuth(auth);
                 }
@@ -197,6 +199,7 @@ namespace SEIIApp.Server.Services
 
             DatabaseContext.UserDefinitions.Update(User);
             DatabaseContext.SaveChanges();
+            sendMail(User.Email, User.UserId, User.AuthDefinitions[0].Role); // When a user gets created, an email will be send to set password
             return User;
         }
 
@@ -320,6 +323,35 @@ namespace SEIIApp.Server.Services
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        /// <summary>
+        /// This sends the mail to set the password and username.
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <param name="userId"></param>
+        /// <param name="roleType"></param>
+        private void sendMail(string userEmail, int userId, RoleType roleType)
+        {
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("alexandriahelp0@gmail.com", "secretPassword123"),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("alexandriahelp0@gmail.com"),
+                Subject = "Welcome to Alexandria!",
+                // The bodyimplementation is still pretty ugls, TODO: change!
+                Body = "<h2 > Hello User! </h2 ><br /><br /><p > With this email you have been invited to join ALEXANDRIA, please use the link below to set up your account:</p ><a href = \"https://localhost:5001/passwordsetter/" + userId + "\" > Set up account</a><br /><br /><br /><p>This email has been send by ALEXANDRIA, if this email has been falsly send to you, please ignore or answer to this</p>",
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add(userEmail);
+
+
+            smtpClient.Send(mailMessage);
         }
 
     }

@@ -364,5 +364,13 @@
             <param name="courseId"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Services.UserDefinitionService.sendMail(System.String,System.Int32,SEIIApp.Shared.DomainTdo.RoleType)">
+            <summary>
+            This sends the mail to set the password and username.
+            </summary>
+            <param name="userEmail"></param>
+            <param name="userId"></param>
+            <param name="roleType"></param>
+        </member>
     </members>
 </doc>
