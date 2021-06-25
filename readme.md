@@ -48,7 +48,7 @@ Teacher:
 
 As teacher you can do at least everything that the user can do.
 In the Teacher account you can see all of your Courses. The Courses can be left by you, deleted, edited or you can create a new one.
-(Furthermore you can Add a User to a Course?)
+Furthermore you can Add a User to one of your Courses.
 
 As same as the user you have a Navigation Bar on the left but there are 2 more buttons.
 First of all there is the CourseManagement. The Teacher can see every Course of him. For every Course he can edit, delete or create a new one. Depending on the teachers decision the Course can be hidden for all others if he deactivates the Visible-Button.
@@ -56,16 +56,14 @@ First of all there is the CourseManagement. The Teacher can see every Course of 
 The second new Button on the left is the Create Course Button. It takes the Teacher directly to Side where he can create the Course by giving him a Coursename and choosing if he wants the Course to be visible. After that he can Add as many Chapters with Chapternames as he wants. He can also create or edit all Chapters of the new Course now.
 By editing one of the Chapters he can create a new Text, Quiz, Picture or Video as ChapterElement of the Chapter.
 
+There is a new Button UserManagement on the left. By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Teacher can see all Users that are allowed to see the Course. If the Teacher wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
+
 
 Admin:
 
-As Admin you can do at least everything that the user can do.
-In the Admin account you can see all Courses.
-Furthermore you can Add a User to a Course
-
-There is a new Button UserManagement on the left. By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Admin can see all Users that are allowed to see the Course. If the Admin wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
-
-
+As Admin you can do at least everything that the user and the teacher can do appart from the UserManagement of the Teacher.
+When the Admin clicks on his UserManagement he can see all Users that exist on the Website. He is the only one that can create a new User, Teacher or even another Admin Account. By Editing an account he can see all informations of the Account.
+Furthermore he is the only one able to delete Users.
 
 
 
@@ -79,7 +77,7 @@ We don't use any special frameworks or anthing like it, the backend works proper
 
 Now to the IMPORTANT stuff you need to know when you want to continue the development of the app:
 
-We weren't able to implement cookies, therefore the [BiscuitService](src/SEIIApp\Client\Services\BiscuitService.cs) exists.
+We weren't able to implement cookies, therefore the [BiscuitService](src/SEIIApp/Client/Services/BiscuitService.cs) exists.
 This just pretends to be a cookie, so pls replace this with something working, as for now this causes the page to crash during a reload.
 
 The backend contains the UltimateChapterElementDefinitionDto, this is usefull to use the same endpoint for all ChapterElementTypes, pls dont use this in the frontend.
