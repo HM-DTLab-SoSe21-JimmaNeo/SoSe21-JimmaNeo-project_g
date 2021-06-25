@@ -259,25 +259,29 @@ namespace SEIIApp.Server.Services
         public UserDefinition[] AddUserToCourse(int courseId, int userId)
         {
             var user = GetUserById(userId);
-
-            var courseAlreadyThere = false;
-            for(int i = 0; i < user.AsignedCoursesId.Count; i++)
+            if (user != null)
             {
-                if(courseId == user.AsignedCoursesId[i].AsignedCoursesId)
+
+                var courseAlreadyThere = false;
+                for (int i = 0; i < user.AsignedCoursesId.Count; i++)
                 {
-                    courseAlreadyThere = true;
+                    if (courseId == user.AsignedCoursesId[i].AsignedCoursesId)
+                    {
+                        courseAlreadyThere = true;
+                    }
                 }
-            }
-            if (!courseAlreadyThere)
-            {
-                var assignedCourseIdClass = new AsignedCoursesIdClass();
-                assignedCourseIdClass.AsignedCoursesId = courseId;
-                user.AsignedCoursesId.Add(assignedCourseIdClass);
-                DatabaseContext.UserDefinitions.Update(user);
-                DatabaseContext.SaveChanges();
-            }
+                if (!courseAlreadyThere)
+                {
+                    var assignedCourseIdClass = new AsignedCoursesIdClass();
+                    assignedCourseIdClass.AsignedCoursesId = courseId;
+                    user.AsignedCoursesId.Add(assignedCourseIdClass);
+                    DatabaseContext.UserDefinitions.Update(user);
+                    DatabaseContext.SaveChanges();
+                }
 
-            return GetUsersForCourse(courseId);
+                return GetUsersForCourse(courseId);
+            }
+            return null; //TODO Fehlerausgabe
         }
         
         
