@@ -21,8 +21,8 @@
     [Parameter]
     public int ChapterId { get; set; }
     [Parameter]
-    public int CourseId { get; set; }
-
+    public int CourseId { get; set; }    
+    //alle chapter elements of chapter
     List<ChapterElementDefinitionDto> chapterElemente = new List<ChapterElementDefinitionDto>();
 
     int aktuellesChapterElementIndex = 0;
@@ -32,12 +32,13 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        isLoading = true;
         await base.OnParametersSetAsync();
         Course = await CourseDefinitionService.GetCourseById(CourseId);
 
         Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(CourseId, ChapterId);
 
-             
+        //assignment of chapter element to belonging type, conversion and transmission into local list
         foreach (var element in Chapter.ChapterElements)
         {
             if (element.ChapterElementType.Equals(ChapterElementType.Text))
@@ -56,8 +57,8 @@
             {
                 await getQuizElement(Course, Chapter, element);
             }
-        }                            
-            isLoading = false;        
+        }
+        isLoading = false;
     }
 
     protected async Task GetTextElement(CourseDefinitionBaseDto course, ChapterDefinitionDto Chapter, ChapterElementDefinitionDto element)
@@ -97,57 +98,101 @@
     }
 }
 
-<!-- start of view when view logic is done-->
+<!-- start of view when logic is done-->
 @if (!isLoading)
 {
-        <h1>@(Course.CourseName)</h1>
-            <ol>
-                <li>@(Chapter.ChapterName) </li>
-                <li>
-                    <ul>
-                        @{
-                            if (Chapter != null)
-                            {
-                                if (chapterElemente.Count > 0)
-                                {
-                                    for (letztesChapterElementIndex = aktuellesChapterElementIndex + Chapter.ChapterElements.Length - 1; aktuellesChapterElementIndex <= letztesChapterElementIndex; aktuellesChapterElementIndex++)
-                                    {
-                                        ChapterElementDefinitionDto chapterElement = chapterElemente[aktuellesChapterElementIndex];
+    <h1 class="title">@(Course.CourseName)</h1>
+    <h2 class="subTitle">@(Chapter.ChapterName) </h2>
+    <div class="outerWrapper">
+        @{
+            if (Chapter != null)
+            {
+                if (chapterElemente.Count > 0)
+                {
+                    for (letztesChapterElementIndex = aktuellesChapterElementIndex + Chapter.ChapterElements.Length - 1; aktuellesChapterElementIndex <= letztesChapterElementIndex; aktuellesChapterElementIndex++)
+                    {
+                        ChapterElementDefinitionDto chapterElement = chapterElemente[aktuellesChapterElementIndex];
 
-                                        if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
+                        if (chapterElement.ChapterElementType.Equals(ChapterElementType.Text))
+                        {
+                            ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
+                            string[] subs = textElement.ContentText.Split(Environment.NewLine);
+
+                            <div class="chapterSection">
+                                <p>@textElement.Title</p>
+
+                                @foreach (var sub in subs)
+                                {
+                                    <p>@sub</p>
+                                }
+                            </div>
+                        }
+                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
+                        {
+                            VideoDefinitionDto videoElement = (VideoDefinitionDto)chapterElement;
+                            <div class="chapterSection">
+                                <iframe width="420" height="315" src="@videoElement.VideoUri.AbsoluteUri">
+                                </iframe>
+                            </div>
+                        }
+                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Picture))
+                        {
+                            PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
+                            <div class="chapterSection">
+                                <figure>
+                                    @if (pictureElement.PictureUri != null)
+                                    {
+                                        <a href="@pictureElement.PictureUri.AbsoluteUri" target="_blank">
+                                            <img class="featuredImage" src="@pictureElement.PictureUri.AbsoluteUri" alt="@pictureElement.Description" />
+                                        </a>
+                                        <figcaption style="color: grey; font-style: italic; font-size:smaller;">@pictureElement.Description</figcaption>
+
+                                    }
+                                    else
+                                    {
+                                        <p>no link to picture provided</p>
+                                    }
+                                </figure>
+                            </div>
+
+                        }
+                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
+                        {
+                            QuizDefinitionDto quizElement = (QuizDefinitionDto)chapterElement;
+                            if (quizElement != null)
+                            {
+                                <div class="chapterSection">
+                                    <h4 style="font-weight: 700;">@quizElement.QuizName</h4>
+                                    @{
+                                        QuestionDefinitionDto[] questions = quizElement.Questions;
+                                        @foreach (var question in questions)
                                         {
-                                            ExplanatoryTextDefinitionDto textElement = (ExplanatoryTextDefinitionDto)chapterElement;
-                                            <p>(@textElement.Title) </p>
-                                            <p>(@textElement.ContentText) </p>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Video))
-                                        {
-                                            VideoDefinitionDto videoElement = (VideoDefinitionDto)chapterElement;
-                                            <iframe width="420" height="315" src="@videoElement.VideoUri.DnsSafeHost">
-                                            </iframe>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Picture))
-                                        {
-                                            PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
-                                            <figure>
-                                                <img src="" alt="@pictureElement.Description" width="500" height="700" />
-                                                <!-- <figcaption>ATE pictureElement.Description</figcaption> TODO hinzufuegen?-->
-                                            </figure>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
-                                        }
-                                        else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
-                                        {
-                                            <p> Quiz Darstellung in progress </p>
-                                            <hr style="border: 0; height: 5px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                                            <h5 style="padding: 0.5rem 1rem; font-weight: 200; margin-top: -0.5rem;">@question.QuestionText</h5>
+                                            <form action="/coursestudentview">
+                                                @foreach (var answer in question.Answers)
+                                                {
+                                                    <div style="padding: 0.1rem 3rem;">
+                                                        <input type="checkbox" />  @answer.AnswerText <br />
+                                                    </div>
+                                                }
+                                            </form>
+                                            <br />
+
                                         }
                                     }
-                                }
+                                </div>
+                            }
+                            else
+                            {
+                                <p>empty Quizelement</p>
                             }
                         }
-                    </ul>
-                </li>
-            </ol>
-          
+                    }
+                    <button type="submit" style="background-color: #3c9ef4; margin-bottom: 0.25rem; max-width: 15rem; float: left; text-align: center; position: relative; right: -40%;"> Complete Chapter @Chapter.ChapterName</button>
+                }
+
+            }
+        }
+    </div>
+
 }
