@@ -109,30 +109,28 @@
                 </div>
 
             }
-
-            @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin || BiscuitService.User.AuthDefinitions[0].Role == RoleType.Teacher)
-            {
-
-                <button type="button" class="btn btn-primary btn-add" @onclick="AddCourse" style="margin-top: 1em">Add Course</button>
-
-                <br />
-                <br />
-
-                <div class="form-group row">
-                    <label for="userid" class="col-1 col-form-label">Course</label>
-                    <div class="col-4">
-                        <InputText id="courseId" name="courseId" class="form-control here" required="required" type="text" @bind-Value="courseId" />
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary btn-add" @onclick="AddUserToCourse" style="margin-top: 1em">Add Course to User</button>
-            }
-
-
         }
         else
         {
             <h6>Loading ...  or no courses found.</h6>
+        }
+
+        @if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin || BiscuitService.User.AuthDefinitions[0].Role == RoleType.Teacher)
+        {
+
+            <button type="button" class="btn btn-primary btn-add" @onclick="AddCourse" style="margin-top: 1em">Add Course</button>
+
+            <br />
+            <br />
+
+            <div class="form-group row">
+                <label for="userid" class="col-1 col-form-label">Course</label>
+                <div class="col-4">
+                    <InputText id="courseId" name="courseId" class="form-control here" required="required" type="text" @bind-Value="courseId" />
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-add" @onclick="AddUserToCourse" style="margin-top: 1em">Add Course to User</button>
         }
 
         <br />

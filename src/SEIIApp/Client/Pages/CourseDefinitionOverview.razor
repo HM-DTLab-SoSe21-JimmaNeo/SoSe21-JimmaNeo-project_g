@@ -1,5 +1,6 @@
 ﻿@page "/coursedef"
 @inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
+@inject Services.UserDefinitionBackendService UserService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime jsRuntime
 @inject Services.BiscuitService BiscuitService
@@ -78,6 +79,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        BiscuitService.User = await UserService.GetUserById(BiscuitService.User.UserId);
         await base.OnParametersSetAsync();
         if (BiscuitService.User.AuthDefinitions[0].Role == RoleType.Admin)
         {
