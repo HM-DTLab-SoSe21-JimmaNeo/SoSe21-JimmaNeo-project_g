@@ -28,42 +28,44 @@ Die neusten Informationen zum Projekt erhalten sie über die Ankündigungen der 
 
 # 2 Description
 By landing on our Website you will see the Login on the first page.
-There are three diffrent categories of Persons that can login into the Website. Admin, Teacher and User. [LoginPage](documents/Screenshots/Login_Website.png)
+There are three diffrent categories of Persons that can login into the [Website](documents/Screenshots/Login_Website.png). Admin, Teacher and User.
 
 
 User:
 
-As User you can see the news on the Hompage.
+As User you can see the news on the [Hompage](documents/Screenshots/User_Homescreen.png).
 On the top left side of the Page the user can click on his Account.
-The User has a Username, Mail and Info that he is able to change there.
+The User has a Username, Mail and Info that he is able to change it on this [Side](documents/Screenshots/User_Account.png).
 He can also change his Password on this side.
 On the Bottom he can also see the Courses on that he got invited. He can only leave the Course if he wants to but he cant join one.
 
 On the Sidebar the User can get back to the Homepage by clicking on the Home button.
-Below that he sees all of his Courses. He can either click on them to open the Course with all Chapters of the Course or he can hover over the Course Button on the Sidebar to see a Shortcut of the Chapter in the Course.
-By clicking on one of the Chapter he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a Text, a Video or Picture.
+Below that he sees all of his Courses. He can either click on them to open the Course with all Chapters of the Course or he can hover over the Course Button on the [Sidebar](documents/Screenshots/User_Sidebar.png) to see a Shortcut of the Chapter in the Course.
+By clicking on one of the [Chapter](documents/Screenshots/User_Chapters.png) he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a [Text](documents/Screenshots/User_Text), a Video or Picture.
 
 
 Teacher:
 
 As teacher you can do at least everything that the user can do.
-In the Teacher account you can see all of your Courses. The Courses can be left by you, deleted, edited or you can create a new one.
+In the [Teacheraccount](documents/Screenshots/Teacher_Account.png) you can see all of your Courses. The Courses can be left by you, deleted, edited or you can create a new one.
 Furthermore you can Add a User to one of your Courses.
 
-As same as the user you have a Navigation Bar on the left but there are 3 more buttons.
+As same as the user you have a [Sidebar](documents/Screenshots/Teacher_Sidebar.png) on the left but it has more Buttons.
 
-First of all there is the CourseManagement. The Teacher can see every Course of him. For every Course he can edit, delete or create a new one. Depending on the teachers decision the Course can be hidden for all others if he deactivates the Visible-Button.
+First of all there is the [CourseManagement](documents/Screenshots/Teacher_Coursemanagement.png). The Teacher can see every Course of him. For every Course he can [edit](documents/Screenshots/Teacher_EditCourse.png), delete or create a new one. Depending on the teachers decision the Course can be hidden for all others if he deactivates the Visible-Button.
 
-The second new Button on the left is the Create Course Button. It takes the Teacher directly to Side where he can create the Course by giving him a Coursename and choosing if he wants the Course to be visible. After that he can Add as many Chapters with Chapternames as he wants. He can also create or edit all Chapters of the new Course now.
-By editing one of the Chapters he can create a new Text, Quiz, Picture or Video as ChapterElement of the Chapter.
+By Clicking on a Course on the Sidebar the Teacher gets to the Chapter. Inside the Chapter he can create new [ChapterElements](documents/Screenshots/Teacher_Chapter.png). Chapter Elements can be [Pictures](documents/Screenshots/Teacher_PictureEinfügen.png), [Quizzes](documents/Screenshots/Teacher_QuizErstellen.png), [Videos](documents/Screenshots/Teacher_CourseErstellen.png) or a [Text](documents/Screenshots/Teacher_Texterstellen.png).
 
-The third Button on the left is UserManagement. By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Teacher can see all Users that are allowed to see the Course. If the Teacher wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
+The second new Button on the left is the Create Course [Button](documents/Screenshots/Teacher_CourseErstellen.png). It takes the Teacher directly to Side where he can create the Course by giving him a Coursename and choosing if he wants the Course to be visible. After that he can Add as many Chapters with Chapternames as he wants. He can also create or edit all Chapters of the new Course now.
+By editing one of the Chapters he can create a new Text, Quiz, Picture or Video as ChapterElement of the Chapter like in the Paragraph before.
+
+The third Button on the left is [UserManagement](documents/Screenshots/Teacher_UserManagement.png). By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Teacher can see all Users that are allowed to see the [Course](documents/Screenshots/Teacher_UserManagementOfSingleCourse.png). If the Teacher wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
 
 
 Admin:
 
 As Admin you can do at least everything that the user and the teacher can do appart from the UserManagement of the Teacher.
-When the Admin clicks on his UserManagement he can see all Users that exist on the Website. He is the only one that can create a new User, Teacher or even another Admin Account. By Editing an account he can see all informations of the Account.
+When the Admin clicks on his [UserManagement](documents/Screenshots/Admin_UserManagement.png) he can see all Users that exist on the [Website](documents/Screenshots/Admin_AdminCanSeeAllAcounts.png). He is the only one that can create a new User, Teacher or even another Admin [Account](documents/Screenshots/Admin_UserErstellung.png). By Editing an account he can see all informations of the Account.
 Furthermore he is the only one able to delete Users.
 
 
