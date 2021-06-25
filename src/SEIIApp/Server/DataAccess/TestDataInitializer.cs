@@ -461,7 +461,7 @@ namespace SEIIApp.Server.DataAccess {
 
             // --------------- for student --------------------
             var courseId_S1 = new AsignedCoursesIdClass();
-            courseId_S1.AsignedCoursesId = coursePrematureBirth.CourseId;
+            courseId_S1.AsignedCoursesId = courseDiagnosticTests.CourseId;
             userStudent.AsignedCoursesId.Add(courseId_S1);
 
 
