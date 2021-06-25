@@ -39,7 +39,7 @@ The User has a Username, Mail and Info that he is able to change there.
 He can also change his Password on this side.
 On the Bottom he can also see the Courses on that he got invited. He can only leave the Course if he wants to but he cant join one.
 
-On the Sidebar the User can back to the Homepage by clicking on the Home button.
+On the Sidebar the User can get back to the Homepage by clicking on the Home button.
 Below that he sees all of his Courses. He can either click on them to open the Course with all Chapters of the Course or he can hover over the Course Button on the Sidebar to see a Shortcut of the Chapter in the Course.
 By clicking on one of the Chapter he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a Text, a Video or Picture.
 
@@ -50,13 +50,14 @@ As teacher you can do at least everything that the user can do.
 In the Teacher account you can see all of your Courses. The Courses can be left by you, deleted, edited or you can create a new one.
 Furthermore you can Add a User to one of your Courses.
 
-As same as the user you have a Navigation Bar on the left but there are 2 more buttons.
+As same as the user you have a Navigation Bar on the left but there are 3 more buttons.
+
 First of all there is the CourseManagement. The Teacher can see every Course of him. For every Course he can edit, delete or create a new one. Depending on the teachers decision the Course can be hidden for all others if he deactivates the Visible-Button.
 
 The second new Button on the left is the Create Course Button. It takes the Teacher directly to Side where he can create the Course by giving him a Coursename and choosing if he wants the Course to be visible. After that he can Add as many Chapters with Chapternames as he wants. He can also create or edit all Chapters of the new Course now.
 By editing one of the Chapters he can create a new Text, Quiz, Picture or Video as ChapterElement of the Chapter.
 
-There is a new Button UserManagement on the left. By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Teacher can see all Users that are allowed to see the Course. If the Teacher wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
+The third Button on the left is UserManagement. By clicking on the Button the Teacher can select one of his Courses. Depending on the choice a new side opens where the Teacher can see all Users that are allowed to see the Course. If the Teacher wants he can delete a Person in his Course by klicking on the red x. He can also add a User to a Course by entering the new UserId of the User that wants to be in the Course. 
 
 
 Admin:
