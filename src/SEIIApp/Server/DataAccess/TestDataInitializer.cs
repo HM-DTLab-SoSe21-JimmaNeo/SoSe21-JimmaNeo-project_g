@@ -383,7 +383,7 @@ namespace SEIIApp.Server.DataAccess {
             chorionicPic2.PictureUri = new Uri("https://healthywa.wa.gov.au/-/media/Images/HealthyWA/Articles/Having-a-baby/chorionic-villus-sampling-cervix.jpg");
 
             var chorionicVid = TestDataGenerator.CreateVideoDefinition("Advanced prenatal genetic testing");
-            chorionicVid.VideoUri = new Uri("https://youtu.be/bvVrFSBnbvM");
+            chorionicVid.VideoUri = new Uri("https://www.youtube.com/embed/bvVrFSBnbvM");
 
             chorionicText.ChapterElementType = ChapterElementType.Text;
             chapterElementDefinitionService.AddChapterElement(chorionicText);
