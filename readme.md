@@ -41,7 +41,7 @@ On the Bottom he can also see the Courses on that he got invited. He can only le
 
 On the Sidebar the User can get back to the Homepage by clicking on the Home button.
 Below that he sees all of his Courses. He can either click on them to open the Course with all Chapters of the Course or he can hover over the Course Button on the [Sidebar](documents/Screenshots/User_Sidebar.png) to see a Shortcut of the Chapter in the Course.
-By clicking on one of the [Chapter](documents/Screenshots/User_Chapters.png) he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a [Text](documents/Screenshots/User_Text), a Video or Picture.
+By clicking on one of the [Chapter](documents/Screenshots/User_Chapters.png) he can test his Knowledge with the ChapterElements. A Chapter Element is either a Quiz, a [Text](documents/Screenshots/User_Text.png), a Video or Picture.
 
 
 Teacher:
