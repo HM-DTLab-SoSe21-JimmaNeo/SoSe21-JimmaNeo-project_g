@@ -134,7 +134,14 @@
                             PictureDefinitionDto pictureElement = (PictureDefinitionDto)chapterElement; //TODO Link PictureDefinitionDto hinzufuegen + bei src einfuegen
                             <div class="chapterSection">
                                 <figure>
-                                    <img src="" alt="@pictureElement.Description" width="500" height="700" />
+                                    @if (pictureElement.PictureUri != null)
+                                    {
+                                        <img src="@pictureElement.PictureUri.DnsSafeHost" alt="@pictureElement.Description" width="500" height="700" />
+                                    }
+                                    else
+                                    {
+                                        <p>no link to picture provided</p>
+                                    }
                                     <!-- <figcaption>ATE pictureElement.Description</figcaption> TODO hinzufuegen?-->
                                 </figure>
                             </div>
@@ -142,11 +149,37 @@
                         }
                         else if (chapterElement.ChapterElementType.Equals(ChapterElementType.Quiz))
                         {
-                            <div class="chapterSection">
-                                <p> Quiz Darstellung in progress </p>
-                            </div>
+                            QuizDefinitionDto quizElement = (QuizDefinitionDto)chapterElement;
+                            if (quizElement != null)
+                            {
+                                <div class="chapterSection">
+                                    <h4 style="font-weight: 700;">@quizElement.QuizName</h4>
+                                    @{
+                                        QuestionDefinitionDto[] questions = quizElement.Questions;
+                                        @foreach (var question in questions)
+                                        {
+                                            <h5 style="padding: 0.5rem 1rem; font-weight: 200; margin-top: -0.5rem;">@question.QuestionText</h5>
+                                            <form action="/coursestudentview">
+                                                @foreach (var answer in question.Answers)
+                                                {
+                                                <div style="padding: 0.1rem 3rem;">
+                                                    <input type="checkbox" />  @answer.AnswerText <br />
+                                                </div>
+                                                }
+                                            </form>
+                                            <br />
+
+                                        }
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p>leeres Quizelement</p>
+                            }
                         }
                     }
+                        <button type="submit" style="background-color: #3c9ef4; margin-bottom: 0.25rem; max-width: 10rem; float: left; text-align: center; position: relative; right: -40%;"> Submit @Chapter.ChapterName</button>
                 }
 
             }
