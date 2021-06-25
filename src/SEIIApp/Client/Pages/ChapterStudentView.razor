@@ -136,15 +136,16 @@
                                 <figure>
                                     @if (pictureElement.PictureUri != null)
                                     {
-                                    <a href="@pictureElement.PictureUri.AbsoluteUri" target="_blank">
-                                        <img class="featuredImage" src="@pictureElement.PictureUri.AbsoluteUri" alt="@pictureElement.Description" />
-                                    </a>
+                                        <a href="@pictureElement.PictureUri.AbsoluteUri" target="_blank">
+                                            <img class="featuredImage" src="@pictureElement.PictureUri.AbsoluteUri" alt="@pictureElement.Description" />
+                                        </a>
+                                        <figcaption style="color: grey; font-style: italic; font-size:smaller;">@pictureElement.Description</figcaption> 
+
                                     }
                                     else
                                     {
                                         <p>no link to picture provided</p>
                                     }
-                                    <!-- <figcaption>ATE pictureElement.Description</figcaption> TODO hinzufuegen?-->
                                 </figure>
                             </div>
 
