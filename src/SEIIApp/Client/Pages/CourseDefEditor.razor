@@ -3,6 +3,7 @@
 @inject Services.CourseDefinitionBackendAccessService CourseDefinitionService
 @inject Services.BiscuitService BiscuitService
 @inject IJSRuntime jsRuntime
+@inject NavigationManager NavigationManager
 
 <h3 style="margin-bottom:1em;">Course Definitions Editor</h3>
 
@@ -134,8 +135,11 @@ else
                 if (isNewCourse)
                 {
                     await CourseDefinitionService.AddUserToCourse(answer.CourseId, BiscuitService.User.UserId);
+                    CourseId = answer.CourseId;
+                    NavigationManager.NavigateTo($"reload/" + CourseId);
                 }
             }
+
 
         }
     } }
