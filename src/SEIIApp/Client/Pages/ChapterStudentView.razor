@@ -21,8 +21,8 @@
     [Parameter]
     public int ChapterId { get; set; }
     [Parameter]
-    public int CourseId { get; set; }
-
+    public int CourseId { get; set; }    
+    //alle chapter elements of chapter
     List<ChapterElementDefinitionDto> chapterElemente = new List<ChapterElementDefinitionDto>();
 
     int aktuellesChapterElementIndex = 0;
@@ -38,7 +38,7 @@
 
         Chapter = await ChapterElementDefinitionService.GetChapterElementOverview(CourseId, ChapterId);
 
-
+        //assignment of chapter element to belonging type, conversion and transmission into local list
         foreach (var element in Chapter.ChapterElements)
         {
             if (element.ChapterElementType.Equals(ChapterElementType.Text))
@@ -98,7 +98,7 @@
     }
 }
 
-<!-- start of view when view logic is done-->
+<!-- start of view when logic is done-->
 @if (!isLoading)
 {
     <h1 class="title">@(Course.CourseName)</h1>
@@ -178,7 +178,7 @@
                             }
                             else
                             {
-                                <p>leeres Quizelement</p>
+                                <p>empty Quizelement</p>
                             }
                         }
                     }
