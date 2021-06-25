@@ -28,7 +28,7 @@ Die neusten Informationen zum Projekt erhalten sie über die Ankündigungen der 
 
 # 2 Description
 By landing on our Website you will see the Login on the first page.
-There are three diffrent categories of Persons that can login into the Website. Admin, Teacher and User.
+There are three diffrent categories of Persons that can login into the Website. Admin, Teacher and User. [LoginPage](documents/Screenshots/Login_Website)
 
 
 User:
