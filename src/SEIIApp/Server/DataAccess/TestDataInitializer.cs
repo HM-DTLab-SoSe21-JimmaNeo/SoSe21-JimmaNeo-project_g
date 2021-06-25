@@ -382,6 +382,9 @@ namespace SEIIApp.Server.DataAccess {
             var chorionicPic2 = TestDataGenerator.CreatePictureDefinition("From Royal College of Obstetricians and Gynaecologists Figure 2: Chorionic villus sampling through the cervix(entrance to the womb)");
             chorionicPic2.PictureUri = new Uri("https://healthywa.wa.gov.au/-/media/Images/HealthyWA/Articles/Having-a-baby/chorionic-villus-sampling-cervix.jpg");
 
+            var chorionicVid = TestDataGenerator.CreateVideoDefinition("Advanced prenatal genetic testing");
+            chorionicVid.VideoUri = new Uri("https://youtu.be/bvVrFSBnbvM");
+
             chorionicText.ChapterElementType = ChapterElementType.Text;
             chapterElementDefinitionService.AddChapterElement(chorionicText);
             chapterChorionic.ChapterElements.Add(chorionicText);
@@ -393,6 +396,10 @@ namespace SEIIApp.Server.DataAccess {
             chorionicPic2.ChapterElementType = ChapterElementType.Picture;
             chapterElementDefinitionService.AddChapterElement(chorionicPic2);
             chapterChorionic.ChapterElements.Add(chorionicPic2);
+
+            chorionicVid.ChapterElementType = ChapterElementType.Video;
+            chapterElementDefinitionService.AddChapterElement(chorionicVid);
+            chapterChorionic.ChapterElements.Add(chorionicVid);
 
 
             // =============== USER CREATION ===================
